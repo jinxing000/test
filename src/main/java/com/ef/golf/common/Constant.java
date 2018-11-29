@@ -93,8 +93,12 @@ public class Constant {
     public static final int ERR_BONUSES_NOREDPACKAGE=-110018;
     /** 打赏次数过多 */
     public static final int ERR_CADDIE_REWARD_MAX=-110016;
-    /** 打赏次数过多 */
+    /** 提交信息有误 */
     public static final int ERR_UPDATE_PAYPWD_MESSAGE=-110019;
+    /** 原密码错误 */
+    public static final int ERR_JIU_PWD=-110020;
+    /** 验证码达到上限 */
+    public static final int ERR_CODE_SEND_FAILED=-110021;
 
     /*                                  正则                                  */
 

@@ -3,6 +3,7 @@ package com.ef.golf.action;
 import com.ef.golf.common.Constant;
 import com.ef.golf.core.service.AbstractService;
 import com.ef.golf.exception.QueryException;
+import com.ef.golf.exception.SystemException;
 import com.ef.golf.util.RandomUtil;
 import com.ef.golf.util.RedisBaseDao;
 import com.ef.golf.util.RedisExpireTime;
@@ -27,7 +28,7 @@ SmsCodeAction extends AbstractService {
     private String phoneNumber;
 
 
-    public Object doService() throws QueryException {
+    public Object doService() throws QueryException, SystemException {
 
         //获取验证码
         String randomNumber = RandomUtil.getRandom(4);
@@ -43,9 +44,9 @@ SmsCodeAction extends AbstractService {
         //开始发送短信验证
         boolean end = SmsUtil.sendMessage(phoneNumber, randomNumber);
         if (end) {
-            return true;
+            return end;
         } else {
-            return false;
+            throw new SystemException(Constant.ERR_CODE_SEND_FAILED);
         }
 
     }

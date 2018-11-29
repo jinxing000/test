@@ -92,6 +92,8 @@
 				<entry key="-110017" value="赠送异常,请联系客服。"/>
 				<entry key="-110018" value="可用余额不足,赠送余额只能用于订场及商城!"/>
 				<entry key="-110019" value="提交信息有误!"/>
+				<entry key="-110020" value="原始密码错误!"/>
+				<entry key="-110021" value="验证码发送次数过多!"/>
 
 			</map>
 		</constructor-arg>

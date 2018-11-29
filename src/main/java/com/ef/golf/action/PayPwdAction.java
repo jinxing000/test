@@ -40,9 +40,12 @@ public class PayPwdAction extends AbstractService {
 
     @Override
     public Object doService() throws Exception {
+        if(null== type){
+            type = 3;
+        }
         Map<String,Object>map = new HashMap<>();
 
-        if(type==1){//设置支付密码
+        if(1==type){//设置支付密码
             User user = userService.selectByPrimaryKey(userId.longValue());
             /** 加密 */
             Map<String,Object>passwordMap = AESCoder.jia(newPassword);
@@ -52,8 +55,7 @@ public class PayPwdAction extends AbstractService {
                     map.put("status",0);
                     map.put("message","设置成功");
                 }else{
-                    map.put("status",0);
-                    map.put("message","设置失败");
+                    throw new SystemException(Constant.ERR_UPDATE);
                 }
         }else if(2 == type){//修改支付密码
             User user = userService.selectByPrimaryKey(userId.longValue());
@@ -69,26 +71,24 @@ public class PayPwdAction extends AbstractService {
                     map.put("status",0);
                     map.put("message","修改成功");
                 }else{
-                    map.put("status",2);
-                    map.put("message","修改异常");
+                    throw new SystemException(Constant.ERR_UPDATE);
                 }
             }else{
-                map.put("status",1);
-                map.put("message","原密码错误");
+                throw new SystemException(Constant.ERR_JIU_PWD);
             }
         }else{
-            if(redisBaseDao.exist(uid+"token")){
-                String codeToekn = redisBaseDao.get(uid+"token");
-                if(codeToekn.equals(token)){
+            if(redisBaseDao.exist(uid+"codeToken")){
+                String codeToken = redisBaseDao.get(uid+"codeToken");
+                if(codeToken.equals(token)){
                     User user = userService.selectByPrimaryKey(userId.longValue());
-                    user.setPasswordPay(newPassword);
+                    Map<String,Object>passwordMap = AESCoder.jia(newPassword);
+                    user.setPasswordPay((String) passwordMap.get("encryptData"));
                     int status = userService.updateByPrimaryKey(user);
                     if(status>0){
                         map.put("status",0);
                         map.put("message","修改成功");
                     }else{
-                        map.put("status",2);
-                        map.put("message","修改异常");
+                        throw new SystemException(Constant.ERR_UPDATE);
                     }
                 }else{
                     throw new SystemException(Constant.ERR_UPDATE_PAYPWD_MESSAGE);
