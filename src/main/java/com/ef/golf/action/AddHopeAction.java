@@ -40,7 +40,7 @@ public class AddHopeAction extends AbstractService {
     //@NotNull
     private String sid;
     //@NotNull
-    private String hopeType;//1.球场愿望  2.商品愿望 3
+    private String hopeType;//1.球场愿望  2.商品愿望
 
     private String productId;
 
@@ -59,7 +59,6 @@ public class AddHopeAction extends AbstractService {
     private String hopeImg;
 
     private String hopeName;
-
 
     @Override
     public Object doService() throws Exception {
