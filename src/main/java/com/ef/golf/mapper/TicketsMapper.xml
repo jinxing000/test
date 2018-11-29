@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.TicketsMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Tickets" >
+    <id column="ticket_id" property="ticketId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="discount" property="discount" jdbcType="DOUBLE" />
+    <result column="conditions" property="conditions" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="attribution" property="attribution" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="is_public" property="isPublic" jdbcType="TINYINT" />
+    <result column="effective_date" property="effectiveDate" jdbcType="INTEGER" />
+    <result column="effective_time" property="effectiveTime" jdbcType="TIMESTAMP" />
+    <result column="expiry_time" property="expiryTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+    <result column="ticket_name" property="ticketName" jdbcType="VARCHAR" />
+    <result column="discount_money" property="discountMoney" jdbcType="DOUBLE" />
+    <result column="has_door" property="hasDoor" jdbcType="VARCHAR" />
+    <result column="door_money" property="doorMoney" jdbcType="DOUBLE" />
+    <result column="special_money" property="specialMoney" jdbcType="DOUBLE" />
+    <result column="ticket_num" property="ticketNum" jdbcType="INTEGER" />
+    <result column="back_cash" property="backCash" jdbcType="VARCHAR" />
+    <result column="is_grant" property="isGrant" jdbcType="VARCHAR" />
+    <result column="is_due" property="isDue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ticket_id, money, discount, conditions, type, attribution,product_id, is_public, effective_date,
+    effective_time, expiry_time, create_time, modify_time, create_user, modify_user, 
+    ticket_name, discount_money, has_door, door_money, special_money, ticket_num, back_cash, 
+    is_grant, is_due
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_ticket
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_ticket
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Tickets" >
+    insert into ef_ticket (ticket_id, money, discount, 
+      conditions, type, attribution, 
+      is_public, effective_date, effective_time, 
+      expiry_time, create_time, modify_time, 
+      create_user, modify_user, ticket_name, 
+      discount_money, has_door, door_money, 
+      special_money, ticket_num, back_cash, 
+      is_grant, is_due)
+    values (#{ticketId,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, 
+      #{conditions,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{attribution,jdbcType=INTEGER}, 
+      #{isPublic,jdbcType=TINYINT}, #{effectiveDate,jdbcType=INTEGER}, #{effectiveTime,jdbcType=TIMESTAMP}, 
+      #{expiryTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{ticketName,jdbcType=VARCHAR}, 
+      #{discountMoney,jdbcType=DOUBLE}, #{hasDoor,jdbcType=VARCHAR}, #{doorMoney,jdbcType=DOUBLE}, 
+      #{specialMoney,jdbcType=DOUBLE}, #{ticketNum,jdbcType=INTEGER}, #{backCash,jdbcType=VARCHAR}, 
+      #{isGrant,jdbcType=VARCHAR}, #{isDue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Tickets" >
+    insert into ef_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ticketId != null" >
+        ticket_id,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="conditions != null" >
+        conditions,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="attribution != null" >
+        attribution,
+      </if>
+      <if test="isPublic != null" >
+        is_public,
+      </if>
+      <if test="effectiveDate != null" >
+        effective_date,
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time,
+      </if>
+      <if test="expiryTime != null" >
+        expiry_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+      <if test="ticketName != null" >
+        ticket_name,
+      </if>
+      <if test="discountMoney != null" >
+        discount_money,
+      </if>
+      <if test="hasDoor != null" >
+        has_door,
+      </if>
+      <if test="doorMoney != null" >
+        door_money,
+      </if>
+      <if test="specialMoney != null" >
+        special_money,
+      </if>
+      <if test="ticketNum != null" >
+        ticket_num,
+      </if>
+      <if test="backCash != null" >
+        back_cash,
+      </if>
+      <if test="isGrant != null" >
+        is_grant,
+      </if>
+      <if test="isDue != null" >
+        is_due,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ticketId != null" >
+        #{ticketId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="conditions != null" >
+        #{conditions,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="attribution != null" >
+        #{attribution,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null" >
+        #{isPublic,jdbcType=TINYINT},
+      </if>
+      <if test="effectiveDate != null" >
+        #{effectiveDate,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null" >
+        #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryTime != null" >
+        #{expiryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketName != null" >
+        #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="discountMoney != null" >
+        #{discountMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="hasDoor != null" >
+        #{hasDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="doorMoney != null" >
+        #{doorMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="specialMoney != null" >
+        #{specialMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ticketNum != null" >
+        #{ticketNum,jdbcType=INTEGER},
+      </if>
+      <if test="backCash != null" >
+        #{backCash,jdbcType=VARCHAR},
+      </if>
+      <if test="isGrant != null" >
+        #{isGrant,jdbcType=VARCHAR},
+      </if>
+      <if test="isDue != null" >
+        #{isDue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Tickets" >
+    update ef_ticket
+    <set >
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="conditions != null" >
+        conditions = #{conditions,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="attribution != null" >
+        attribution = #{attribution,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null" >
+        is_public = #{isPublic,jdbcType=TINYINT},
+      </if>
+      <if test="effectiveDate != null" >
+        effective_date = #{effectiveDate,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryTime != null" >
+        expiry_time = #{expiryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketName != null" >
+        ticket_name = #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="discountMoney != null" >
+        discount_money = #{discountMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="hasDoor != null" >
+        has_door = #{hasDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="doorMoney != null" >
+        door_money = #{doorMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="specialMoney != null" >
+        special_money = #{specialMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ticketNum != null" >
+        ticket_num = #{ticketNum,jdbcType=INTEGER},
+      </if>
+      <if test="backCash != null" >
+        back_cash = #{backCash,jdbcType=VARCHAR},
+      </if>
+      <if test="isGrant != null" >
+        is_grant = #{isGrant,jdbcType=VARCHAR},
+      </if>
+      <if test="isDue != null" >
+        is_due = #{isDue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Tickets" >
+    update ef_ticket
+    set money = #{money,jdbcType=DOUBLE},
+      discount = #{discount,jdbcType=DOUBLE},
+      conditions = #{conditions,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      attribution = #{attribution,jdbcType=INTEGER},
+      is_public = #{isPublic,jdbcType=TINYINT},
+      effective_date = #{effectiveDate,jdbcType=INTEGER},
+      effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      expiry_time = #{expiryTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      ticket_name = #{ticketName,jdbcType=VARCHAR},
+      discount_money = #{discountMoney,jdbcType=DOUBLE},
+      has_door = #{hasDoor,jdbcType=VARCHAR},
+      door_money = #{doorMoney,jdbcType=DOUBLE},
+      special_money = #{specialMoney,jdbcType=DOUBLE},
+      ticket_num = #{ticketNum,jdbcType=INTEGER},
+      back_cash = #{backCash,jdbcType=VARCHAR},
+      is_grant = #{isGrant,jdbcType=VARCHAR},
+      is_due = #{isDue,jdbcType=VARCHAR}
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </update>
+
+
+
+
+
+<resultMap id="ticketVo" type="com.ef.golf.vo.TicketSeVo">
+  <id column="id" property="id" jdbcType="INTEGER" />
+  <id column="ticket_id" property="ticketId" jdbcType="INTEGER" />
+
+  <result column="discount" property="discount" jdbcType="DOUBLE" />
+
+  <result column="type" property="type" jdbcType="INTEGER" />
+
+
+  <result column="effective_time" property="effectiveTime" jdbcType="TIMESTAMP" />
+  <result column="expiry_time" property="expiryTime" jdbcType="TIMESTAMP" />
+
+  <result column="ticket_name" property="ticketName" jdbcType="VARCHAR" />
+  <result column="discount_money" property="discount_money" jdbcType="DOUBLE" />
+  <result column="has_door" property="has_door" jdbcType="VARCHAR" />
+  <result column="door_money" property="door_money" jdbcType="DOUBLE" />
+  <result column="state" property="state" jdbcType="INTEGER" />
+  <result column="special_money" property="special_money" jdbcType="DOUBLE" />
+  <result column="fitterName" property="fitterName" jdbcType="VARCHAR" />
+  <result column="fitterId" property="fitterId" jdbcType="INTEGER" />
+  <result column="location" property="location" jdbcType="INTEGER" />
+
+
+
+</resultMap>
+
+  <select id="getTicketListIsShopSendTicket" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM ef_ticket
+    WHERE ticket_id IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    ORDER BY money DESC
+  </select>
+
+
+  <select id="getTicketList" parameterType="java.lang.Integer" resultMap="ticketVo">
+
+    SELECT DISTINCT
+    CASE
+    WHEN uk.location = 2 THEN
+    uk.product_id
+    WHEN uk.location = 7 THEN
+    uk.product_id
+    WHEN uk.location = 8 THEN
+    uk.product_id
+    WHEN uk.location = 0 THEN
+    uk.product_id
+    WHEN uk.location = 3 THEN
+    uk.product_id
+    WHEN uk.location = 1 THEN
+    uk.location
+    ELSE
+    '-1'
+    END fitterId,
+
+    CASE
+    WHEN uk.location = 2 THEN
+
+    CASE
+    WHEN uk.product_id = 0 THEN
+    '订场通用'
+    ELSE
+    e.reserve4
+    END
+
+    WHEN uk.location = 7 THEN
+    CASE
+    WHEN uk.product_id = 0 THEN
+    '商家通用'
+    ELSE
+    r.nickname
+    END
+
+    WHEN uk.location = 8 THEN
+    CASE
+    WHEN uk.product_id = 0 THEN
+    '商城通用'
+    ELSE
+      CONCAT('商城',c.`name`,'类')
+    END
+    WHEN uk.location = 0 THEN
+    '全部课程'
+    WHEN uk.location = 3 THEN
+    '全部教练'
+    WHEN uk.location = 1 THEN
+    '全平台'
+    ELSE
+    '未知'
+    END fitterName,
+    uk.location,
+    uk.effective_time,
+    uk.expiry_time,
+    uk.state,
+    t.type,
+    t.ticket_id,
+    uk.id id,
+    t.special_money,
+    t.discount_money,
+    t.discount,
+    t.ticket_name,
+    t.has_door,
+    t.door_money
+    FROM
+    ef_ticket t
+    LEFT JOIN ef_user_ticket uk ON t.ticket_id = uk.ticket_id
+    LEFT JOIN ef_site e ON uk.product_id = e.site_id
+    LEFT JOIN es_goods_cat c ON uk.product_id = c.cat_id
+    LEFT JOIN u_user r ON uk.product_id = r.id
+    WHERE
+    uk.state IN (2, 3)
+    AND uk.user_id = #{userId,jdbcType=INTEGER}
+    and NOW() &lt; uk.expiry_time
+    ORDER BY uk.create_time DESC
+
+  </select>
+
+<select id="getTicketListDetails" parameterType="java.lang.String" resultMap="ticketVo">
+  SELECT DISTINCT
+	CASE
+WHEN uk.location = 2 THEN
+	uk.product_id
+WHEN uk.location = 7 THEN
+	uk.product_id
+WHEN uk.location = 8 THEN
+	uk.product_id
+WHEN uk.location = 0 THEN
+	uk.product_id
+WHEN uk.location = 3 THEN
+	uk.product_id
+WHEN uk.location = 1 THEN
+	uk.location
+ELSE
+	'-1'
+END fitterId,
+ CASE
+WHEN uk.location = 2 THEN
+	e.reserve4
+WHEN uk.location = 7 THEN
+	r.nickname
+WHEN uk.location = 8 THEN
+	c. NAME
+WHEN uk.location = 0 THEN
+	'全部课程'
+WHEN uk.location = 3 THEN
+	'全部教练'
+WHEN uk.location = 1 THEN
+	'全平台'
+ELSE
+	'null'
+END fitterName,
+ uk.location,
+ uk.effective_time,
+ uk.expiry_time,
+ t.type,
+ t.ticket_id,
+ uk.id id,
+ t.special_money,
+ t.discount_money,
+ t.discount,
+ t.ticket_name,
+  t.has_door,
+ t.door_money,
+ t.product_id
+FROM
+	ef_ticket t
+LEFT JOIN ef_user_ticket uk ON t.ticket_id = uk.ticket_id
+LEFT JOIN ef_site e ON uk.product_id = e.site_id
+LEFT JOIN es_goods_cat c ON uk.shopping_id = c.cat_id
+LEFT JOIN u_user r ON uk.merchant_id = r.id
+WHERE
+	uk.state = 2
+AND uk.id = #{youHuiQuanId}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.LvPriceMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.LvPrice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="goodsid" property="goodsid" jdbcType="INTEGER" />
+    <result column="lvid" property="lvid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, productid, goodsid, lvid, price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_goods_lv_price
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_goods_lv_price
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.LvPrice" >
+    insert into es_goods_lv_price (id, productid, goodsid, 
+      lvid, price)
+    values (#{id,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, 
+      #{lvid,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.LvPrice" >
+    insert into es_goods_lv_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="lvid != null" >
+        lvid,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="lvid != null" >
+        #{lvid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.LvPrice" >
+    update es_goods_lv_price
+    <set >
+      <if test="productid != null" >
+        productid = #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="lvid != null" >
+        lvid = #{lvid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.LvPrice" >
+    update es_goods_lv_price
+    set productid = #{productid,jdbcType=INTEGER},
+      goodsid = #{goodsid,jdbcType=INTEGER},
+      lvid = #{lvid,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

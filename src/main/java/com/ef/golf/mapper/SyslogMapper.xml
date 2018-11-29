@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.SyslogMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Syslog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="log_type" jdbcType="VARCHAR" property="logType" />
+    <result column="log_title" jdbcType="VARCHAR" property="logTitle" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_by_name" jdbcType="VARCHAR" property="createByName" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="request_uri" jdbcType="VARCHAR" property="requestUri" />
+    <result column="biz_type" jdbcType="VARCHAR" property="bizType" />
+    <result column="remote_addr" jdbcType="VARCHAR" property="remoteAddr" />
+    <result column="server_addr" jdbcType="VARCHAR" property="serverAddr" />
+    <result column="is_exception" jdbcType="CHAR" property="isException" />
+    <result column="execute_time" jdbcType="DECIMAL" property="executeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, log_type, log_title, create_by, create_by_name, create_date, request_uri, biz_type, 
+    remote_addr, server_addr, is_exception, execute_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Syslog">
+    insert into ef_sys_log (id, log_type, log_title, 
+      create_by, create_by_name, create_date, 
+      request_uri, biz_type, remote_addr, 
+      server_addr, is_exception, execute_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{logType,jdbcType=VARCHAR}, #{logTitle,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createByName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{requestUri,jdbcType=VARCHAR}, #{bizType,jdbcType=VARCHAR}, #{remoteAddr,jdbcType=VARCHAR}, 
+      #{serverAddr,jdbcType=VARCHAR}, #{isException,jdbcType=CHAR}, #{executeTime,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Syslog">
+    insert into ef_sys_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="logType != null">
+        log_type,
+      </if>
+      <if test="logTitle != null">
+        log_title,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createByName != null">
+        create_by_name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="requestUri != null">
+        request_uri,
+      </if>
+      <if test="bizType != null">
+        biz_type,
+      </if>
+      <if test="remoteAddr != null">
+        remote_addr,
+      </if>
+      <if test="serverAddr != null">
+        server_addr,
+      </if>
+      <if test="isException != null">
+        is_exception,
+      </if>
+      <if test="executeTime != null">
+        execute_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="logType != null">
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logTitle != null">
+        #{logTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createByName != null">
+        #{createByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requestUri != null">
+        #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        #{bizType,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="serverAddr != null">
+        #{serverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="isException != null">
+        #{isException,jdbcType=CHAR},
+      </if>
+      <if test="executeTime != null">
+        #{executeTime,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Syslog">
+    update ef_sys_log
+    <set>
+      <if test="logType != null">
+        log_type = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logTitle != null">
+        log_title = #{logTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createByName != null">
+        create_by_name = #{createByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requestUri != null">
+        request_uri = #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        biz_type = #{bizType,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="serverAddr != null">
+        server_addr = #{serverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="isException != null">
+        is_exception = #{isException,jdbcType=CHAR},
+      </if>
+      <if test="executeTime != null">
+        execute_time = #{executeTime,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Syslog">
+    update ef_sys_log
+    set log_type = #{logType,jdbcType=VARCHAR},
+      log_title = #{logTitle,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_by_name = #{createByName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      request_uri = #{requestUri,jdbcType=VARCHAR},
+      biz_type = #{bizType,jdbcType=VARCHAR},
+      remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+      server_addr = #{serverAddr,jdbcType=VARCHAR},
+      is_exception = #{isException,jdbcType=CHAR},
+      execute_time = #{executeTime,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

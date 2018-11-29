@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.GroupMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Group">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="rongLianYunGroupId" jdbcType="VARCHAR" property="rongLianYunGroupId" />
+    <result column="qiuHuiId" jdbcType="BIGINT" property="qiuHuiId" />
+    <result column="qunName" jdbcType="VARCHAR" property="qunName" />
+    <result column="userId" jdbcType="INTEGER" property="userId" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="declared" jdbcType="VARCHAR" property="declared" />
+    <result column="groupCreateTime" jdbcType="TIMESTAMP" property="groupCreateTime" />
+    <result column="groupModifyTime" jdbcType="TIMESTAMP" property="groupModifyTime" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+    <result column="createUser" jdbcType="INTEGER" property="createUser" />
+    <result column="modifyUser" jdbcType="INTEGER" property="modifyUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, rongLianYunGroupId, qiuHuiId, qunName, userId, permission, declared, groupCreateTime, 
+    groupModifyTime, del, createUser, modifyUser
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_group
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_group
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Group">
+    insert into ef_group (id, rongLianYunGroupId, qiuHuiId, 
+      qunName, userId, permission, 
+      declared, groupCreateTime, groupModifyTime, 
+      del, createUser, modifyUser
+      )
+    values (#{id,jdbcType=BIGINT}, #{rongLianYunGroupId,jdbcType=VARCHAR}, #{qiuHuiId,jdbcType=BIGINT}, 
+      #{qunName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, 
+      #{declared,jdbcType=VARCHAR}, #{groupCreateTime,jdbcType=TIMESTAMP}, #{groupModifyTime,jdbcType=TIMESTAMP}, 
+      #{del,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{modifyUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Group">
+    insert into ef_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rongLianYunGroupId != null">
+        rongLianYunGroupId,
+      </if>
+      <if test="qiuHuiId != null">
+        qiuHuiId,
+      </if>
+      <if test="qunName != null">
+        qunName,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="permission != null">
+        permission,
+      </if>
+      <if test="declared != null">
+        declared,
+      </if>
+      <if test="groupCreateTime != null">
+        groupCreateTime,
+      </if>
+      <if test="groupModifyTime != null">
+        groupModifyTime,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+      <if test="createUser != null">
+        createUser,
+      </if>
+      <if test="modifyUser != null">
+        modifyUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="rongLianYunGroupId != null">
+        #{rongLianYunGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="qiuHuiId != null">
+        #{qiuHuiId,jdbcType=BIGINT},
+      </if>
+      <if test="qunName != null">
+        #{qunName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="declared != null">
+        #{declared,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCreateTime != null">
+        #{groupCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupModifyTime != null">
+        #{groupModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertGroupUser">
+    insert into ef_user_group (user_id, rongLianYunGroupId,create_time)
+    values (#{userId,jdbcType=BIGINT}, #{rongLianYunGroupId,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Group">
+    update ef_group
+    <set>
+      <if test="rongLianYunGroupId != null">
+        rongLianYunGroupId = #{rongLianYunGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="qiuHuiId != null">
+        qiuHuiId = #{qiuHuiId,jdbcType=BIGINT},
+      </if>
+      <if test="qunName != null">
+        qunName = #{qunName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null">
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="declared != null">
+        declared = #{declared,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCreateTime != null">
+        groupCreateTime = #{groupCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupModifyTime != null">
+        groupModifyTime = #{groupModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        createUser = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUser != null">
+        modifyUser = #{modifyUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Group">
+    update ef_group
+    set rongLianYunGroupId = #{rongLianYunGroupId,jdbcType=VARCHAR},
+      qiuHuiId = #{qiuHuiId,jdbcType=BIGINT},
+      qunName = #{qunName,jdbcType=VARCHAR},
+      userId = #{userId,jdbcType=INTEGER},
+      permission = #{permission,jdbcType=VARCHAR},
+      declared = #{declared,jdbcType=VARCHAR},
+      groupCreateTime = #{groupCreateTime,jdbcType=TIMESTAMP},
+      groupModifyTime = #{groupModifyTime,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=VARCHAR},
+      createUser = #{createUser,jdbcType=INTEGER},
+      modifyUser = #{modifyUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 获取群球会头像 -->
+  <select id="getHeadImg" resultType="com.ef.golf.pojo.Groups">
+      SELECT
+        eg.userId owner,
+        u.head_portrait_url headPortraitUrl
+    FROM
+        ef_group eg
+    LEFT JOIN u_user u ON (eg.qiuHuiId = u.id)
+    WHERE
+        eg.rongLianYunGroupId = #{groupId}
+  </select>
+  <!-- 获取群成员 -->
+  <select id="getGroupRen" parameterType="java.lang.String" resultType="java.lang.Integer">
+      SELECT
+          eug.user_id userId
+      FROM
+          ef_user_group eug
+      WHERE
+          eug.rongLianYunGroupId=#{groupId}
+  </select>
+  <!-- 删除群成员 -->
+  <delete id="delGroupRen">
+    DELETE
+    FROM
+    ef_user_group
+    WHERE
+    user_id = #{userId}
+    AND rongLianYunGroupId = #{groupId}
+  </delete>
+  <!-- 查询群成员列表 -->
+  <select id="getGroupMemer" resultType="com.ef.golf.vo.UserSearchVo">
+      SELECT
+        u.id userId,
+        u.user_type userType,
+        u.head_portrait_url headPortraitUrl,
+        u.region region,
+        u.nickname nickname,
+        u.gender gender,
+        u.lat lat,
+        u.lng lng
+      FROM
+          ef_user_group eug
+      LEFT JOIN u_user u ON (u.id = eug.user_id)
+      WHERE
+          eug.rongLianYunGroupId = #{groupId}
+      LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getGroupMemerCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM
+      ef_user_group eug
+    LEFT JOIN u_user u ON (u.id = eug.user_id)
+    WHERE
+      eug.rongLianYunGroupId = #{groupId}
+  </select>
+  <!-- 校验是否已在群 -->
+  <select id="jianChaShiFouZaiQun" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select COUNT(0) FROM ef_user_group WHERE user_id = #{userId} AND rongLianYunGroupId = #{groupId}
+  </select>
+  <!-- 查询群 -->
+  <select id="selectGroupByGroupId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    FROM ef_group
+    WHERE rongLianYunGroupId = #{groupId}
+    AND del = '0'
+  </select>
+</mapper>

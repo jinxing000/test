@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.Product_scoreMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Product_score" >
+    <id column="product_score_id" property="productScoreId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+    <result column="attr_id" property="attrId" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="SiteScoreResultMap" type="com.ef.golf.vo.SiteScoreVo" >
+    <id column="product_id" property="product_id" jdbcType="INTEGER" />
+    <result column="attr_id" property="attr_id" jdbcType="INTEGER" />
+    <result column="attr_nam" property="attr_nam" jdbcType="VARCHAR" />
+    <result column="product_score_id" property="product_score_id" jdbcType="INTEGER" />
+    <result column="attr_ascription" property="attr_ascription" jdbcType="VARCHAR" />
+    <result column="product_type" property="product_type" jdbcType="VARCHAR"/>
+    <result column="score" property="score" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    product_score_id, product_id, product_type, attr_id, score
+  </sql>
+
+  <sql id="Base_Score_List">
+    product_id,eps.attr_id,attr_nam,product_score_id,attr_ascription,product_type,score
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_product_score
+    where product_score_id = #{productScoreId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_product_score
+    where product_score_id = #{productScoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Product_score" >
+    insert into ef_product_score (product_score_id, product_id, product_type, 
+      attr_id, score)
+    values (#{productScoreId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{productType,jdbcType=VARCHAR}, 
+      #{attrId,jdbcType=INTEGER}, #{score,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Product_score" >
+    insert into ef_product_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productScoreId != null" >
+        product_score_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="attrId != null" >
+        attr_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="commentsId != null" >
+        comments_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productScoreId != null" >
+        #{productScoreId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="attrId != null" >
+        #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="commentsId != null" >
+        #{commentsId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Product_score" >
+    update ef_product_score
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="attrId != null" >
+        attr_id = #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_score_id = #{productScoreId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Product_score" >
+    update ef_product_score
+    set product_id = #{productId,jdbcType=INTEGER},
+      product_type = #{productType,jdbcType=VARCHAR},
+      attr_id = #{attrId,jdbcType=INTEGER},
+      score = #{score,jdbcType=VARCHAR}
+    where product_score_id = #{productScoreId,jdbcType=INTEGER}
+  </update>
+  <!-- 评分项各项评分  -->
+  <select id="selectScoreById" resultType="com.ef.golf.vo.SiteScoreVo">
+     <!--<include refid="Base_Score_List"/>
+     FROM
+    ef_product_score eps
+    INNER JOIN ef_score_attr esa ON(eps.attr_id=esa.attr_id)
+    WHERE eps.product_id=#{productId,jdbcType=INTEGER}
+    AND eps.product_type=1;-->
+    SELECT
+    eps.product_id,
+    eps.attr_id,
+    esa.attr_nam,
+    AVG(eps.score) score
+    FROM
+    ef_product_score eps
+    LEFT JOIN ef_score_attr esa ON (esa.attr_id = eps.attr_id)
+    WHERE
+    eps.product_id = #{productId}
+    AND eps.product_type=#{productType}
+    AND esa.attr_ascription = #{attrAscription}
+    GROUP BY
+    eps.attr_id
+  </select>
+  <!-- 综合评分  -->
+  <select id="getScoreAvg" parameterType="java.lang.Integer" resultType="java.lang.Double">
+    SELECT
+      cast(avg(eps.score) as decimal(10,1))score
+  FROM
+      ef_product_score eps
+  WHERE
+      eps.product_id = #{productId}
+  </select>
+
+
+  <update id="updateScore">
+    UPDATE ef_product_score
+    SET ef_product_score.score=#{score,jdbcType=VARCHAR}
+    WHERE ef_product_score.product_id=#{product_id,jdbcType=INTEGER}
+  </update>
+
+<insert id="insertScore">
+  INSERT INTO
+  ef_product_score(ef_product_score.product_id,ef_product_score.attr_id,ef_product_score.product_type,ef_product_score.score)
+  VALUES(#{product_id},#{attr_id},#{productType},#{score});
+</insert>
+
+  <select id="selectAverageScore" resultType="java.lang.Integer">
+    SELECT IFNULL (SUM(es.score)/COUNT(1),0)
+    FROM ef_score es
+    INNER JOIN ef_site_order eso
+    ON(es.oder_id=eso.order_id)
+    WHERE eso.site_id=#{product_id,jdbcType=INTEGER}
+    AND es.attr_id=#{attr_id,jdbcType=INTEGER}
+
+
+  </select>
+  <select id="selectScoreByIds" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM ef_product_score eps
+    WHERE eps.product_id=#{product_id}
+    AND eps.attr_id=#{attr_id}
+  </select>
+
+  <select id="getScore" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.QuanziScoreVo">
+    SELECT
+      eps.score score,
+      esa.attr_nam attrName
+    FROM ef_product_score eps
+    INNER JOIN ef_score_attr esa
+    ON(eps.attr_id=esa.attr_id)
+    WHERE eps.product_id=#{productId,jdbcType=INTEGER}
+    AND (eps.product_type=2 OR eps.product_type=3)
+  </select>
+</mapper>

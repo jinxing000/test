@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.DynamicMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Dynamic">
+    <id column="dynamic_id" jdbcType="INTEGER" property="dynamicId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="dynamic_jw" jdbcType="VARCHAR" property="dynamicJw" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="fabulous_num" jdbcType="INTEGER" property="fabulousNum" />
+    <result column="share_num" jdbcType="INTEGER" property="shareNum" />
+    <result column="forward_num" jdbcType="INTEGER" property="forwardNum" />
+    <result column="gift_num" jdbcType="INTEGER" property="giftNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="share_url" jdbcType="VARCHAR" property="shareUrl" />
+    <result column="is_del" jdbcType="CHAR" property="isDel" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="VARCHAR" property="reserved3" />
+    <result column="reserved4" jdbcType="VARCHAR" property="mediaSize" />
+    <result column="reserved5" jdbcType="VARCHAR" property="reserved5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dynamic_id, user_id, img_url, video_url, dynamic_jw, lng, lat, fabulous_num, share_num, 
+    forward_num, gift_num, create_time, content, share_url, is_del, reserved1, reserved2, 
+    reserved3, reserved4, reserved5
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_dynamic
+    where dynamic_id = #{dynamicId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_dynamic
+    where dynamic_id = #{dynamicId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Dynamic">
+    insert into ef_dynamic (dynamic_id, user_id, img_url,
+      video_url, dynamic_jw, lng, 
+      lat, fabulous_num, share_num, 
+      forward_num, gift_num, create_time, 
+      content, share_url, is_del, 
+      reserved1, reserved2, reserved3, 
+      reserved4, reserved5)
+    values (#{dynamicId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{videoUrl,jdbcType=VARCHAR}, #{dynamicJw,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=VARCHAR}, #{fabulousNum,jdbcType=INTEGER}, #{shareNum,jdbcType=INTEGER}, 
+      #{forwardNum,jdbcType=INTEGER}, #{giftNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=VARCHAR}, #{shareUrl,jdbcType=VARCHAR}, #{isDel,jdbcType=CHAR}, 
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR},
+      #{mediaSize,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Dynamic">
+    insert into ef_dynamic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dynamicId != null">
+        dynamic_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="videoUrl != null">
+        video_url,
+      </if>
+      <if test="dynamicJw != null">
+        dynamic_jw,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="fabulousNum != null">
+        fabulous_num,
+      </if>
+      <if test="shareNum != null">
+        share_num,
+      </if>
+      <if test="forwardNum != null">
+        forward_num,
+      </if>
+      <if test="giftNum != null">
+        gift_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="shareUrl != null">
+        share_url,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="reserved1 != null">
+        reserved1,
+      </if>
+      <if test="reserved2 != null">
+        reserved2,
+      </if>
+      <if test="reserved3 != null">
+        reserved3,
+      </if>
+      <if test="mediaSize != null">
+        reserved4,
+      </if>
+      <if test="reserved5 != null">
+        reserved5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dynamicId != null">
+        #{dynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicJw != null">
+        #{dynamicJw,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="fabulousNum != null">
+        #{fabulousNum,jdbcType=INTEGER},
+      </if>
+      <if test="shareNum != null">
+        #{shareNum,jdbcType=INTEGER},
+      </if>
+      <if test="forwardNum != null">
+        #{forwardNum,jdbcType=INTEGER},
+      </if>
+      <if test="giftNum != null">
+        #{giftNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="shareUrl != null">
+        #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=CHAR},
+      </if>
+      <if test="reserved1 != null">
+        #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaSize != null">
+        #{mediaSize,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null">
+        #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Dynamic">
+    update ef_dynamic
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicJw != null">
+        dynamic_jw = #{dynamicJw,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="fabulousNum != null">
+        fabulous_num = #{fabulousNum,jdbcType=INTEGER},
+      </if>
+      <if test="shareNum != null">
+        share_num = #{shareNum,jdbcType=INTEGER},
+      </if>
+      <if test="forwardNum != null">
+        forward_num = #{forwardNum,jdbcType=INTEGER},
+      </if>
+      <if test="giftNum != null">
+        gift_num = #{giftNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="shareUrl != null">
+        share_url = #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=CHAR},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaSize != null">
+        reserved4 = #{mediaSize,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null">
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dynamic_id = #{dynamicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Dynamic">
+    update ef_dynamic
+    set user_id = #{userId,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      video_url = #{videoUrl,jdbcType=VARCHAR},
+      dynamic_jw = #{dynamicJw,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      fabulous_num = #{fabulousNum,jdbcType=INTEGER},
+      share_num = #{shareNum,jdbcType=INTEGER},
+      forward_num = #{forwardNum,jdbcType=INTEGER},
+      gift_num = #{giftNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
+      share_url = #{shareUrl,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=CHAR},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR},
+      reserved3 = #{reserved3,jdbcType=VARCHAR},
+      reserved4 = #{mediaSize,jdbcType=VARCHAR},
+      reserved5 = #{reserved5,jdbcType=VARCHAR}
+    where dynamic_id = #{dynamicId,jdbcType=INTEGER}
+  </update>
+
+<!--查询圈子动态列表-->
+  <select id="getDynamicListPage" parameterType="com.ef.golf.pojo.Dynamic" resultType="com.ef.golf.vo.DynamicVo">
+  SELECT
+    u.id userId,
+    <if test="userId!=null">
+    CASE
+    WHEN ec.remark is NULL THEN u.nickname
+    ELSE ec.remark
+    END userName,
+    </if>
+    <if test="userId==null">
+    u.nickname userName,
+    </if>
+    u.user_type userType,
+    u.head_portrait_url headPortraitUrl,
+    ed.content content,
+    ed.dynamic_id dynamicId,
+    ed.img_url imgUrl,
+    ed.video_url videoUrl,
+    ed.fabulous_num fabulousNum,
+    ed.forward_num forwardNum,
+    ed.gift_num giftNum,
+    ed.share_num shareNum,
+    ed.create_time createTime,
+    ed.reserved1 isGood,
+    ed.reserved2 cityName,
+    ed.reserved4 mediaSize,
+    ed.reserved5 suoluetu,
+    ed.lat lat,
+    ed.lng lng,
+ ROUND(
+        6378.138 * 2 * ASIN(
+            SQRT(
+                POW(
+                    SIN(
+                        (
+                            #{lat,jdbcType=VARCHAR} * PI() / 180 - ed.lat * PI() / 180
+                        ) / 2
+                    ),
+                    2
+                ) + COS(#{lat,jdbcType=VARCHAR} * PI() / 180) * COS(ed.lat * PI() / 180) * POW(
+                    SIN(
+                        (
+                            #{lng,jdbcType=VARCHAR} * PI() / 180 - ed.lng * PI() / 180
+                        ) / 2
+                    ),
+                    2
+                )
+            )
+        ) * 1000
+    ) AS distance
+    FROM ef_dynamic ed
+    INNER JOIN u_user u ON(u.id=ed.user_id)
+    <if test="userId!=null">
+      LEFT JOIN ef_collect ec ON(ec.product_id=ed.user_id AND ec.user_id=#{userId,jdbcType=INTEGER})
+    </if>
+    WHERE ed.is_del=2
+    <if test="reserved3==1">
+      ORDER BY ed.create_time DESC
+    </if>
+    <if test="reserved3==2">
+      AND ed.reserved1=1
+      ORDER BY ed.create_time DESC
+    </if>
+    <if test="reserved3==3">
+      ORDER BY distance ASC,ed.create_time DESC
+    </if>
+  </select>
+
+    <select id="getDynamicCount" parameterType="com.ef.golf.pojo.Dynamic" resultType="java.lang.Integer">
+        SELECT
+        count(0)
+        FROM ef_dynamic ed
+        INNER JOIN u_user u ON(u.id=ed.user_id)
+        <if test="userId!=null">
+            LEFT JOIN ef_collect ec ON(ec.product_id=ed.user_id AND ec.user_id=#{userId,jdbcType=INTEGER})
+        </if>
+        WHERE ed.is_del=2
+        <if test="reserved3==2">
+            AND ed.reserved1=1
+            ORDER BY ed.create_time DESC
+        </if>
+        <!--
+        <if test="reserved3==1">
+            ORDER BY ed.create_time DESC
+        </if>
+        <if test="reserved3==2">
+            AND ed.reserved1=1
+            ORDER BY ed.create_time DESC
+        </if>
+        <if test="reserved3==3">
+            ORDER BY distance ASC
+        </if>
+        -->
+    </select>
+
+  <!--查询我关注的人的动态列表-->
+  <select id="getCollectDynamicListPage" parameterType="com.ef.golf.pojo.Dynamic" resultType="com.ef.golf.vo.DynamicVo">
+    SELECT
+    u.id userId,
+      CASE
+      WHEN ec.remark is NULL THEN u.nickname
+      ELSE ec.remark
+      END userName,
+    u.user_type userType,
+    u.head_portrait_url headPortraitUrl,
+    ed.content content,
+    ed.dynamic_id dynamicId,
+    ed.img_url imgUrl,
+    ed.video_url videoUrl,
+    ed.fabulous_num fabulousNum,
+    ed.forward_num forwardNum,
+    ed.gift_num giftNum,
+    ed.share_num shareNum,
+    ed.create_time createTime,
+    ed.reserved1 isGood,
+    ed.reserved2 cityName,
+    ed.reserved4 mediaSize,
+    ed.reserved5 suoluetu,
+    ed.lat lat,
+    ed.lng lng,
+    ROUND(
+    6378.138 * 2 * ASIN(
+    SQRT(
+    POW(
+    SIN(
+    (
+    #{lat,jdbcType=VARCHAR} * PI() / 180 - ed.lat * PI() / 180
+    ) / 2
+    ),
+    2
+    ) + COS(#{lat,jdbcType=VARCHAR} * PI() / 180) * COS(ed.lat * PI() / 180) * POW(
+    SIN(
+    (
+    #{lng,jdbcType=VARCHAR} * PI() / 180 - ed.lng * PI() / 180
+    ) / 2
+    ),
+    2
+    )
+    )
+    ) * 1000
+    ) AS distance
+    FROM ef_dynamic ed
+    INNER JOIN u_user u ON(u.id=ed.user_id)
+    INNER JOIN ef_collect ec ON(ec.product_id=ed.user_id AND ec.user_id=#{userId,jdbcType=INTEGER})
+    WHERE ed.is_del=2
+    ORDER BY ed.create_time DESC,distance ASC
+  </select>
+
+  <!--更新一条动态的点赞数-->
+  <update id="updateDynamicNum" parameterType="java.lang.Integer">
+    UPDATE
+    ef_dynamic ed
+    SET ed.fabulous_num=ed.fabulous_num+1
+    WHERE ed.dynamic_id=#{dynamicId,jdbcType=INTEGER}
+
+  </update>
+
+  <!--根据用户id获取动态-->
+  <select id="getDynamicByUserIdListPage" parameterType="com.ef.golf.pojo.User" resultType="com.ef.golf.vo.DynamicVo">
+    SELECT
+        ed.dynamic_id dynamicId,
+        u.id userId,
+        u.nickname userName,
+        u.head_portrait_url headPortraitUrl,
+        u.user_type userType,
+        ed.content content,
+        ed.img_url imgUrl,
+        ed.video_url videoUrl,
+        ed.reserved4 mediaSize,
+        ed.reserved5 suoluetu,
+        ed.lat lat,
+        ed.lng lng,
+         ROUND(
+                6378.138 * 2 * ASIN(
+                    SQRT(
+                        POW(
+                            SIN(
+                                (
+                                    #{lat,jdbcType=VARCHAR} * PI() / 180 - ed.lat * PI() / 180
+                                ) / 2
+                            ),
+                            2
+                        ) + COS(#{lat,jdbcType=VARCHAR} * PI() / 180) * COS(ed.lat * PI() / 180) * POW(
+                            SIN(
+                                (
+                                    #{lng,jdbcType=VARCHAR} * PI() / 180 - ed.lng * PI() / 180
+                                ) / 2
+                            ),
+                            2
+                        )
+                    )
+                ) * 1000
+            ) AS ditance,
+        ed.fabulous_num fabulousNum,
+        ed.share_num shareNum,
+        ed.gift_num giftNum,
+        ed.forward_num forwardNum,
+        ed.reserved2 cityName,
+        ed.create_time createTime
+    FROM ef_dynamic ed
+    INNER JOIN u_user u
+    ON(ed.user_id=u.id)
+    WHERE ed.user_id=#{id,jdbcType=INTEGER}
+    AND ed.is_del=2
+    ORDER BY ed.create_time DESC
+  </select>
+
+  <select id="getDyanmicByDynamicId" parameterType="com.ef.golf.pojo.Dynamic" resultType="com.ef.golf.vo.DynamicVo">
+     SELECT
+        ed.dynamic_id dynamicId,
+        u.id userId,
+        u.nickname userName,
+        u.head_portrait_url headPortraitUrl,
+        u.user_type userType,
+        ed.content content,
+        ed.img_url imgUrl,
+        ed.video_url videoUrl,
+        ed.reserved4 mediaSize,
+        ed.reserved5 suoluetu,
+        ed.lat lat,
+        ed.lng lng,
+         ROUND(
+                6378.138 * 2 * ASIN(
+                    SQRT(
+                        POW(
+                            SIN(
+                                (
+                                    #{lat,jdbcType=VARCHAR} * PI() / 180 - ed.lat * PI() / 180
+                                ) / 2
+                            ),
+                            2
+                        ) + COS(#{lat,jdbcType=VARCHAR} * PI() / 180) * COS(ed.lat * PI() / 180) * POW(
+                            SIN(
+                                (
+                                    #{lng,jdbcType=VARCHAR} * PI() / 180 - ed.lng * PI() / 180
+                                ) / 2
+                            ),
+                            2
+                        )
+                    )
+                ) * 1000
+            ) AS distance,
+        ed.fabulous_num fabulousNum,
+        ed.share_num shareNum,
+        ed.gift_num giftNum,
+        ed.forward_num forwardNum,
+        ed.reserved2 cityName,
+        ed.create_time createTime
+    FROM ef_dynamic ed
+    INNER JOIN u_user u
+    ON(ed.user_id=u.id)
+    WHERE ed.dynamic_id=#{dynamicId,jdbcType=INTEGER}
+    AND ed.is_del=2
+  </select>
+
+    <!--逻辑删除动态-->
+    <update id="updateDynamicForDel" parameterType="java.lang.Integer">
+        UPDATE
+          ef_dynamic ed
+        SET
+          ed.is_del=1
+        WHERE
+          ed.dynamic_id=#{dynamicId}
+    </update>
+    <!-- 圈子受赠礼物图、数量 -->
+    <select id="getQuanziGiftCountAndImg" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.GiftCountAndImgVo">
+        SELECT
+            egg.gift_id giftId,
+            eg.gift_img giftImg,
+            count(egg.gift_id) giftCount
+        FROM
+            ef_gift_give egg
+        LEFT JOIN ef_gift eg ON (egg.gift_id = eg.gift_id)
+        WHERE
+            egg.dynamic_id = #{dynamicId,jdbcType=INTEGER}
+        GROUP BY egg.gift_id
+    </select>
+</mapper>

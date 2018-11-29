@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.GiftMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Gift">
+    <id column="gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="gift_name" jdbcType="VARCHAR" property="giftName" />
+    <result column="gift_img" jdbcType="VARCHAR" property="giftImg" />
+    <result column="gift_integral" jdbcType="VARCHAR" property="giftIntegral" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="is_alive" jdbcType="CHAR" property="isAlive" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="VARCHAR" property="reserved3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gift_id, gift_name, gift_img, gift_integral, create_time, modify_time, create_user, 
+    modify_user, is_alive, reserved1, reserved2, reserved3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_gift
+    where gift_id = #{giftId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_gift
+    where gift_id = #{giftId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Gift">
+    insert into ef_gift (gift_id, gift_name, gift_img, 
+      gift_integral, create_time, modify_time, 
+      create_user, modify_user, is_alive, 
+      reserved1, reserved2, reserved3
+      )
+    values (#{giftId,jdbcType=INTEGER}, #{giftName,jdbcType=VARCHAR}, #{giftImg,jdbcType=VARCHAR}, 
+      #{giftIntegral,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{isAlive,jdbcType=CHAR}, 
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Gift">
+    insert into ef_gift
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="giftId != null">
+        gift_id,
+      </if>
+      <if test="giftName != null">
+        gift_name,
+      </if>
+      <if test="giftImg != null">
+        gift_img,
+      </if>
+      <if test="giftIntegral != null">
+        gift_integral,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="isAlive != null">
+        is_alive,
+      </if>
+      <if test="reserved1 != null">
+        reserved1,
+      </if>
+      <if test="reserved2 != null">
+        reserved2,
+      </if>
+      <if test="reserved3 != null">
+        reserved3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="giftId != null">
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="giftName != null">
+        #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftImg != null">
+        #{giftImg,jdbcType=VARCHAR},
+      </if>
+      <if test="giftIntegral != null">
+        #{giftIntegral,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null">
+        #{isAlive,jdbcType=CHAR},
+      </if>
+      <if test="reserved1 != null">
+        #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        #{reserved3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Gift">
+    update ef_gift
+    <set>
+      <if test="giftName != null">
+        gift_name = #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftImg != null">
+        gift_img = #{giftImg,jdbcType=VARCHAR},
+      </if>
+      <if test="giftIntegral != null">
+        gift_integral = #{giftIntegral,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null">
+        is_alive = #{isAlive,jdbcType=CHAR},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gift_id = #{giftId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Gift">
+    update ef_gift
+    set gift_name = #{giftName,jdbcType=VARCHAR},
+      gift_img = #{giftImg,jdbcType=VARCHAR},
+      gift_integral = #{giftIntegral,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      is_alive = #{isAlive,jdbcType=CHAR},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR},
+      reserved3 = #{reserved3,jdbcType=VARCHAR}
+    where gift_id = #{giftId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取所有礼物 -->
+  <select id="findByPage" resultMap="BaseResultMap">
+      SELECT
+        <include refid="Base_Column_List" />
+      FROM
+      ef_gift
+    WHERE is_alive = 1
+  </select>
+  <select id="findByPageCount" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM
+    ef_gift
+    WHERE is_alive = 1
+  </select>
+</mapper>

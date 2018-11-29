@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.PlatformWorketimeMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.PlatformWorktime">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sTime" jdbcType="VARCHAR" property="sTime" />
+    <result column="xTime" jdbcType="VARCHAR" property="xTime" />
+    <result column="beforeHours" jdbcType="DOUBLE" property="beforeHours" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifyTime" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="createUser" jdbcType="INTEGER" property="createUser" />
+    <result column="modifyUser" jdbcType="INTEGER" property="modifyUser" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sTime, xTime, beforeHours, createTime, modifyTime, createUser, modifyUser, phone
+  </sql>
+  <select id="getPlatformWorktime" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_platformworktime
+    WHERE  position = #{position,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

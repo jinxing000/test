@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.OrderItemMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.OrderItem" >
+    <id column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="ship_num" property="shipNum" jdbcType="INTEGER" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="gainedpoint" property="gainedpoint" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="change_goods_name" property="changeGoodsName" jdbcType="VARCHAR" />
+    <result column="change_goods_id" property="changeGoodsId" jdbcType="INTEGER" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="SMALLINT" />
+    <result column="snapshot_id" property="snapshotId" jdbcType="INTEGER" />
+    <result column="image" property="image" jdbcType="LONGVARCHAR" />
+    <result column="addon" property="addon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.OrderItemWithBLOBs" extends="BaseResultMap" >
+    <result column="image" property="image" jdbcType="LONGVARCHAR" />
+    <result column="addon" property="addon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    item_id, order_id, goods_id, product_id, cat_id, num, ship_num, sn, name, price, 
+    gainedpoint, state, change_goods_name, change_goods_id, unit, goods_type, snapshot_id,image, addon
+  </sql>
+  <sql id="Blob_Column_List" >
+    image, addon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+
+    from es_order_items
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_order_items
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.OrderItemWithBLOBs" >
+    insert into es_order_items (item_id, order_id, goods_id, 
+      product_id, cat_id, num, 
+      ship_num, sn, name, 
+      price, gainedpoint, state, 
+      change_goods_name, change_goods_id, unit, 
+      goods_type, snapshot_id, image, 
+      addon)
+    values (#{itemId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{productId,jdbcType=INTEGER}, #{catId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{shipNum,jdbcType=INTEGER}, #{sn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{gainedpoint,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
+      #{changeGoodsName,jdbcType=VARCHAR}, #{changeGoodsId,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, 
+      #{goodsType,jdbcType=SMALLINT}, #{snapshotId,jdbcType=INTEGER}, #{image,jdbcType=LONGVARCHAR}, 
+      #{addon,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.OrderItem" keyProperty="itemId" useGeneratedKeys="true">
+    insert into es_order_items
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="catId != null" >
+        cat_id,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="shipNum != null" >
+        ship_num,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="gainedpoint != null" >
+        gainedpoint,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="changeGoodsName != null" >
+        change_goods_name,
+      </if>
+      <if test="changeGoodsId != null" >
+        change_goods_id,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="snapshotId != null" >
+        snapshot_id,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="addon != null" >
+        addon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="catId != null" >
+        #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="shipNum != null" >
+        #{shipNum,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="gainedpoint != null" >
+        #{gainedpoint,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="changeGoodsName != null" >
+        #{changeGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeGoodsId != null" >
+        #{changeGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=SMALLINT},
+      </if>
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addon != null" >
+        #{addon,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.OrderItem" >
+    update es_order_items
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="catId != null" >
+        cat_id = #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="shipNum != null" >
+        ship_num = #{shipNum,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="gainedpoint != null" >
+        gainedpoint = #{gainedpoint,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="changeGoodsName != null" >
+        change_goods_name = #{changeGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeGoodsId != null" >
+        change_goods_id = #{changeGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=SMALLINT},
+      </if>
+      <if test="snapshotId != null" >
+        snapshot_id = #{snapshotId,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addon != null" >
+        addon = #{addon,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.OrderItemWithBLOBs" >
+    update es_order_items
+    set order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      cat_id = #{catId,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      ship_num = #{shipNum,jdbcType=INTEGER},
+      sn = #{sn,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      gainedpoint = #{gainedpoint,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      change_goods_name = #{changeGoodsName,jdbcType=VARCHAR},
+      change_goods_id = #{changeGoodsId,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=SMALLINT},
+      snapshot_id = #{snapshotId,jdbcType=INTEGER},
+      image = #{image,jdbcType=LONGVARCHAR},
+      addon = #{addon,jdbcType=LONGVARCHAR}
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.OrderItem" >
+    update es_order_items
+    set order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      cat_id = #{catId,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      ship_num = #{shipNum,jdbcType=INTEGER},
+      sn = #{sn,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      gainedpoint = #{gainedpoint,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      change_goods_name = #{changeGoodsName,jdbcType=VARCHAR},
+      change_goods_id = #{changeGoodsId,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=SMALLINT},
+      snapshot_id = #{snapshotId,jdbcType=INTEGER}
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getItemList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+   select <include refid="Base_Column_List" />
+    from es_order_items u where u.order_id=#{order_id,jdbcType=INTEGER}
+  </select>
+
+
+
+<select id="itemList" parameterType="java.util.Map" resultMap="BaseResultMap">
+select
+  <include refid="Base_Column_List" />
+  from es_order_items where order_id=#{order_id,jdbcType=INTEGER} and goods_id in
+<foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+#{item}
+</foreach>
+
+</select>
+
+
+
+
+ <update id="updateItemStruts" parameterType="java.util.Map">
+update es_order_items set state=#{state,jdbcType=INTEGER} where item_id=#{item_id,jdbcType=INTEGER}
+
+
+
+ </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

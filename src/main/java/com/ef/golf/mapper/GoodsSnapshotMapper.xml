@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.GoodsSnapshotMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.GoodsSnapshot" >
+    <id column="snapshot_id" property="snapshotId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="edit_time" property="editTime" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="goods_type" property="goodsType" jdbcType="SMALLINT" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="market_enable" property="marketEnable" jdbcType="INTEGER" />
+    <result column="brief" property="brief" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="mktprice" property="mktprice" jdbcType="DECIMAL" />
+    <result column="have_spec" property="haveSpec" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="last_modify" property="lastModify" jdbcType="BIGINT" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="buy_count" property="buyCount" jdbcType="INTEGER" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="store" property="store" jdbcType="INTEGER" />
+    <result column="enable_store" property="enableStore" jdbcType="INTEGER" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="page_title" property="pageTitle" jdbcType="VARCHAR" />
+    <result column="meta_keywords" property="metaKeywords" jdbcType="VARCHAR" />
+    <result column="meta_description" property="metaDescription" jdbcType="VARCHAR" />
+    <result column="p20" property="p20" jdbcType="VARCHAR" />
+    <result column="p19" property="p19" jdbcType="VARCHAR" />
+    <result column="p18" property="p18" jdbcType="VARCHAR" />
+    <result column="p17" property="p17" jdbcType="VARCHAR" />
+    <result column="p16" property="p16" jdbcType="VARCHAR" />
+    <result column="p15" property="p15" jdbcType="VARCHAR" />
+    <result column="p14" property="p14" jdbcType="VARCHAR" />
+    <result column="p13" property="p13" jdbcType="VARCHAR" />
+    <result column="p12" property="p12" jdbcType="VARCHAR" />
+    <result column="p11" property="p11" jdbcType="VARCHAR" />
+    <result column="p10" property="p10" jdbcType="VARCHAR" />
+    <result column="p9" property="p9" jdbcType="VARCHAR" />
+    <result column="p8" property="p8" jdbcType="VARCHAR" />
+    <result column="p7" property="p7" jdbcType="VARCHAR" />
+    <result column="p6" property="p6" jdbcType="VARCHAR" />
+    <result column="p5" property="p5" jdbcType="VARCHAR" />
+    <result column="p4" property="p4" jdbcType="VARCHAR" />
+    <result column="p3" property="p3" jdbcType="VARCHAR" />
+    <result column="p2" property="p2" jdbcType="VARCHAR" />
+    <result column="p1" property="p1" jdbcType="VARCHAR" />
+    <result column="sord" property="sord" jdbcType="INTEGER" />
+    <result column="have_field" property="haveField" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="is_pack" property="isPack" jdbcType="INTEGER" />
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    <result column="big" property="big" jdbcType="VARCHAR" />
+    <result column="small" property="small" jdbcType="VARCHAR" />
+    <result column="original" property="original" jdbcType="VARCHAR" />
+    <result column="carriage" property="carriage" jdbcType="VARCHAR" />
+    <result column="intro" property="intro" jdbcType="LONGVARCHAR" />
+    <result column="params" property="params" jdbcType="LONGVARCHAR" />
+    <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+    <result column="adjuncts" property="adjuncts" jdbcType="LONGVARCHAR" />
+    <result column="goods_comment" property="goodsComment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.GoodsSnapshotWithBLOBs" extends="BaseResultMap" >
+    <result column="intro" property="intro" jdbcType="LONGVARCHAR" />
+    <result column="params" property="params" jdbcType="LONGVARCHAR" />
+    <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+    <result column="adjuncts" property="adjuncts" jdbcType="LONGVARCHAR" />
+    <result column="goods_comment" property="goodsComment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    snapshot_id, goods_id, edit_time, name, sn, brand_id, cat_id, type_id, goods_type, 
+    unit, weight, market_enable, brief, price, cost, mktprice, have_spec, create_time, 
+    last_modify, view_count, buy_count, disabled, store, enable_store, point, page_title, 
+    meta_keywords, meta_description, p20, p19, p18, p17, p16, p15, p14, p13, p12, p11, 
+    p10, p9, p8, p7, p6, p5, p4, p3, p2, p1, sord, have_field, grade, is_pack, thumbnail, 
+    big, small, original, carriage,intro, params, specs, adjuncts, goods_comment
+  </sql>
+  <sql id="Blob_Column_List" >
+    intro, params, specs, adjuncts, goods_comment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+
+    from es_goods_snapshot
+    where snapshot_id = #{snapshotId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_goods_snapshot
+    where snapshot_id = #{snapshotId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.GoodsSnapshot" >
+    insert into es_goods_snapshot (snapshot_id, goods_id, edit_time, 
+      name, sn, brand_id, 
+      cat_id, type_id, goods_type, 
+      unit, weight, market_enable, 
+      brief, price, cost, 
+      mktprice, have_spec, create_time, 
+      last_modify, view_count, buy_count, 
+      disabled, store, enable_store, 
+      point, page_title, meta_keywords, 
+      meta_description, p20, p19, 
+      p18, p17, p16, p15, 
+      p14, p13, p12, p11, 
+      p10, p9, p8, p7, 
+      p6, p5, p4, p3, 
+      p2, p1, sord, have_field, 
+      grade, is_pack, thumbnail, 
+      big, small, original, 
+      carriage, intro, params, 
+      specs, adjuncts, goods_comment
+      )
+    values (#{snapshotId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{editTime,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, 
+      #{catId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{goodsType,jdbcType=SMALLINT}, 
+      #{unit,jdbcType=VARCHAR}, #{weight,jdbcType=DECIMAL}, #{marketEnable,jdbcType=INTEGER}, 
+      #{brief,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{cost,jdbcType=DECIMAL}, 
+      #{mktprice,jdbcType=DECIMAL}, #{haveSpec,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{lastModify,jdbcType=BIGINT}, #{viewCount,jdbcType=INTEGER}, #{buyCount,jdbcType=INTEGER}, 
+      #{disabled,jdbcType=INTEGER}, #{store,jdbcType=INTEGER}, #{enableStore,jdbcType=INTEGER}, 
+      #{point,jdbcType=INTEGER}, #{pageTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, 
+      #{metaDescription,jdbcType=VARCHAR}, #{p20,jdbcType=VARCHAR}, #{p19,jdbcType=VARCHAR}, 
+      #{p18,jdbcType=VARCHAR}, #{p17,jdbcType=VARCHAR}, #{p16,jdbcType=VARCHAR}, #{p15,jdbcType=VARCHAR}, 
+      #{p14,jdbcType=VARCHAR}, #{p13,jdbcType=VARCHAR}, #{p12,jdbcType=VARCHAR}, #{p11,jdbcType=VARCHAR}, 
+      #{p10,jdbcType=VARCHAR}, #{p9,jdbcType=VARCHAR}, #{p8,jdbcType=VARCHAR}, #{p7,jdbcType=VARCHAR}, 
+      #{p6,jdbcType=VARCHAR}, #{p5,jdbcType=VARCHAR}, #{p4,jdbcType=VARCHAR}, #{p3,jdbcType=VARCHAR}, 
+      #{p2,jdbcType=VARCHAR}, #{p1,jdbcType=VARCHAR}, #{sord,jdbcType=INTEGER}, #{haveField,jdbcType=INTEGER}, 
+      #{grade,jdbcType=INTEGER}, #{isPack,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR}, 
+      #{big,jdbcType=VARCHAR}, #{small,jdbcType=VARCHAR}, #{original,jdbcType=VARCHAR}, 
+      #{carriage,jdbcType=VARCHAR}, #{intro,jdbcType=LONGVARCHAR}, #{params,jdbcType=LONGVARCHAR}, 
+      #{specs,jdbcType=LONGVARCHAR}, #{adjuncts,jdbcType=LONGVARCHAR}, #{goodsComment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.GoodsSnapshot" >
+    insert into es_goods_snapshot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        snapshot_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="editTime != null" >
+        edit_time,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="catId != null" >
+        cat_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="marketEnable != null" >
+        market_enable,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="mktprice != null" >
+        mktprice,
+      </if>
+      <if test="haveSpec != null" >
+        have_spec,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModify != null" >
+        last_modify,
+      </if>
+      <if test="viewCount != null" >
+        view_count,
+      </if>
+      <if test="buyCount != null" >
+        buy_count,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="store != null" >
+        store,
+      </if>
+      <if test="enableStore != null" >
+        enable_store,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="pageTitle != null" >
+        page_title,
+      </if>
+      <if test="metaKeywords != null" >
+        meta_keywords,
+      </if>
+      <if test="metaDescription != null" >
+        meta_description,
+      </if>
+      <if test="p20 != null" >
+        p20,
+      </if>
+      <if test="p19 != null" >
+        p19,
+      </if>
+      <if test="p18 != null" >
+        p18,
+      </if>
+      <if test="p17 != null" >
+        p17,
+      </if>
+      <if test="p16 != null" >
+        p16,
+      </if>
+      <if test="p15 != null" >
+        p15,
+      </if>
+      <if test="p14 != null" >
+        p14,
+      </if>
+      <if test="p13 != null" >
+        p13,
+      </if>
+      <if test="p12 != null" >
+        p12,
+      </if>
+      <if test="p11 != null" >
+        p11,
+      </if>
+      <if test="p10 != null" >
+        p10,
+      </if>
+      <if test="p9 != null" >
+        p9,
+      </if>
+      <if test="p8 != null" >
+        p8,
+      </if>
+      <if test="p7 != null" >
+        p7,
+      </if>
+      <if test="p6 != null" >
+        p6,
+      </if>
+      <if test="p5 != null" >
+        p5,
+      </if>
+      <if test="p4 != null" >
+        p4,
+      </if>
+      <if test="p3 != null" >
+        p3,
+      </if>
+      <if test="p2 != null" >
+        p2,
+      </if>
+      <if test="p1 != null" >
+        p1,
+      </if>
+      <if test="sord != null" >
+        sord,
+      </if>
+      <if test="haveField != null" >
+        have_field,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="isPack != null" >
+        is_pack,
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail,
+      </if>
+      <if test="big != null" >
+        big,
+      </if>
+      <if test="small != null" >
+        small,
+      </if>
+      <if test="original != null" >
+        original,
+      </if>
+      <if test="carriage != null" >
+        carriage,
+      </if>
+      <if test="intro != null" >
+        intro,
+      </if>
+      <if test="params != null" >
+        params,
+      </if>
+      <if test="specs != null" >
+        specs,
+      </if>
+      <if test="adjuncts != null" >
+        adjuncts,
+      </if>
+      <if test="goodsComment != null" >
+        goods_comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="catId != null" >
+        #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=SMALLINT},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="marketEnable != null" >
+        #{marketEnable,jdbcType=INTEGER},
+      </if>
+      <if test="brief != null" >
+        #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="mktprice != null" >
+        #{mktprice,jdbcType=DECIMAL},
+      </if>
+      <if test="haveSpec != null" >
+        #{haveSpec,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastModify != null" >
+        #{lastModify,jdbcType=BIGINT},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="buyCount != null" >
+        #{buyCount,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="store != null" >
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="enableStore != null" >
+        #{enableStore,jdbcType=INTEGER},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="pageTitle != null" >
+        #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metaKeywords != null" >
+        #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="p20 != null" >
+        #{p20,jdbcType=VARCHAR},
+      </if>
+      <if test="p19 != null" >
+        #{p19,jdbcType=VARCHAR},
+      </if>
+      <if test="p18 != null" >
+        #{p18,jdbcType=VARCHAR},
+      </if>
+      <if test="p17 != null" >
+        #{p17,jdbcType=VARCHAR},
+      </if>
+      <if test="p16 != null" >
+        #{p16,jdbcType=VARCHAR},
+      </if>
+      <if test="p15 != null" >
+        #{p15,jdbcType=VARCHAR},
+      </if>
+      <if test="p14 != null" >
+        #{p14,jdbcType=VARCHAR},
+      </if>
+      <if test="p13 != null" >
+        #{p13,jdbcType=VARCHAR},
+      </if>
+      <if test="p12 != null" >
+        #{p12,jdbcType=VARCHAR},
+      </if>
+      <if test="p11 != null" >
+        #{p11,jdbcType=VARCHAR},
+      </if>
+      <if test="p10 != null" >
+        #{p10,jdbcType=VARCHAR},
+      </if>
+      <if test="p9 != null" >
+        #{p9,jdbcType=VARCHAR},
+      </if>
+      <if test="p8 != null" >
+        #{p8,jdbcType=VARCHAR},
+      </if>
+      <if test="p7 != null" >
+        #{p7,jdbcType=VARCHAR},
+      </if>
+      <if test="p6 != null" >
+        #{p6,jdbcType=VARCHAR},
+      </if>
+      <if test="p5 != null" >
+        #{p5,jdbcType=VARCHAR},
+      </if>
+      <if test="p4 != null" >
+        #{p4,jdbcType=VARCHAR},
+      </if>
+      <if test="p3 != null" >
+        #{p3,jdbcType=VARCHAR},
+      </if>
+      <if test="p2 != null" >
+        #{p2,jdbcType=VARCHAR},
+      </if>
+      <if test="p1 != null" >
+        #{p1,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null" >
+        #{sord,jdbcType=INTEGER},
+      </if>
+      <if test="haveField != null" >
+        #{haveField,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="isPack != null" >
+        #{isPack,jdbcType=INTEGER},
+      </if>
+      <if test="thumbnail != null" >
+        #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="big != null" >
+        #{big,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null" >
+        #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null" >
+        #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="carriage != null" >
+        #{carriage,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="params != null" >
+        #{params,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="specs != null" >
+        #{specs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="adjuncts != null" >
+        #{adjuncts,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsComment != null" >
+        #{goodsComment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.GoodsSnapshot" >
+    update es_goods_snapshot
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        edit_time = #{editTime,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="catId != null" >
+        cat_id = #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=SMALLINT},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="marketEnable != null" >
+        market_enable = #{marketEnable,jdbcType=INTEGER},
+      </if>
+      <if test="brief != null" >
+        brief = #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="mktprice != null" >
+        mktprice = #{mktprice,jdbcType=DECIMAL},
+      </if>
+      <if test="haveSpec != null" >
+        have_spec = #{haveSpec,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastModify != null" >
+        last_modify = #{lastModify,jdbcType=BIGINT},
+      </if>
+      <if test="viewCount != null" >
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="buyCount != null" >
+        buy_count = #{buyCount,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="store != null" >
+        store = #{store,jdbcType=INTEGER},
+      </if>
+      <if test="enableStore != null" >
+        enable_store = #{enableStore,jdbcType=INTEGER},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="pageTitle != null" >
+        page_title = #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metaKeywords != null" >
+        meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        meta_description = #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="p20 != null" >
+        p20 = #{p20,jdbcType=VARCHAR},
+      </if>
+      <if test="p19 != null" >
+        p19 = #{p19,jdbcType=VARCHAR},
+      </if>
+      <if test="p18 != null" >
+        p18 = #{p18,jdbcType=VARCHAR},
+      </if>
+      <if test="p17 != null" >
+        p17 = #{p17,jdbcType=VARCHAR},
+      </if>
+      <if test="p16 != null" >
+        p16 = #{p16,jdbcType=VARCHAR},
+      </if>
+      <if test="p15 != null" >
+        p15 = #{p15,jdbcType=VARCHAR},
+      </if>
+      <if test="p14 != null" >
+        p14 = #{p14,jdbcType=VARCHAR},
+      </if>
+      <if test="p13 != null" >
+        p13 = #{p13,jdbcType=VARCHAR},
+      </if>
+      <if test="p12 != null" >
+        p12 = #{p12,jdbcType=VARCHAR},
+      </if>
+      <if test="p11 != null" >
+        p11 = #{p11,jdbcType=VARCHAR},
+      </if>
+      <if test="p10 != null" >
+        p10 = #{p10,jdbcType=VARCHAR},
+      </if>
+      <if test="p9 != null" >
+        p9 = #{p9,jdbcType=VARCHAR},
+      </if>
+      <if test="p8 != null" >
+        p8 = #{p8,jdbcType=VARCHAR},
+      </if>
+      <if test="p7 != null" >
+        p7 = #{p7,jdbcType=VARCHAR},
+      </if>
+      <if test="p6 != null" >
+        p6 = #{p6,jdbcType=VARCHAR},
+      </if>
+      <if test="p5 != null" >
+        p5 = #{p5,jdbcType=VARCHAR},
+      </if>
+      <if test="p4 != null" >
+        p4 = #{p4,jdbcType=VARCHAR},
+      </if>
+      <if test="p3 != null" >
+        p3 = #{p3,jdbcType=VARCHAR},
+      </if>
+      <if test="p2 != null" >
+        p2 = #{p2,jdbcType=VARCHAR},
+      </if>
+      <if test="p1 != null" >
+        p1 = #{p1,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null" >
+        sord = #{sord,jdbcType=INTEGER},
+      </if>
+      <if test="haveField != null" >
+        have_field = #{haveField,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="isPack != null" >
+        is_pack = #{isPack,jdbcType=INTEGER},
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="big != null" >
+        big = #{big,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null" >
+        small = #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null" >
+        original = #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="carriage != null" >
+        carriage = #{carriage,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        intro = #{intro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="params != null" >
+        params = #{params,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="specs != null" >
+        specs = #{specs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="adjuncts != null" >
+        adjuncts = #{adjuncts,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsComment != null" >
+        goods_comment = #{goodsComment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where snapshot_id = #{snapshotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.GoodsSnapshotWithBLOBs" >
+    update es_goods_snapshot
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      edit_time = #{editTime,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      cat_id = #{catId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      goods_type = #{goodsType,jdbcType=SMALLINT},
+      unit = #{unit,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DECIMAL},
+      market_enable = #{marketEnable,jdbcType=INTEGER},
+      brief = #{brief,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      cost = #{cost,jdbcType=DECIMAL},
+      mktprice = #{mktprice,jdbcType=DECIMAL},
+      have_spec = #{haveSpec,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      last_modify = #{lastModify,jdbcType=BIGINT},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      buy_count = #{buyCount,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=INTEGER},
+      store = #{store,jdbcType=INTEGER},
+      enable_store = #{enableStore,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      page_title = #{pageTitle,jdbcType=VARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      meta_description = #{metaDescription,jdbcType=VARCHAR},
+      p20 = #{p20,jdbcType=VARCHAR},
+      p19 = #{p19,jdbcType=VARCHAR},
+      p18 = #{p18,jdbcType=VARCHAR},
+      p17 = #{p17,jdbcType=VARCHAR},
+      p16 = #{p16,jdbcType=VARCHAR},
+      p15 = #{p15,jdbcType=VARCHAR},
+      p14 = #{p14,jdbcType=VARCHAR},
+      p13 = #{p13,jdbcType=VARCHAR},
+      p12 = #{p12,jdbcType=VARCHAR},
+      p11 = #{p11,jdbcType=VARCHAR},
+      p10 = #{p10,jdbcType=VARCHAR},
+      p9 = #{p9,jdbcType=VARCHAR},
+      p8 = #{p8,jdbcType=VARCHAR},
+      p7 = #{p7,jdbcType=VARCHAR},
+      p6 = #{p6,jdbcType=VARCHAR},
+      p5 = #{p5,jdbcType=VARCHAR},
+      p4 = #{p4,jdbcType=VARCHAR},
+      p3 = #{p3,jdbcType=VARCHAR},
+      p2 = #{p2,jdbcType=VARCHAR},
+      p1 = #{p1,jdbcType=VARCHAR},
+      sord = #{sord,jdbcType=INTEGER},
+      have_field = #{haveField,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      is_pack = #{isPack,jdbcType=INTEGER},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      big = #{big,jdbcType=VARCHAR},
+      small = #{small,jdbcType=VARCHAR},
+      original = #{original,jdbcType=VARCHAR},
+      carriage = #{carriage,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=LONGVARCHAR},
+      params = #{params,jdbcType=LONGVARCHAR},
+      specs = #{specs,jdbcType=LONGVARCHAR},
+      adjuncts = #{adjuncts,jdbcType=LONGVARCHAR},
+      goods_comment = #{goodsComment,jdbcType=LONGVARCHAR}
+    where snapshot_id = #{snapshotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.GoodsSnapshot" >
+    update es_goods_snapshot
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      edit_time = #{editTime,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      cat_id = #{catId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      goods_type = #{goodsType,jdbcType=SMALLINT},
+      unit = #{unit,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DECIMAL},
+      market_enable = #{marketEnable,jdbcType=INTEGER},
+      brief = #{brief,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      cost = #{cost,jdbcType=DECIMAL},
+      mktprice = #{mktprice,jdbcType=DECIMAL},
+      have_spec = #{haveSpec,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      last_modify = #{lastModify,jdbcType=BIGINT},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      buy_count = #{buyCount,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=INTEGER},
+      store = #{store,jdbcType=INTEGER},
+      enable_store = #{enableStore,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      page_title = #{pageTitle,jdbcType=VARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      meta_description = #{metaDescription,jdbcType=VARCHAR},
+      p20 = #{p20,jdbcType=VARCHAR},
+      p19 = #{p19,jdbcType=VARCHAR},
+      p18 = #{p18,jdbcType=VARCHAR},
+      p17 = #{p17,jdbcType=VARCHAR},
+      p16 = #{p16,jdbcType=VARCHAR},
+      p15 = #{p15,jdbcType=VARCHAR},
+      p14 = #{p14,jdbcType=VARCHAR},
+      p13 = #{p13,jdbcType=VARCHAR},
+      p12 = #{p12,jdbcType=VARCHAR},
+      p11 = #{p11,jdbcType=VARCHAR},
+      p10 = #{p10,jdbcType=VARCHAR},
+      p9 = #{p9,jdbcType=VARCHAR},
+      p8 = #{p8,jdbcType=VARCHAR},
+      p7 = #{p7,jdbcType=VARCHAR},
+      p6 = #{p6,jdbcType=VARCHAR},
+      p5 = #{p5,jdbcType=VARCHAR},
+      p4 = #{p4,jdbcType=VARCHAR},
+      p3 = #{p3,jdbcType=VARCHAR},
+      p2 = #{p2,jdbcType=VARCHAR},
+      p1 = #{p1,jdbcType=VARCHAR},
+      sord = #{sord,jdbcType=INTEGER},
+      have_field = #{haveField,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      is_pack = #{isPack,jdbcType=INTEGER},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      big = #{big,jdbcType=VARCHAR},
+      small = #{small,jdbcType=VARCHAR},
+      original = #{original,jdbcType=VARCHAR},
+      carriage = #{carriage,jdbcType=VARCHAR}
+    where snapshot_id = #{snapshotId,jdbcType=INTEGER}
+  </update>
+  <select id="getMax" resultType="java.lang.Integer">
+  select max(snapshot_id) from es_goods_snapshot
+  </select>
+
+  <select id="getList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ select * from es_goods_snapshot where goods_id=#{goodsId,jdbcType=INTEGER}
+
+  </select>
+</mapper>

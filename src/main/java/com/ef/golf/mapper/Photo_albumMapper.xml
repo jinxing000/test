@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Photo_albumMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Photo_album">
+    <id column="photo_id" jdbcType="INTEGER" property="photoId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="photo_type" jdbcType="VARCHAR" property="photoType" />
+    <result column="photo_url" jdbcType="VARCHAR" property="photoUrl" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    photo_id, photo_type, photo_url, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_photo_album
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_photo_album
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Photo_album">
+    insert into ef_photo_album (photo_id, photo_type, photo_url, 
+      create_user, create_time)
+    values (#{photoId,jdbcType=INTEGER}, #{photoType,jdbcType=VARCHAR}, #{photoUrl,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Photo_album">
+    insert into ef_photo_album
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="photoId != null">
+        photo_id,
+      </if>
+      <if test="photoType != null">
+        photo_type,
+      </if>
+      <if test="photoUrl != null">
+        photo_url,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="photoId != null">
+        #{photoId,jdbcType=INTEGER},
+      </if>
+      <if test="photoType != null">
+        #{photoType,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null">
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Photo_album">
+    update ef_photo_album
+    <set>
+      <if test="photoType != null">
+        photo_type = #{photoType,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null">
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Photo_album">
+    update ef_photo_album
+    set photo_type = #{photoType,jdbcType=VARCHAR},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </update>
+
+  <!--根据用户id查询用户的相册-->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultType="com.ef.golf.pojo.Photo_album">
+  SELECT
+    epa.photo_id photoId,
+    epa.user_id userId,
+    epa.photo_type photoType,
+    epa.photo_url photoUrl,
+    epa.create_user createUser,
+    epa.create_time createTime
+  FROM ef_photo_album epa
+  WHERE epa.user_id=#{userId,jdbcType=INTEGER}
+  </select>
+  <select id="getPhotoAlbumUrl" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT
+        photo_url
+    FROM
+        ef_photo_album
+    WHERE
+        photo_id = #{photoId}
+  </select>
+</mapper>

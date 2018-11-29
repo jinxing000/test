@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsType" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="protect" property="protect" jdbcType="INTEGER" />
+    <result column="protect_rate" property="protectRate" jdbcType="VARCHAR" />
+    <result column="has_cod" property="hasCod" jdbcType="VARCHAR" />
+    <result column="min_price" property="minPrice" jdbcType="VARCHAR" />
+    <result column="corp_id" property="corpId" jdbcType="INTEGER" />
+    <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="is_same" property="isSame" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.EsTypeWithBLOBs" extends="BaseResultMap" >
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+    <result column="config" property="config" jdbcType="LONGVARCHAR" />
+    <result column="expressions" property="expressions" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    type_id, name, protect, protect_rate, has_cod, min_price, corp_id, ordernum, disabled, 
+    is_same
+  </sql>
+  <sql id="Blob_Column_List" >
+    detail, config, expressions
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from es_dly_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_dly_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsTypeWithBLOBs" >
+    insert into es_dly_type (type_id, name, protect, 
+      protect_rate, has_cod, min_price, 
+      corp_id, ordernum, disabled, 
+      is_same, detail, config, 
+      expressions)
+    values (#{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{protect,jdbcType=INTEGER}, 
+      #{protectRate,jdbcType=VARCHAR}, #{hasCod,jdbcType=VARCHAR}, #{minPrice,jdbcType=VARCHAR}, 
+      #{corpId,jdbcType=INTEGER}, #{ordernum,jdbcType=INTEGER}, #{disabled,jdbcType=INTEGER}, 
+      #{isSame,jdbcType=INTEGER}, #{detail,jdbcType=LONGVARCHAR}, #{config,jdbcType=LONGVARCHAR}, 
+      #{expressions,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.EsTypeWithBLOBs" >
+    insert into es_dly_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="protect != null" >
+        protect,
+      </if>
+      <if test="protectRate != null" >
+        protect_rate,
+      </if>
+      <if test="hasCod != null" >
+        has_cod,
+      </if>
+      <if test="minPrice != null" >
+        min_price,
+      </if>
+      <if test="corpId != null" >
+        corp_id,
+      </if>
+      <if test="ordernum != null" >
+        ordernum,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="isSame != null" >
+        is_same,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="config != null" >
+        config,
+      </if>
+      <if test="expressions != null" >
+        expressions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="protect != null" >
+        #{protect,jdbcType=INTEGER},
+      </if>
+      <if test="protectRate != null" >
+        #{protectRate,jdbcType=VARCHAR},
+      </if>
+      <if test="hasCod != null" >
+        #{hasCod,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null" >
+        #{minPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="corpId != null" >
+        #{corpId,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="isSame != null" >
+        #{isSame,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="config != null" >
+        #{config,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="expressions != null" >
+        #{expressions,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.EsTypeWithBLOBs" >
+    update es_dly_type
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="protect != null" >
+        protect = #{protect,jdbcType=INTEGER},
+      </if>
+      <if test="protectRate != null" >
+        protect_rate = #{protectRate,jdbcType=VARCHAR},
+      </if>
+      <if test="hasCod != null" >
+        has_cod = #{hasCod,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null" >
+        min_price = #{minPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="corpId != null" >
+        corp_id = #{corpId,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="isSame != null" >
+        is_same = #{isSame,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="config != null" >
+        config = #{config,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="expressions != null" >
+        expressions = #{expressions,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.EsTypeWithBLOBs" >
+    update es_dly_type
+    set name = #{name,jdbcType=VARCHAR},
+      protect = #{protect,jdbcType=INTEGER},
+      protect_rate = #{protectRate,jdbcType=VARCHAR},
+      has_cod = #{hasCod,jdbcType=VARCHAR},
+      min_price = #{minPrice,jdbcType=VARCHAR},
+      corp_id = #{corpId,jdbcType=INTEGER},
+      ordernum = #{ordernum,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=INTEGER},
+      is_same = #{isSame,jdbcType=INTEGER},
+      detail = #{detail,jdbcType=LONGVARCHAR},
+      config = #{config,jdbcType=LONGVARCHAR},
+      expressions = #{expressions,jdbcType=LONGVARCHAR}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.EsType" >
+    update es_dly_type
+    set name = #{name,jdbcType=VARCHAR},
+      protect = #{protect,jdbcType=INTEGER},
+      protect_rate = #{protectRate,jdbcType=VARCHAR},
+      has_cod = #{hasCod,jdbcType=VARCHAR},
+      min_price = #{minPrice,jdbcType=VARCHAR},
+      corp_id = #{corpId,jdbcType=INTEGER},
+      ordernum = #{ordernum,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=INTEGER},
+      is_same = #{isSame,jdbcType=INTEGER}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+</mapper>

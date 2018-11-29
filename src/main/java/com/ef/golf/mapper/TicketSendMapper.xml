@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.TicketSendMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.TicketSend">
+    <id column="ticket_zz_id" jdbcType="BIGINT" property="ticketZzId" />
+    <result column="ticket_id" jdbcType="BIGINT" property="ticketId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="reciever_id" jdbcType="BIGINT" property="recieverId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="send_type" jdbcType="VARCHAR" property="sendType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ticket_zz_id, ticket_id, user_id, reciever_id, create_time, send_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_send_ticket
+    where ticket_zz_id = #{ticketZzId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_send_ticket
+    where ticket_zz_id = #{ticketZzId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.TicketSend">
+    insert into ef_send_ticket (ticket_zz_id, ticket_id, user_id, 
+      reciever_id, create_time, send_type
+      )
+    values (#{ticketZzId,jdbcType=BIGINT}, #{ticketId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{recieverId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{sendType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="ticketZzId" parameterType="com.ef.golf.pojo.TicketSend">
+    insert into ef_send_ticket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ticketZzId != null">
+        ticket_zz_id,
+      </if>
+      <if test="ticketId != null">
+        ticket_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="recieverId != null">
+        reciever_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="sendType != null">
+        send_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ticketZzId != null">
+        #{ticketZzId,jdbcType=BIGINT},
+      </if>
+      <if test="ticketId != null">
+        #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="recieverId != null">
+        #{recieverId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendType != null">
+        #{sendType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.TicketSend">
+    update ef_send_ticket
+    <set>
+      <if test="ticketId != null">
+        ticket_id = #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="recieverId != null">
+        reciever_id = #{recieverId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendType != null">
+        send_type = #{sendType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ticket_zz_id = #{ticketZzId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.TicketSend">
+    update ef_send_ticket
+    set ticket_id = #{ticketId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      reciever_id = #{recieverId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      send_type = #{sendType,jdbcType=VARCHAR}
+    where ticket_zz_id = #{ticketZzId,jdbcType=BIGINT}
+  </update>
+  <!-- 被抢优惠券信息 -->
+  <select id="selectByQianTicketDetails" parameterType="java.lang.String" resultType="com.ef.golf.vo.ByQianTicketDetailsVo">
+    SELECT
+      u.head_portrait_url headPortraitUrl,
+      u.nickname nickName,
+      u.user_type userType,
+      ets.reciever_id recieverId,
+      ets.create_time createTime
+    FROM
+        ef_send_ticket ets
+    LEFT JOIN u_user u ON(ets.reciever_id=u.id)
+    WHERE
+   ets.ticket_zz_id = #{ticketZzId}
+
+  </select>
+</mapper>

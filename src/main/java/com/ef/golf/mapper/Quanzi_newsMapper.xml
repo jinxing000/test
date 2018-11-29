@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Quanzi_newsMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Quanzi_news">
+    <id column="nsid" jdbcType="INTEGER" property="nsid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="comment_user_id" jdbcType="INTEGER" property="commentUserId" />
+    <result column="dynamic_id" jdbcType="INTEGER" property="dynamicId" />
+    <result column="reciever_id" jdbcType="INTEGER" property="recieverId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_read" jdbcType="VARCHAR" property="isRead" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="VARCHAR" property="reserved3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    nsid, type, comment_user_id, dynamic_id, reciever_id, create_time, modify_time, is_read, 
+    reserved1, reserved2, reserved3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_quanzi_news
+    where nsid = #{nsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_quanzi_news
+    where nsid = #{nsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Quanzi_news">
+    insert into ef_quanzi_news (nsid, type, comment_user_id, 
+      dynamic_id, reciever_id, create_time, 
+      modify_time, is_read, reserved1, 
+      reserved2, reserved3)
+    values (#{nsid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{commentUserId,jdbcType=INTEGER}, 
+      #{dynamicId,jdbcType=INTEGER}, #{recieverId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{isRead,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Quanzi_news">
+    insert into ef_quanzi_news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nsid != null">
+        nsid,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="commentUserId != null">
+        comment_user_id,
+      </if>
+      <if test="dynamicId != null">
+        dynamic_id,
+      </if>
+      <if test="recieverId != null">
+        reciever_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="reserved1 != null">
+        reserved1,
+      </if>
+      <if test="reserved2 != null">
+        reserved2,
+      </if>
+      <if test="reserved3 != null">
+        reserved3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nsid != null">
+        #{nsid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="commentUserId != null">
+        #{commentUserId,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicId != null">
+        #{dynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="recieverId != null">
+        #{recieverId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null">
+        #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        #{reserved3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Quanzi_news">
+    update ef_quanzi_news
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="commentUserId != null">
+        comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicId != null">
+        dynamic_id = #{dynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="recieverId != null">
+        reciever_id = #{recieverId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where nsid = #{nsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Quanzi_news">
+    update ef_quanzi_news
+    set type = #{type,jdbcType=INTEGER},
+      comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      dynamic_id = #{dynamicId,jdbcType=INTEGER},
+      reciever_id = #{recieverId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      is_read = #{isRead,jdbcType=VARCHAR},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR},
+      reserved3 = #{reserved3,jdbcType=VARCHAR}
+    where nsid = #{nsid,jdbcType=INTEGER}
+  </update>
+
+  <!--分页查询我的消息通知-->
+  <select id="getNewsByUserIdListPage" parameterType="com.ef.golf.vo.QuanZiNewsVo" resultType="com.ef.golf.vo.QuanZiNewsVo">
+        SELECT
+          u.id userId,
+          u.realname realName,
+          u.user_type userType,
+          u.head_portrait_url headPortraitUrl,
+          em.`member_ level` memberLevel,
+          eqn.is_read isRead,
+          eqn.create_time createTime,
+          eqn.dynamic_id dynamicId,
+          eqn.type type
+      FROM ef_quanzi_news eqn
+      INNER JOIN u_user u
+      ON(eqn.comment_user_id=u.id)
+      LEFT JOIN ef_member em
+      ON(em.user_id=eqn.comment_user_id)
+      WHERE eqn.reciever_id=#{userId,jdbcType=INTEGER}
+      AND eqn.is_read!=3
+  </select>
+
+  <!--清除我的全部通知-->
+<update id="delNewsByUserId" parameterType="java.lang.Integer">
+  UPDATE ef_quanzi_news eqn
+  SET eqn.is_read=3
+  WHERE eqn.reciever_id=#{userId,jdbcType=INTEGER}
+</update>
+
+  <!--清除我的某条通知-->
+  <update id="delNewsByNewsId" parameterType="java.lang.Integer">
+    UPDATE ef_quanzi_news eqn
+    SET eqn.is_read=3
+    WHERE eqn.nsid=#{nsid,jdbcType=INTEGER}
+  </update>
+</mapper>

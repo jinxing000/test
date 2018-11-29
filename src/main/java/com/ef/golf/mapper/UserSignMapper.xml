@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.UserSignMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.UserSign">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="signcount" jdbcType="INTEGER" property="signcount" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="lastModifyTime" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="signHistoy" jdbcType="VARCHAR" property="signHistoy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, signcount, count, lastModifyTime, signHistoy
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_user_sign
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_user_sign
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.UserSign">
+    insert into ef_user_sign (id, user_id, signcount, 
+      count, lastModifyTime, signHistoy
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{signcount,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{signHistoy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.UserSign">
+    insert into ef_user_sign
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="signcount != null">
+        signcount,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="lastModifyTime != null">
+        lastModifyTime,
+      </if>
+      <if test="signHistoy != null">
+        signHistoy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="signcount != null">
+        #{signcount,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signHistoy != null">
+        #{signHistoy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.UserSign">
+    update ef_user_sign
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="signcount != null">
+        signcount = #{signcount,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifyTime != null">
+        lastModifyTime = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signHistoy != null">
+        signHistoy = #{signHistoy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.UserSign">
+    update ef_user_sign
+    set user_id = #{userId,jdbcType=BIGINT},
+      signcount = #{signcount,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      lastModifyTime = #{lastModifyTime,jdbcType=TIMESTAMP},
+      signHistoy = #{signHistoy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getUserSignRecord" parameterType="java.lang.Integer" resultType="com.ef.golf.pojo.UserSign">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM ef_user_sign
+    WHERE user_id = #{userId}
+  </select>
+</mapper>

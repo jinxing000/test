@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:mvc="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--线程池配置 -->
+    <bean id="taskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数 -->
+        <property name="corePoolSize" value="3" />
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="10" />
+        <!-- 队列最大长度 >=mainExecutor.maxSize -->
+        <property name="queueCapacity" value="25" />
+        <!-- 线程池维护线程所允许的空闲时间 -->
+        <property name="keepAliveSeconds" value="300" />
+        <!-- 线程池对拒绝任务(无线程可用)的处理策略 ThreadPoolExecutor.CallerRunsPolicy策略 ,调用者的线程会执行该任务,如果执行器已关闭,则丢弃.  -->
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+        </property>
+    </bean>
+    <!-- 注解式 -->
+    <task:annotation-driven />
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="localOverride" value="true"/>
+        <property name="locations">
+            <array>
+                <value>classpath:META-INF/config.properties</value>
+                <value>classpath:META-INF/messages.properties</value>
+                <value>classpath:META-INF/jdbc.properties</value>
+                <value>file:///#{systemProperties['user.home']}/golf-config.properties</value>
+            </array>
+        </property>
+
+        <property name="fileEncoding">
+           <value>UTF-8</value>
+        </property>
+    </bean>
+
+    <context:component-scan base-package="com.ef.golf"/>
+
+    <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+        <property name="resultSetLogEnabled" value="true" />
+    </bean>
+    <!-- 数据源 -->
+    <bean id="MyDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="maxIdle" value="${druid.maxIdle}" />
+        <property name="maxActive" value="${druid.maxActive}" />
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="minIdle" value="${jdbc.minIdle}" />
+        <property name="maxWait" value="${jdbc.maxWait}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${jdbc.validationQuery}" />
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
+        <property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+        <property name="testOnReturn" value="${jdbc.testOnReturn}" />
+        <property name="removeAbandoned" value="${jdbc.removeAbandoned}" />
+        <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxPoolPreparedStatementPerConnectionSize}"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${jdbc.logAbandoned}" />
+        <property name="filters" value="stat,config" /><!-- 开启druid监控支持(stat)，SQL防火墙(wall)以及SQL合并(mergeStat) -->
+        <property name="proxyFilters">
+            <list>
+                <ref bean="log-filter"/>
+            </list>
+        </property>
+        <property name="connectionInitSqls" value="set names utf8mb4;"/>
+    </bean>
+
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:META-INF/redis.properties" />
+
+    </bean>
+
+    <!-- 配置redis连接池 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxActive}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="minIdle" value="${redis.minIdle}"/>
+        <property name="MaxWaitMillis" value="${redis.maxWait}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1" value="${redis.addr}" />
+        <constructor-arg index="2" value="${redis.port}" type="int" />
+        <constructor-arg index="3" value="${redis.timeOut}" type="int" />
+        <constructor-arg index="4" value="${redis.auth}" />
+    </bean>
+
+
+
+    <!-- SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:META-INF/mybatis.xml" />
+        <property name="dataSource" ref="MyDataSource" />
+        <!-- mapper和resultmap配置路径 -->
+        <property name="mapperLocations" value="classpath:com/ef/golf/mapper/*Mapper.xml"/>
+    </bean>
+
+    <!-- SqlSessionTemplate -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+        <!-- <constructor-arg index="1" value="BATCH" />如果想要进行批量操作可加入这个属性 -->
+    </bean>
+
+    <!-- 通过扫描的模式，扫描目录在mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ef.golf.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--<property name="markerInterface" value="com.ef.golf.core.structure.base.SqlMapper" />-->
+    </bean>
+
+    <!-- 1.配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="MyDataSource" />
+    </bean>
+
+    <!-- 开启事务行为 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!-- 2.配置事务属性 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+            <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+            <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+            <tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+        </tx:attributes>
+    </tx:advice>
+    <!-- 3.配置事务切入点，把事务切入点和事务属性关联起来 -->
+    <aop:config>
+        <aop:pointcut id="txPointCut" expression="execution(* com.ef.golf.service.*.*(..))" />
+        <aop:advisor pointcut-ref="txPointCut" advice-ref="txAdvice" />
+    </aop:config>
+
+    <import resource="golf-config.xml"/>
+    <import resource="golf-http.xml"/>
+    <import resource="golf-bean.xml"/>
+    <import resource="golf-mvc.xml"/>
+    <import resource="golf-service.xml"/>
+    <!--<import resource="golf-rabbitmq.xml"/>-->
+
+</beans>

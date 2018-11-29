@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsMemberCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsMemberComment" >
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="dateline" property="dateline" jdbcType="BIGINT" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="replytime" property="replytime" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="replystatus" property="replystatus" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="is_top" property="isTop" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="reply" property="reply" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    comment_id, goods_id, member_id, img, dateline, ip, replytime, status, type, replystatus, 
+    grade, is_top, product_id,content, reply
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+
+    from es_member_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_member_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsMemberComment" >
+    insert into es_member_comment (comment_id, goods_id, member_id, 
+      img, dateline, ip, replytime, 
+      status, type, replystatus, 
+      grade, is_top, product_id, 
+      content, reply)
+    values (#{commentId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, 
+      #{img,jdbcType=VARCHAR}, #{dateline,jdbcType=BIGINT}, #{ip,jdbcType=VARCHAR}, #{replytime,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{replystatus,jdbcType=INTEGER}, 
+      #{grade,jdbcType=INTEGER}, #{isTop,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR}, #{reply,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.EsMemberComment" >
+    insert into es_member_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="dateline != null" >
+        dateline,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="replytime != null" >
+        replytime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="replystatus != null" >
+        replystatus,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="isTop != null" >
+        is_top,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="reply != null" >
+        reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="dateline != null" >
+        #{dateline,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="replytime != null" >
+        #{replytime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="replystatus != null" >
+        #{replystatus,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.EsMemberComment" >
+    update es_member_comment
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="dateline != null" >
+        dateline = #{dateline,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="replytime != null" >
+        replytime = #{replytime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="replystatus != null" >
+        replystatus = #{replystatus,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null" >
+        is_top = #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null" >
+        reply = #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.EsMemberComment" >
+    update es_member_comment
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      dateline = #{dateline,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      replytime = #{replytime,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      replystatus = #{replystatus,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      is_top = #{isTop,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR},
+      reply = #{reply,jdbcType=LONGVARCHAR}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.EsMemberComment" >
+    update es_member_comment
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      dateline = #{dateline,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      replytime = #{replytime,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      replystatus = #{replystatus,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      is_top = #{isTop,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+        content = #{content,jdbcType=LONGVARCHAR},
+      reply = #{reply,jdbcType=LONGVARCHAR}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+</mapper>

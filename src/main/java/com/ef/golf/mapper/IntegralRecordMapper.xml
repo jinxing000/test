@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.IntegralRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.IntegralRecord" >
+    <id column="integral_record_id" property="integralRecordId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="proportion" property="proportion" jdbcType="INTEGER" />
+    <result column="alteration_note" property="alterationNote" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    integral_record_id, user_id, score, proportion, alteration_note, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_integral_record
+    where integral_record_id = #{integralRecordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_integral_record
+    where integral_record_id = #{integralRecordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.IntegralRecord" >
+    insert into ef_integral_record (integral_record_id, user_id, score, 
+      proportion, alteration_note, create_time
+      )
+    values (#{integralRecordId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{score,jdbcType=VARCHAR}, 
+      #{proportion,jdbcType=INTEGER}, #{alterationNote,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.IntegralRecord" >
+    insert into ef_integral_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="integralRecordId != null" >
+        integral_record_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="proportion != null" >
+        proportion,
+      </if>
+      <if test="alterationNote != null" >
+        alteration_note,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="integralRecordId != null" >
+        #{integralRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="proportion != null" >
+        #{proportion,jdbcType=INTEGER},
+      </if>
+      <if test="alterationNote != null" >
+        #{alterationNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.IntegralRecord" >
+    update ef_integral_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="proportion != null" >
+        proportion = #{proportion,jdbcType=INTEGER},
+      </if>
+      <if test="alterationNote != null" >
+        alteration_note = #{alterationNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where integral_record_id = #{integralRecordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.IntegralRecord" >
+    update ef_integral_record
+    set user_id = #{userId,jdbcType=BIGINT},
+      score = #{score,jdbcType=VARCHAR},
+      proportion = #{proportion,jdbcType=INTEGER},
+      alteration_note = #{alterationNote,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where integral_record_id = #{integralRecordId,jdbcType=INTEGER}
+  </update>
+  <!-- 积分变动记录  -->
+  <select id="getIntegralRecord" resultType="com.ef.golf.pojo.IntegralRecord">
+        SELECT
+         eir.score score,
+         eir.user_id userId,
+		 eir.proportion proportion,
+		 eir.alteration_note alterationNote,
+		 eir.create_time createTime
+        FROM ef_integral_record eir
+        WHERE eir.user_id = #{userId}
+        ORDER BY  eir.create_time DESC
+        LIMIT #{pageNo},#{pageSize}
+
+  </select>
+  <select id="getIntegralRecordCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(0)
+    FROM ef_integral_record eir
+    WHERE eir.user_id = #{userId}
+  </select>
+</mapper>

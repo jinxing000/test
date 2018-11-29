@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.ByBlackMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.ByBlack">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="by_black_id" jdbcType="BIGINT" property="byBlackId" />
+    <result column="black_date" jdbcType="TIMESTAMP" property="blackDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, by_black_id ,black_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_by_black
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectBlackList" resultType="com.ef.golf.vo.ByBlackListVo">
+    SELECT
+      ebb.by_black_id userId,
+      DATE_FORMAT(ebb.black_date,'%Y-%m-%d %H:%i:%s') createTime,
+      u.head_portrait_url headPortraitUrl,
+      u.user_type userType,
+      u.nickname nickName,
+      u.realname realname,
+      CASE
+      WHEN u.gender = '1' THEN
+          '男'
+      ELSE
+          '女'
+      END sex
+    FROM ef_by_black ebb
+    LEFT JOIN u_user u ON(u.id=ebb.by_black_id)
+    WHERE ebb.user_id = #{userId}
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="selectBlackListCount" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM ef_by_black ebb
+    LEFT JOIN u_user u ON(u.id=ebb.by_black_id)
+    WHERE ebb.user_id = #{userId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_by_black
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByBlack" parameterType="java.lang.Long">
+    delete from ef_by_black
+    where user_id = #{userId}
+    AND by_black_id = #{byBlackId}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.ByBlack">
+    insert into ef_by_black (id, user_id, by_black_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{byBlackId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.ByBlack">
+    insert into ef_by_black
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="byBlackId != null">
+        by_black_id,
+      </if>
+      <if test="blackDate != null">
+        black_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="byBlackId != null">
+        #{byBlackId,jdbcType=BIGINT},
+      </if>
+      <if test="blackDate != null">
+        #{blackDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.ByBlack">
+    update ef_by_black
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="byBlackId != null">
+        by_black_id = #{byBlackId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.ByBlack">
+    update ef_by_black
+    set user_id = #{userId,jdbcType=BIGINT},
+      by_black_id = #{byBlackId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 获取被拉黑人Id -->
+  <select id="getByBlackPersonByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+	    by_black_id
+    FROM
+        ef_by_black
+    WHERE
+        user_id=#{userId}
+  </select>
+</mapper>

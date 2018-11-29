@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.GoodsCartMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.GoodsCart" >
+    <id column="cart_id" property="cartId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="itemtype" property="itemtype" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="is_check" property="isCheck" jdbcType="INTEGER" />
+    <result column="is_change" property="isChange" jdbcType="INTEGER" />
+    <result column="activity_end_time" property="activityEndTime" jdbcType="BIGINT" />
+    <result column="addon" property="addon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="GoodsMap" type="com.ef.golf.pojo.Goods" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="goods_type" property="goodsType" jdbcType="SMALLINT" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="market_enable" property="marketEnable" jdbcType="INTEGER" />
+    <result column="brief" property="brief" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="mktprice" property="mktprice" jdbcType="DECIMAL" />
+    <result column="have_spec" property="haveSpec" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="last_modify" property="lastModify" jdbcType="BIGINT" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="buy_count" property="buyCount" jdbcType="INTEGER" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="store" property="store" jdbcType="INTEGER" />
+    <result column="enable_store" property="enableStore" jdbcType="INTEGER" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="page_title" property="pageTitle" jdbcType="VARCHAR" />
+    <result column="meta_keywords" property="metaKeywords" jdbcType="VARCHAR" />
+    <result column="meta_description" property="metaDescription" jdbcType="VARCHAR" />
+    <result column="p20" property="p20" jdbcType="VARCHAR" />
+    <result column="p19" property="p19" jdbcType="VARCHAR" />
+    <result column="p18" property="p18" jdbcType="VARCHAR" />
+    <result column="p17" property="p17" jdbcType="VARCHAR" />
+    <result column="p16" property="p16" jdbcType="VARCHAR" />
+    <result column="p15" property="p15" jdbcType="VARCHAR" />
+    <result column="p14" property="p14" jdbcType="VARCHAR" />
+    <result column="p13" property="p13" jdbcType="VARCHAR" />
+    <result column="p12" property="p12" jdbcType="VARCHAR" />
+    <result column="p11" property="p11" jdbcType="VARCHAR" />
+    <result column="p10" property="p10" jdbcType="VARCHAR" />
+    <result column="p9" property="p9" jdbcType="VARCHAR" />
+    <result column="p8" property="p8" jdbcType="VARCHAR" />
+    <result column="p7" property="p7" jdbcType="VARCHAR" />
+    <result column="p6" property="p6" jdbcType="VARCHAR" />
+    <result column="p5" property="p5" jdbcType="VARCHAR" />
+    <result column="p4" property="p4" jdbcType="VARCHAR" />
+    <result column="p3" property="p3" jdbcType="VARCHAR" />
+    <result column="p2" property="p2" jdbcType="VARCHAR" />
+    <result column="p1" property="p1" jdbcType="VARCHAR" />
+    <result column="sord" property="sord" jdbcType="INTEGER" />
+    <result column="have_field" property="haveField" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="is_pack" property="isPack" jdbcType="INTEGER" />
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    <result column="big" property="big" jdbcType="VARCHAR" />
+    <result column="small" property="small" jdbcType="VARCHAR" />
+    <result column="original" property="original" jdbcType="VARCHAR" />
+    <result column="carriage" property="carriage" jdbcType="VARCHAR" />
+    <result column="intro" property="intro" jdbcType="LONGVARCHAR" />
+    <result column="params" property="params" jdbcType="LONGVARCHAR" />
+    <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+    <result column="adjuncts" property="adjuncts" jdbcType="LONGVARCHAR" />
+    <result column="goods_comment" property="goodsComment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Goods_Column_List" >
+    goods_id, name, sn, brand_id, cat_id, type_id, goods_type, unit, weight, market_enable,
+    brief, price, cost, mktprice, have_spec, create_time, last_modify, view_count, buy_count,
+    disabled, store, enable_store, point, page_title, meta_keywords, meta_description,
+    p20, p19, p18, p17, p16, p15, p14, p13, p12, p11, p10, p9, p8, p7, p6, p5, p4, p3,
+    p2, p1, sord, have_field, grade, is_pack, thumbnail, big, small, original,carriage,intro,
+    params, specs, adjuncts, goods_comment
+  </sql>
+
+
+  <resultMap id="ProductMap" type="com.ef.golf.pojo.Product" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="store" property="store" jdbcType="INTEGER" />
+    <result column="enable_store" property="enableStore" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="is_pack" property="isPack" jdbcType="INTEGER" />
+    <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Product_Column_List" >
+    product_id, goods_id, name, sn, store, enable_store, price, cost, weight, is_pack,specs
+  </sql>
+
+
+
+
+
+
+
+
+ <!-- <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.GoodsCart" extends="BaseResultMap" >
+    <result column="addon" property="addon" jdbcType="LONGVARCHAR" />
+  </resultMap>-->
+  <sql id="Base_Column_List" >
+    cart_id, goods_id, product_id, itemtype, num, weight, session_id, name, price, activity_id, 
+    member_id, is_check, is_change, activity_end_time,addon
+  </sql>
+ <!-- <sql id="Blob_Column_List" >
+    addon
+  </sql>-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+
+   <!-- <include refid="Blob_Column_List" />-->
+    from "es_cart"
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from "es_cart"
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.GoodsCart" >
+    insert into "es_cart" (cart_id, goods_id, product_id, 
+      itemtype, num, weight, 
+      session_id, name, price, 
+      activity_id, member_id, is_check, 
+      is_change, activity_end_time, addon
+      )
+    values (#{cartId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{itemtype,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, 
+      #{sessionId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{activityId,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{isCheck,jdbcType=INTEGER},
+      #{isChange,jdbcType=INTEGER}, #{activityEndTime,jdbcType=BIGINT}, #{addon,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.GoodsCart" >
+    insert into es_cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        cart_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="itemtype != null" >
+        itemtype,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="isCheck != null" >
+        is_check,
+      </if>
+      <if test="isChange != null" >
+        is_change,
+      </if>
+      <if test="activityEndTime != null" >
+        activity_end_time,
+      </if>
+      <if test="addon != null" >
+        addon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        #{cartId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="itemtype != null" >
+        #{itemtype,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="isCheck != null" >
+        #{isCheck,jdbcType=INTEGER},
+      </if>
+      <if test="isChange != null" >
+        #{isChange,jdbcType=INTEGER},
+      </if>
+      <if test="activityEndTime != null" >
+        #{activityEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="addon != null" >
+        #{addon,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.GoodsCart" >
+    update es_cart
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="itemtype != null" >
+        itemtype = #{itemtype,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="isCheck != null" >
+        is_check = #{isCheck,jdbcType=SMALLINT},
+      </if>
+      <if test="isChange != null" >
+        is_change = #{isChange,jdbcType=SMALLINT},
+      </if>
+      <if test="activityEndTime != null" >
+        activity_end_time = #{activityEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="addon != null" >
+        addon = #{addon,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.GoodsCart" >
+    update es_cart
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      itemtype = #{itemtype,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DECIMAL},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      activity_id = #{activityId,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=INTEGER},
+      is_check = #{isCheck,jdbcType=SMALLINT},
+      is_change = #{isChange,jdbcType=SMALLINT},
+      activity_end_time = #{activityEndTime,jdbcType=BIGINT},
+      addon = #{addon,jdbcType=LONGVARCHAR}
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.GoodsCart" >
+    update "es_cart"
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      itemtype = #{itemtype,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DECIMAL},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      activity_id = #{activityId,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=INTEGER},
+      is_check = #{isCheck,jdbcType=SMALLINT},
+      is_change = #{isChange,jdbcType=SMALLINT},
+      activity_end_time = #{activityEndTime,jdbcType=BIGINT}
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+
+    <resultMap id="ActivityMap" type="com.ef.golf.pojo.Activity" >
+        <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="BIGINT" />
+        <result column="end_time" property="endTime" jdbcType="BIGINT" />
+        <result column="range_type" property="rangeType" jdbcType="SMALLINT" />
+        <result column="activity_type" property="activityType" jdbcType="SMALLINT" />
+        <result column="disabled" property="disabled" jdbcType="SMALLINT" />
+        <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    </resultMap>
+
+    <sql id="Activity_Column_List" >
+        activity_id, activity_name, start_time, end_time, range_type, activity_type, disabled,description
+    </sql>
+
+
+  <select id="selectGoods" parameterType="java.lang.Integer" resultMap="GoodsMap">
+   SELECT
+    <include refid="Goods_Column_List" />
+    from es_goods
+    where goods_id = #{goods_id,jdbcType=INTEGER}
+
+  </select>
+
+
+<select id="selcetProduct" parameterType="java.lang.Integer" resultMap="ProductMap">
+  SELECT
+  <include refid="Product_Column_List" />
+  from es_product where product_id=#{product_id,jdbcType=INTEGER}
+
+</select>
+
+
+<select id="selcetGoodsCart" parameterType="java.util.Map" resultMap="BaseResultMap">
+SELECT
+  <include refid="Base_Column_List" />
+  FROM es_cart WHERE product_id=#{product_id,jdbcType=INTEGER} AND (session_id=#{session_id,jdbcType=VARCHAR}  or member_id=#{user_id,jdbcType=INTEGER})
+</select>
+
+
+<select id="getActivityList" resultMap="ActivityMap">
+    select
+    <include refid="Activity_Column_List" />
+    from es_activity where start_time &lt; (select UNIX_TIMESTAMP(NOW())) and end_time  &gt; (select UNIX_TIMESTAMP(NOW()))  and disabled = 0
+</select>
+
+
+<select id="ActivityGoods" parameterType="java.util.Map" resultType="java.lang.Integer">
+select count(0) from es_activity_goods where goods_id = #{goods_id,jdbcType=INTEGER} and activity_id = #{activity_id,jdbcType=INTEGER}
+</select>
+
+<select id="ActivityMapOne" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select range_type from es_activity where activity_id = #{activity_id,jdbcType=INTEGER}
+</select>
+
+    <select id="isGoodsCart" parameterType="java.util.Map" resultType="java.lang.Integer">
+select count(0) from es_cart where  product_id=#{product_id,jdbcType=INTEGER}   and itemtype=#{itemtype,jdbcType=INTEGER}  and ( session_id=#{session_id,jdbcType=VARCHAR} or member_id=#{user_id,jdbcType=INTEGER} )
+
+    </select>
+
+
+
+<update id="updateGoodsCartNum" parameterType="java.util.Map">
+
+update es_cart set num=num + #{num,jdbcType=INTEGER} where product_id=#{product_id,jdbcType=INTEGER} and itemtype=#{itemtype,jdbcType=INTEGER}  and ( session_id=#{session_id,jdbcType=VARCHAR} or member_id=#{user_id,jdbcType=INTEGER})
+
+</update>
+
+
+    <resultMap id="spec" type="com.ef.golf.vo.GoodsSpecVo">
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getGoodsSpecVoList" parameterType="java.lang.Integer" resultMap="spec">
+ select s.spec_name name ,sv.spec_value value  from  es_specification s ,es_spec_values sv ,es_goods_spec gs
+ where gs.product_id=#{product_id,jdbcType=INTEGER}
+ and gs.spec_id=s.spec_id and gs.spec_value_id = sv.spec_value_id
+ ORDER BY s.spec_type DESC
+    </select>
+
+    <select id="getActivity" parameterType="java.lang.Integer" resultMap="ActivityMap">
+        select
+        <include refid="Activity_Column_List" />
+        from es_activity where activity_id =#{activity_id,jdbcType=INTEGER}
+    </select>
+
+
+  <select id="getActivityByGoodsId" parameterType="java.lang.Integer" resultMap="ActivityMap">
+    select
+    <include refid="Activity_Column_List" />
+    from es_activity where activity_id  in (select activity_id from es_activity_goods where goods_id=#{goods_id,jdbcType=INTEGER} )
+  </select>
+
+
+<select id="totalPrice" parameterType="java.lang.Integer" resultType="java.lang.Double">
+select sum( c.price * c.num ) as num from es_cart c where  c.itemtype=0 and c.member_id=#{user_id,jdbcType=INTEGER}
+
+</select>
+
+  <select id="totalCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  select count(0) from es_cart where member_id =#{user_id,jdbcType=INTEGER}
+  </select>
+
+<update id="updateCartNum" parameterType="java.util.Map">
+update es_cart set num = #{num,jdbcType=INTEGER} where member_id = #{user_id,jdbcType=INTEGER} and cart_id = #{cart_id,jdbcType=INTEGER}
+
+</update>
+
+
+<resultMap id="itemList" type="com.ef.golf.vo.CartItem">
+  <id column="cart_id" property="cart_id" jdbcType="INTEGER" />
+  <result column="goods_id" property="goods_id" jdbcType="INTEGER" />
+  <result column="product_id" property="product_id" jdbcType="INTEGER" />
+  <result column="itemtype" property="itemtype" jdbcType="INTEGER" />
+  <result column="num" property="num" jdbcType="INTEGER" />
+  <result column="weight" property="weight" jdbcType="DECIMAL" />
+  <result column="name" property="name" jdbcType="VARCHAR" />
+  <result column="activity_id" property="activity_id" jdbcType="INTEGER" />
+  <result column="is_check" property="is_check" jdbcType="INTEGER" />
+  <result column="mktprice" property="mktprice" jdbcType="DECIMAL" />
+  <result column="price" property="price" jdbcType="DECIMAL" />
+  <result column="point" property="point" jdbcType="INTEGER" />
+  <result column="sn" property="sn" jdbcType="VARCHAR" />
+  <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+  <result column="addon" property="addon" jdbcType="LONGVARCHAR" />
+  <result column="catid" property="catid" jdbcType="INTEGER" />
+  <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+  <result column="unit" property="unit" jdbcType="VARCHAR" />
+  <result column="enable_store" property="enable_store" jdbcType="DECIMAL" />
+</resultMap>
+
+<select id="getItemList" resultType="com.ef.golf.vo.CartItem">
+SELECT
+	c.is_check,
+	c.cart_id,
+	g.cat_id AS catid,
+	g.goods_id,
+	g.thumbnail,
+	c. NAME,
+	p.sn,
+	p.specs,
+	g.mktprice,
+	g.unit,
+	g.point,
+	p.product_id,
+	c.price,
+	c.num AS num,
+	c.itemtype,
+	c.addon,
+	c.weight,
+	c.activity_id,
+	p.enable_store,
+  g.carriage,
+  g.reduction,
+  g.credit
+  FROM
+	es_cart c,
+	es_product p,
+	es_goods g
+WHERE
+	c.itemtype = 0
+AND c.product_id = p.product_id
+AND p.goods_id = g.goods_id
+<if test="jiesuanType=='1'.toString()">
+  AND c.is_check = 1
+</if>
+
+AND c.member_id =#{user_id,jdbcType=INTEGER}
+</select>
+
+<update id="updateCartActivity" parameterType="java.lang.Integer">
+update es_cart set activity_id = null where cart_id = #{cart_id,jdbcType=INTEGER}
+
+</update>
+
+  <delete id="deleteCart"  parameterType="java.util.Map">
+delete from es_cart where member_id = #{user_id,jdbcType=INTEGER}
+and cart_id  in
+<foreach collection="cartList" index="index" item="item" open="(" separator="," close=")">
+#{item}
+</foreach>
+
+ </delete>
+
+<update id="updateCheckbox" parameterType="java.util.Map">
+update es_cart t SET t.is_check=#{is_check,jdbcType=INTEGER} where t.product_id=#{product_id,jdbcType=INTEGER} and t.member_id=#{userId,jdbcType=INTEGER}
+
+</update>
+
+
+
+  <select id="getAgainList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+SELECT
+    <include refid="Base_Column_List" />
+ from es_cart where member_id=#{userId,jdbcType=INTEGER}
+
+  </select>
+
+
+<delete id="delectUserCart" parameterType="java.lang.Integer">
+
+DELETE from es_cart WHERE member_id=#{userId,jdbcType=INTEGER}
+</delete>
+  <delete id="deleteChooseGoodsCart" parameterType="java.lang.Long">
+
+    DELETE from es_cart WHERE member_id=#{userId,jdbcType=INTEGER} and is_check=1
+  </delete>
+
+
+
+</mapper>

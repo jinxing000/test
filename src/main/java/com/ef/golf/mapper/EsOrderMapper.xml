@@ -1,0 +1,1242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsOrder" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+    <result column="ship_status" property="shipStatus" jdbcType="INTEGER" />
+    <result column="shipping_id" property="shippingId" jdbcType="INTEGER" />
+    <result column="shipping_type" property="shippingType" jdbcType="VARCHAR" />
+    <result column="shipping_area" property="shippingArea" jdbcType="VARCHAR" />
+    <result column="payment_id" property="paymentId" jdbcType="INTEGER" />
+    <result column="payment_name" property="paymentName" jdbcType="VARCHAR" />
+    <result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
+    <result column="payment_account" property="paymentAccount" jdbcType="VARCHAR" />
+    <result column="paymoney" property="paymoney" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="ship_name" property="shipName" jdbcType="VARCHAR" />
+    <result column="ship_addr" property="shipAddr" jdbcType="VARCHAR" />
+    <result column="ship_zip" property="shipZip" jdbcType="VARCHAR" />
+    <result column="ship_email" property="shipEmail" jdbcType="VARCHAR" />
+    <result column="ship_mobile" property="shipMobile" jdbcType="VARCHAR" />
+    <result column="ship_tel" property="shipTel" jdbcType="VARCHAR" />
+    <result column="ship_day" property="shipDay" jdbcType="VARCHAR" />
+    <result column="ship_time" property="shipTime" jdbcType="VARCHAR" />
+    <result column="is_protect" property="isProtect" jdbcType="VARCHAR" />
+    <result column="protect_price" property="protectPrice" jdbcType="DECIMAL" />
+    <result column="goods_amount" property="goodsAmount" jdbcType="DECIMAL" />
+    <result column="shipping_amount" property="shippingAmount" jdbcType="DECIMAL" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="gainedpoint" property="gainedpoint" jdbcType="INTEGER" />
+    <result column="consumepoint" property="consumepoint" jdbcType="INTEGER" />
+    <result column="disabled" property="disabled" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="imported" property="imported" jdbcType="INTEGER" />
+    <result column="pimported" property="pimported" jdbcType="INTEGER" />
+    <result column="complete_time" property="completeTime" jdbcType="INTEGER" />
+    <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
+    <result column="signing_time" property="signingTime" jdbcType="INTEGER" />
+    <result column="the_sign" property="theSign" jdbcType="VARCHAR" />
+    <result column="allocation_time" property="allocationTime" jdbcType="INTEGER" />
+    <result column="ship_provinceid" property="shipProvinceid" jdbcType="INTEGER" />
+    <result column="ship_cityid" property="shipCityid" jdbcType="INTEGER" />
+    <result column="ship_regionid" property="shipRegionid" jdbcType="INTEGER" />
+    <result column="ship_townid" property="shipTownid" jdbcType="INTEGER" />
+    <result column="sale_cmpl" property="saleCmpl" jdbcType="INTEGER" />
+    <result column="sale_cmpl_time" property="saleCmplTime" jdbcType="INTEGER" />
+    <result column="depotid" property="depotid" jdbcType="INTEGER" />
+    <result column="admin_remark" property="adminRemark" jdbcType="VARCHAR" />
+    <result column="need_pay_money" property="needPayMoney" jdbcType="DECIMAL" />
+    <result column="ship_no" property="shipNo" jdbcType="VARCHAR" />
+    <result column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="logi_id" property="logiId" jdbcType="INTEGER" />
+    <result column="logi_name" property="logiName" jdbcType="VARCHAR" />
+    <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+    <result column="bonus_id" property="bonusId" jdbcType="INTEGER" />
+    <result column="act_discount" property="actDiscount" jdbcType="DECIMAL" />
+    <result column="activity_point" property="activityPoint" jdbcType="INTEGER" />
+    <result column="is_cancel" property="isCancel" jdbcType="INTEGER" />
+    <result column="is_online" property="isOnline" jdbcType="INTEGER" />
+    <result column="receipt_content" property="receiptContent" jdbcType="VARCHAR" />
+    <result column="receipt_title" property="receiptTitle" jdbcType="VARCHAR" />
+    <result column="receipt_duty" property="receiptDuty" jdbcType="VARCHAR" />
+    <result column="receipt_type" property="receiptType" jdbcType="INTEGER" />
+    <result column="receipt" property="receipt" jdbcType="INTEGER" />
+    <result column="goods" property="goods" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="items_json" property="itemsJson" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.EsOrderWithBLOBs" extends="BaseResultMap" >
+    <result column="goods" property="goods" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="items_json" property="itemsJson" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, sn, member_id, status, pay_status, ship_status, shipping_id, shipping_type, 
+    shipping_area, payment_id, payment_name, payment_type, payment_account, paymoney, 
+    create_time, ship_name, ship_addr, ship_zip, ship_email, ship_mobile, ship_tel, ship_day, 
+    ship_time, is_protect, protect_price, goods_amount, shipping_amount, order_amount, 
+    weight, goods_num, gainedpoint, consumepoint, disabled, discount, imported, pimported, 
+    complete_time, cancel_reason, signing_time, the_sign, allocation_time, ship_provinceid, 
+    ship_cityid, ship_regionid, ship_townid, sale_cmpl, sale_cmpl_time, depotid, admin_remark, 
+    need_pay_money, ship_no, address_id, logi_id, logi_name, gift_id, bonus_id, act_discount, 
+    activity_point, is_cancel, is_online, receipt_content, receipt_title, receipt_duty, 
+    receipt_type, receipt,goods, remark, items_json
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+
+    from es_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsOrder" >
+    insert into es_order (order_id, sn, member_id, 
+      status, pay_status, ship_status, 
+      shipping_id, shipping_type, shipping_area, 
+      payment_id, payment_name, payment_type, 
+      payment_account, paymoney, create_time, 
+      ship_name, ship_addr, ship_zip, 
+      ship_email, ship_mobile, ship_tel, 
+      ship_day, ship_time, is_protect, 
+      protect_price, goods_amount, shipping_amount, 
+      order_amount, weight, goods_num, 
+      gainedpoint, consumepoint, disabled, 
+      discount, imported, pimported, 
+      complete_time, cancel_reason, signing_time, 
+      the_sign, allocation_time, ship_provinceid, 
+      ship_cityid, ship_regionid, ship_townid, 
+      sale_cmpl, sale_cmpl_time, depotid, 
+      admin_remark, need_pay_money, ship_no, 
+      address_id, logi_id, logi_name, 
+      gift_id, bonus_id, act_discount, 
+      activity_point, is_cancel, is_online, 
+      receipt_content, receipt_title, receipt_duty, 
+      receipt_type, receipt, goods, 
+      remark, items_json)
+    values (#{orderId,jdbcType=INTEGER}, #{sn,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, #{shipStatus,jdbcType=INTEGER}, 
+      #{shippingId,jdbcType=INTEGER}, #{shippingType,jdbcType=VARCHAR}, #{shippingArea,jdbcType=VARCHAR}, 
+      #{paymentId,jdbcType=INTEGER}, #{paymentName,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, 
+      #{paymentAccount,jdbcType=VARCHAR}, #{paymoney,jdbcType=DECIMAL}, #{createTime,jdbcType=BIGINT}, 
+      #{shipName,jdbcType=VARCHAR}, #{shipAddr,jdbcType=VARCHAR}, #{shipZip,jdbcType=VARCHAR}, 
+      #{shipEmail,jdbcType=VARCHAR}, #{shipMobile,jdbcType=VARCHAR}, #{shipTel,jdbcType=VARCHAR}, 
+      #{shipDay,jdbcType=VARCHAR}, #{shipTime,jdbcType=VARCHAR}, #{isProtect,jdbcType=VARCHAR}, 
+      #{protectPrice,jdbcType=DECIMAL}, #{goodsAmount,jdbcType=DECIMAL}, #{shippingAmount,jdbcType=DECIMAL}, 
+      #{orderAmount,jdbcType=DECIMAL}, #{weight,jdbcType=DECIMAL}, #{goodsNum,jdbcType=INTEGER}, 
+      #{gainedpoint,jdbcType=INTEGER}, #{consumepoint,jdbcType=INTEGER}, #{disabled,jdbcType=VARCHAR}, 
+      #{discount,jdbcType=DECIMAL}, #{imported,jdbcType=INTEGER}, #{pimported,jdbcType=INTEGER}, 
+      #{completeTime,jdbcType=INTEGER}, #{cancelReason,jdbcType=VARCHAR}, #{signingTime,jdbcType=INTEGER}, 
+      #{theSign,jdbcType=VARCHAR}, #{allocationTime,jdbcType=INTEGER}, #{shipProvinceid,jdbcType=INTEGER}, 
+      #{shipCityid,jdbcType=INTEGER}, #{shipRegionid,jdbcType=INTEGER}, #{shipTownid,jdbcType=INTEGER}, 
+      #{saleCmpl,jdbcType=INTEGER}, #{saleCmplTime,jdbcType=INTEGER}, #{depotid,jdbcType=INTEGER}, 
+      #{adminRemark,jdbcType=VARCHAR}, #{needPayMoney,jdbcType=DECIMAL}, #{shipNo,jdbcType=VARCHAR}, 
+      #{addressId,jdbcType=INTEGER}, #{logiId,jdbcType=INTEGER}, #{logiName,jdbcType=VARCHAR}, 
+      #{giftId,jdbcType=INTEGER}, #{bonusId,jdbcType=INTEGER}, #{actDiscount,jdbcType=DECIMAL}, 
+      #{activityPoint,jdbcType=INTEGER}, #{isCancel,jdbcType=INTEGER}, #{isOnline,jdbcType=INTEGER}, 
+      #{receiptContent,jdbcType=VARCHAR}, #{receiptTitle,jdbcType=VARCHAR}, #{receiptDuty,jdbcType=VARCHAR}, 
+      #{receiptType,jdbcType=INTEGER}, #{receipt,jdbcType=INTEGER}, #{goods,jdbcType=LONGVARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR}, #{itemsJson,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.EsOrder" keyProperty="orderId" useGeneratedKeys="true">
+    insert into es_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="shipStatus != null" >
+        ship_status,
+      </if>
+      <if test="shippingId != null" >
+        shipping_id,
+      </if>
+      <if test="shippingType != null" >
+        shipping_type,
+      </if>
+      <if test="shippingArea != null" >
+        shipping_area,
+      </if>
+      <if test="paymentId != null" >
+        payment_id,
+      </if>
+      <if test="paymentName != null" >
+        payment_name,
+      </if>
+      <if test="paymentType != null" >
+        payment_type,
+      </if>
+      <if test="paymentAccount != null" >
+        payment_account,
+      </if>
+      <if test="paymoney != null" >
+        paymoney,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="shipName != null" >
+        ship_name,
+      </if>
+      <if test="shipAddr != null" >
+        ship_addr,
+      </if>
+      <if test="shipZip != null" >
+        ship_zip,
+      </if>
+      <if test="shipEmail != null" >
+        ship_email,
+      </if>
+      <if test="shipMobile != null" >
+        ship_mobile,
+      </if>
+      <if test="shipTel != null" >
+        ship_tel,
+      </if>
+      <if test="shipDay != null" >
+        ship_day,
+      </if>
+      <if test="shipTime != null" >
+        ship_time,
+      </if>
+      <if test="isProtect != null" >
+        is_protect,
+      </if>
+      <if test="protectPrice != null" >
+        protect_price,
+      </if>
+      <if test="goodsAmount != null" >
+        goods_amount,
+      </if>
+      <if test="shippingAmount != null" >
+        shipping_amount,
+      </if>
+      <if test="orderAmount != null" >
+        order_amount,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="gainedpoint != null" >
+        gainedpoint,
+      </if>
+      <if test="consumepoint != null" >
+        consumepoint,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="imported != null" >
+        imported,
+      </if>
+      <if test="pimported != null" >
+        pimported,
+      </if>
+      <if test="completeTime != null" >
+        complete_time,
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason,
+      </if>
+      <if test="signingTime != null" >
+        signing_time,
+      </if>
+      <if test="theSign != null" >
+        the_sign,
+      </if>
+      <if test="allocationTime != null" >
+        allocation_time,
+      </if>
+      <if test="shipProvinceid != null" >
+        ship_provinceid,
+      </if>
+      <if test="shipCityid != null" >
+        ship_cityid,
+      </if>
+      <if test="shipRegionid != null" >
+        ship_regionid,
+      </if>
+      <if test="shipTownid != null" >
+        ship_townid,
+      </if>
+      <if test="saleCmpl != null" >
+        sale_cmpl,
+      </if>
+      <if test="saleCmplTime != null" >
+        sale_cmpl_time,
+      </if>
+      <if test="depotid != null" >
+        depotid,
+      </if>
+      <if test="adminRemark != null" >
+        admin_remark,
+      </if>
+      <if test="needPayMoney != null" >
+        need_pay_money,
+      </if>
+      <if test="shipNo != null" >
+        ship_no,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="logiId != null" >
+        logi_id,
+      </if>
+      <if test="logiName != null" >
+        logi_name,
+      </if>
+      <if test="giftId != null" >
+        gift_id,
+      </if>
+      <if test="bonusId != null" >
+        bonus_id,
+      </if>
+      <if test="actDiscount != null" >
+        act_discount,
+      </if>
+      <if test="activityPoint != null" >
+        activity_point,
+      </if>
+      <if test="isCancel != null" >
+        is_cancel,
+      </if>
+      <if test="isOnline != null" >
+        is_online,
+      </if>
+      <if test="receiptContent != null" >
+        receipt_content,
+      </if>
+      <if test="receiptTitle != null" >
+        receipt_title,
+      </if>
+      <if test="receiptDuty != null" >
+        receipt_duty,
+      </if>
+      <if test="receiptType != null" >
+        receipt_type,
+      </if>
+      <if test="receipt != null" >
+        receipt,
+      </if>
+      <if test="goods != null" >
+        goods,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="itemsJson != null" >
+        items_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shipStatus != null" >
+        #{shipStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shippingId != null" >
+        #{shippingId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingType != null" >
+        #{shippingType,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingArea != null" >
+        #{shippingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentId != null" >
+        #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentName != null" >
+        #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAccount != null" >
+        #{paymentAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymoney != null" >
+        #{paymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="shipName != null" >
+        #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddr != null" >
+        #{shipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZip != null" >
+        #{shipZip,jdbcType=VARCHAR},
+      </if>
+      <if test="shipEmail != null" >
+        #{shipEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null" >
+        #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTel != null" >
+        #{shipTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shipDay != null" >
+        #{shipDay,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTime != null" >
+        #{shipTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isProtect != null" >
+        #{isProtect,jdbcType=VARCHAR},
+      </if>
+      <if test="protectPrice != null" >
+        #{protectPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsAmount != null" >
+        #{goodsAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingAmount != null" >
+        #{shippingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="gainedpoint != null" >
+        #{gainedpoint,jdbcType=INTEGER},
+      </if>
+      <if test="consumepoint != null" >
+        #{consumepoint,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="imported != null" >
+        #{imported,jdbcType=INTEGER},
+      </if>
+      <if test="pimported != null" >
+        #{pimported,jdbcType=INTEGER},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=INTEGER},
+      </if>
+      <if test="cancelReason != null" >
+        #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="signingTime != null" >
+        #{signingTime,jdbcType=INTEGER},
+      </if>
+      <if test="theSign != null" >
+        #{theSign,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationTime != null" >
+        #{allocationTime,jdbcType=INTEGER},
+      </if>
+      <if test="shipProvinceid != null" >
+        #{shipProvinceid,jdbcType=INTEGER},
+      </if>
+      <if test="shipCityid != null" >
+        #{shipCityid,jdbcType=INTEGER},
+      </if>
+      <if test="shipRegionid != null" >
+        #{shipRegionid,jdbcType=INTEGER},
+      </if>
+      <if test="shipTownid != null" >
+        #{shipTownid,jdbcType=INTEGER},
+      </if>
+      <if test="saleCmpl != null" >
+        #{saleCmpl,jdbcType=INTEGER},
+      </if>
+      <if test="saleCmplTime != null" >
+        #{saleCmplTime,jdbcType=INTEGER},
+      </if>
+      <if test="depotid != null" >
+        #{depotid,jdbcType=INTEGER},
+      </if>
+      <if test="adminRemark != null" >
+        #{adminRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="needPayMoney != null" >
+        #{needPayMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="shipNo != null" >
+        #{shipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="logiId != null" >
+        #{logiId,jdbcType=INTEGER},
+      </if>
+      <if test="logiName != null" >
+        #{logiName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftId != null" >
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="bonusId != null" >
+        #{bonusId,jdbcType=INTEGER},
+      </if>
+      <if test="actDiscount != null" >
+        #{actDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="activityPoint != null" >
+        #{activityPoint,jdbcType=INTEGER},
+      </if>
+      <if test="isCancel != null" >
+        #{isCancel,jdbcType=INTEGER},
+      </if>
+      <if test="isOnline != null" >
+        #{isOnline,jdbcType=INTEGER},
+      </if>
+      <if test="receiptContent != null" >
+        #{receiptContent,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptTitle != null" >
+        #{receiptTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptDuty != null" >
+        #{receiptDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receipt != null" >
+        #{receipt,jdbcType=INTEGER},
+      </if>
+      <if test="goods != null" >
+        #{goods,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="itemsJson != null" >
+        #{itemsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.EsOrder" >
+    update es_order
+    <set >
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shipStatus != null" >
+        ship_status = #{shipStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shippingId != null" >
+        shipping_id = #{shippingId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingType != null" >
+        shipping_type = #{shippingType,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingArea != null" >
+        shipping_area = #{shippingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentId != null" >
+        payment_id = #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentName != null" >
+        payment_name = #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null" >
+        payment_type = #{paymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAccount != null" >
+        payment_account = #{paymentAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymoney != null" >
+        paymoney = #{paymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="shipName != null" >
+        ship_name = #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddr != null" >
+        ship_addr = #{shipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZip != null" >
+        ship_zip = #{shipZip,jdbcType=VARCHAR},
+      </if>
+      <if test="shipEmail != null" >
+        ship_email = #{shipEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null" >
+        ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTel != null" >
+        ship_tel = #{shipTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shipDay != null" >
+        ship_day = #{shipDay,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTime != null" >
+        ship_time = #{shipTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isProtect != null" >
+        is_protect = #{isProtect,jdbcType=VARCHAR},
+      </if>
+      <if test="protectPrice != null" >
+        protect_price = #{protectPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsAmount != null" >
+        goods_amount = #{goodsAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingAmount != null" >
+        shipping_amount = #{shippingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="gainedpoint != null" >
+        gainedpoint = #{gainedpoint,jdbcType=INTEGER},
+      </if>
+      <if test="consumepoint != null" >
+        consumepoint = #{consumepoint,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="imported != null" >
+        imported = #{imported,jdbcType=INTEGER},
+      </if>
+      <if test="pimported != null" >
+        pimported = #{pimported,jdbcType=INTEGER},
+      </if>
+      <if test="completeTime != null" >
+        complete_time = #{completeTime,jdbcType=INTEGER},
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="signingTime != null" >
+        signing_time = #{signingTime,jdbcType=INTEGER},
+      </if>
+      <if test="theSign != null" >
+        the_sign = #{theSign,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationTime != null" >
+        allocation_time = #{allocationTime,jdbcType=INTEGER},
+      </if>
+      <if test="shipProvinceid != null" >
+        ship_provinceid = #{shipProvinceid,jdbcType=INTEGER},
+      </if>
+      <if test="shipCityid != null" >
+        ship_cityid = #{shipCityid,jdbcType=INTEGER},
+      </if>
+      <if test="shipRegionid != null" >
+        ship_regionid = #{shipRegionid,jdbcType=INTEGER},
+      </if>
+      <if test="shipTownid != null" >
+        ship_townid = #{shipTownid,jdbcType=INTEGER},
+      </if>
+      <if test="saleCmpl != null" >
+        sale_cmpl = #{saleCmpl,jdbcType=INTEGER},
+      </if>
+      <if test="saleCmplTime != null" >
+        sale_cmpl_time = #{saleCmplTime,jdbcType=INTEGER},
+      </if>
+      <if test="depotid != null" >
+        depotid = #{depotid,jdbcType=INTEGER},
+      </if>
+      <if test="adminRemark != null" >
+        admin_remark = #{adminRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="needPayMoney != null" >
+        need_pay_money = #{needPayMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="shipNo != null" >
+        ship_no = #{shipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="logiId != null" >
+        logi_id = #{logiId,jdbcType=INTEGER},
+      </if>
+      <if test="logiName != null" >
+        logi_name = #{logiName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftId != null" >
+        gift_id = #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="bonusId != null" >
+        bonus_id = #{bonusId,jdbcType=INTEGER},
+      </if>
+      <if test="actDiscount != null" >
+        act_discount = #{actDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="activityPoint != null" >
+        activity_point = #{activityPoint,jdbcType=INTEGER},
+      </if>
+      <if test="isCancel != null" >
+        is_cancel = #{isCancel,jdbcType=INTEGER},
+      </if>
+      <if test="isOnline != null" >
+        is_online = #{isOnline,jdbcType=INTEGER},
+      </if>
+      <if test="receiptContent != null" >
+        receipt_content = #{receiptContent,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptTitle != null" >
+        receipt_title = #{receiptTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptDuty != null" >
+        receipt_duty = #{receiptDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receipt != null" >
+        receipt = #{receipt,jdbcType=INTEGER},
+      </if>
+      <if test="goods != null" >
+        goods = #{goods,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="itemsJson != null" >
+        items_json = #{itemsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.EsOrderWithBLOBs" >
+    update es_order
+    set sn = #{sn,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      ship_status = #{shipStatus,jdbcType=INTEGER},
+      shipping_id = #{shippingId,jdbcType=INTEGER},
+      shipping_type = #{shippingType,jdbcType=VARCHAR},
+      shipping_area = #{shippingArea,jdbcType=VARCHAR},
+      payment_id = #{paymentId,jdbcType=INTEGER},
+      payment_name = #{paymentName,jdbcType=VARCHAR},
+      payment_type = #{paymentType,jdbcType=VARCHAR},
+      payment_account = #{paymentAccount,jdbcType=VARCHAR},
+      paymoney = #{paymoney,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=BIGINT},
+      ship_name = #{shipName,jdbcType=VARCHAR},
+      ship_addr = #{shipAddr,jdbcType=VARCHAR},
+      ship_zip = #{shipZip,jdbcType=VARCHAR},
+      ship_email = #{shipEmail,jdbcType=VARCHAR},
+      ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      ship_tel = #{shipTel,jdbcType=VARCHAR},
+      ship_day = #{shipDay,jdbcType=VARCHAR},
+      ship_time = #{shipTime,jdbcType=VARCHAR},
+      is_protect = #{isProtect,jdbcType=VARCHAR},
+      protect_price = #{protectPrice,jdbcType=DECIMAL},
+      goods_amount = #{goodsAmount,jdbcType=DECIMAL},
+      shipping_amount = #{shippingAmount,jdbcType=DECIMAL},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=DECIMAL},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      gainedpoint = #{gainedpoint,jdbcType=INTEGER},
+      consumepoint = #{consumepoint,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=DECIMAL},
+      imported = #{imported,jdbcType=INTEGER},
+      pimported = #{pimported,jdbcType=INTEGER},
+      complete_time = #{completeTime,jdbcType=INTEGER},
+      cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      signing_time = #{signingTime,jdbcType=INTEGER},
+      the_sign = #{theSign,jdbcType=VARCHAR},
+      allocation_time = #{allocationTime,jdbcType=INTEGER},
+      ship_provinceid = #{shipProvinceid,jdbcType=INTEGER},
+      ship_cityid = #{shipCityid,jdbcType=INTEGER},
+      ship_regionid = #{shipRegionid,jdbcType=INTEGER},
+      ship_townid = #{shipTownid,jdbcType=INTEGER},
+      sale_cmpl = #{saleCmpl,jdbcType=INTEGER},
+      sale_cmpl_time = #{saleCmplTime,jdbcType=INTEGER},
+      depotid = #{depotid,jdbcType=INTEGER},
+      admin_remark = #{adminRemark,jdbcType=VARCHAR},
+      need_pay_money = #{needPayMoney,jdbcType=DECIMAL},
+      ship_no = #{shipNo,jdbcType=VARCHAR},
+      address_id = #{addressId,jdbcType=INTEGER},
+      logi_id = #{logiId,jdbcType=INTEGER},
+      logi_name = #{logiName,jdbcType=VARCHAR},
+      gift_id = #{giftId,jdbcType=INTEGER},
+      bonus_id = #{bonusId,jdbcType=INTEGER},
+      act_discount = #{actDiscount,jdbcType=DECIMAL},
+      activity_point = #{activityPoint,jdbcType=INTEGER},
+      is_cancel = #{isCancel,jdbcType=INTEGER},
+      is_online = #{isOnline,jdbcType=INTEGER},
+      receipt_content = #{receiptContent,jdbcType=VARCHAR},
+      receipt_title = #{receiptTitle,jdbcType=VARCHAR},
+      receipt_duty = #{receiptDuty,jdbcType=VARCHAR},
+      receipt_type = #{receiptType,jdbcType=INTEGER},
+      receipt = #{receipt,jdbcType=INTEGER},
+      goods = #{goods,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR},
+      items_json = #{itemsJson,jdbcType=LONGVARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.EsOrder" >
+    update es_order
+    set sn = #{sn,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      ship_status = #{shipStatus,jdbcType=INTEGER},
+      shipping_id = #{shippingId,jdbcType=INTEGER},
+      shipping_type = #{shippingType,jdbcType=VARCHAR},
+      shipping_area = #{shippingArea,jdbcType=VARCHAR},
+      payment_id = #{paymentId,jdbcType=INTEGER},
+      payment_name = #{paymentName,jdbcType=VARCHAR},
+      payment_type = #{paymentType,jdbcType=VARCHAR},
+      payment_account = #{paymentAccount,jdbcType=VARCHAR},
+      paymoney = #{paymoney,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=BIGINT},
+      ship_name = #{shipName,jdbcType=VARCHAR},
+      ship_addr = #{shipAddr,jdbcType=VARCHAR},
+      ship_zip = #{shipZip,jdbcType=VARCHAR},
+      ship_email = #{shipEmail,jdbcType=VARCHAR},
+      ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      ship_tel = #{shipTel,jdbcType=VARCHAR},
+      ship_day = #{shipDay,jdbcType=VARCHAR},
+      ship_time = #{shipTime,jdbcType=VARCHAR},
+      is_protect = #{isProtect,jdbcType=VARCHAR},
+      protect_price = #{protectPrice,jdbcType=DECIMAL},
+      goods_amount = #{goodsAmount,jdbcType=DECIMAL},
+      shipping_amount = #{shippingAmount,jdbcType=DECIMAL},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=DECIMAL},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      gainedpoint = #{gainedpoint,jdbcType=INTEGER},
+      consumepoint = #{consumepoint,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=DECIMAL},
+      imported = #{imported,jdbcType=INTEGER},
+      pimported = #{pimported,jdbcType=INTEGER},
+      complete_time = #{completeTime,jdbcType=INTEGER},
+      cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      signing_time = #{signingTime,jdbcType=INTEGER},
+      the_sign = #{theSign,jdbcType=VARCHAR},
+      allocation_time = #{allocationTime,jdbcType=INTEGER},
+      ship_provinceid = #{shipProvinceid,jdbcType=INTEGER},
+      ship_cityid = #{shipCityid,jdbcType=INTEGER},
+      ship_regionid = #{shipRegionid,jdbcType=INTEGER},
+      ship_townid = #{shipTownid,jdbcType=INTEGER},
+      sale_cmpl = #{saleCmpl,jdbcType=INTEGER},
+      sale_cmpl_time = #{saleCmplTime,jdbcType=INTEGER},
+      depotid = #{depotid,jdbcType=INTEGER},
+      admin_remark = #{adminRemark,jdbcType=VARCHAR},
+      need_pay_money = #{needPayMoney,jdbcType=DECIMAL},
+      ship_no = #{shipNo,jdbcType=VARCHAR},
+      address_id = #{addressId,jdbcType=INTEGER},
+      logi_id = #{logiId,jdbcType=INTEGER},
+      logi_name = #{logiName,jdbcType=VARCHAR},
+      gift_id = #{giftId,jdbcType=INTEGER},
+      bonus_id = #{bonusId,jdbcType=INTEGER},
+      act_discount = #{actDiscount,jdbcType=DECIMAL},
+      activity_point = #{activityPoint,jdbcType=INTEGER},
+      is_cancel = #{isCancel,jdbcType=INTEGER},
+      is_online = #{isOnline,jdbcType=INTEGER},
+      receipt_content = #{receiptContent,jdbcType=VARCHAR},
+      receipt_title = #{receiptTitle,jdbcType=VARCHAR},
+      receipt_duty = #{receiptDuty,jdbcType=VARCHAR},
+      receipt_type = #{receiptType,jdbcType=INTEGER},
+      receipt = #{receipt,jdbcType=INTEGER},
+      goods = #{goods,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR},
+      items_json = #{itemsJson,jdbcType=LONGVARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+
+<select id="orderCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+SELECT count(order_id) FROM es_order WHERE sn = #{sn,jdbcType=VARCHAR}
+</select>
+
+
+<update id="updateItemsJson" parameterType="java.util.Map">
+
+update es_order set items_json=#{items_json,jdbcType=LONGVARCHAR} where order_id=#{order_id,jdbcType=INTEGER}
+
+</update>
+
+    <resultMap id="orderVo" type="com.ef.golf.vo.EsOrderVo">
+
+    <id column="orderId" property="orderId" jdbcType="INTEGER" />
+    <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+    <result column="orderState" property="orderState" jdbcType="INTEGER" />
+    <result column="createTime" property="createTime" jdbcType="INTEGER" />
+
+    <result column="price" property="price" jdbcType="DECIMAL" />
+
+    <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="LONGVARCHAR"/>
+      <result column="num" property="num" jdbcType="INTEGER" />
+
+  </resultMap>
+
+ <!-- <select id="orderList" resultMap="orderVo" parameterType="java.util.Map">
+
+SELECT
+r.create_time AS createTime,
+r.sn AS orderNo,
+r.order_id AS orderId,
+r. STATUS AS orderState,
+(u.price * u.num) AS price,
+p.name AS goodsName,
+
+		CASE
+		WHEN p.specs IS NULL THEN
+			"0"
+		ELSE
+			p.specs
+		END
+	 AS spec,
+	u.num AS num
+
+FROM
+	es_order r
+LEFT JOIN es_order_items u ON r.order_id = u.order_id
+LEFT JOIN es_product p ON u.product_id = p.product_id
+WHERE
+r.order_id=#{order_id,jdbcType=INTEGER}
+<if test="orderState==1">
+AND  r.pay_status=#{orderState,jdbcType=INTEGER}
+</if>
+<if test="orderState==2">
+  AND r.ship_status=#{orderState,jdbcType=INTEGER}
+</if>
+
+ <if test="orderState==0">
+   AND r.status=#{orderState,jdbcType=INTEGER}
+ </if>
+
+
+
+  </select>-->
+
+
+  <select id="orderList" resultType="com.ef.golf.vo.OrderItemVo" parameterType="java.util.Map">
+
+       SELECT
+u.goods_id goods_id,
+u.product_id product_id,
+		efo.order_id efOrderId,
+r.sn AS orderNo,
+    efo.create_time AS createTime,
+    efo.order_state AS status,
+    r.order_id AS shopOrderId,
+
+    u.price AS price,
+		 CASE
+    WHEN p.specs IS NULL THEN
+    "0"
+    ELSE
+    p.specs
+    END
+    AS spec,
+    p.name AS goodsName,
+
+
+    u.num AS num,
+		eg.thumbnail imgUrl,
+		eg.reduction,
+		eg.credit
+
+    FROM
+		ef_order efo
+    join es_order r on r.sn=efo.order_no
+    LEFT JOIN es_order_items u ON r.order_id = u.order_id
+
+    LEFT JOIN es_product p ON u.product_id = p.product_id
+		join es_goods eg on u.goods_id=eg.goods_id and p.goods_id=eg.goods_id
+   WHERE
+  r.order_id=#{order_id,jdbcType=INTEGER}
+and efo.is_del=0
+
+
+
+  </select>
+
+
+<!--<select id="userOrderList" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+select <include refid="Base_Column_List" /> from es_order r where r.member_id=#{userId,jdbcType=INTEGER} LIMIT #{pageNo},#{pageSize}
+
+</select>-->
+
+
+ <!-- private int orderId;
+  private String sn;
+  private int status;
+  private long createTime;-->
+
+  <select id="userOrderList" parameterType="java.util.Map" resultType="com.ef.golf.vo.EsOrderVo">
+    select
+    efo.order_id efOrderId,
+    eso.order_id shopOrderId,
+    eso.sn sn,
+    efo.order_state status,
+    efo.create_time createTime,
+    eso.ship_name name,
+    eso.ship_mobile tel,
+    eso.address_id addressId,
+    CONCAT(eso.shipping_area,ship_addr) address,
+    eso.shipping_amount shippingAmount,
+    efo.order_moeny orderMoney,
+    case when et.ticket_name is null then '无' ELSE  et.ticket_name  end ticketName,
+    case when eso.admin_remark is null then '无' ELSE eso.admin_remark  end remark,
+    eso.logi_name logiName,
+    eso.ship_no shipNo,
+    elc.code companyCode
+
+    from
+    ef_order efo
+    join es_order eso on efo.order_no=eso.sn
+    left join ef_user_ticket eut on eut.id=efo.ticket_id
+    left join ef_ticket et on eut.ticket_id=et.ticket_id
+    left join es_logi_company elc on elc.id=eso.logi_id
+where 1=1
+<if test="orderState!=0">
+  and efo.order_state=#{orderState,jdbcType=VARCHAR}
+</if>
+and efo.is_del=0
+and eso.member_id=#{userId,jdbcType=INTEGER}
+    ORDER BY efo.create_time desc
+    LIMIT #{pageNo},#{pageSize}
+
+  </select>
+
+  <select id="orderCounts" parameterType="java.util.Map" resultType="java.lang.Integer">
+
+<!--
+select count(*) from es_order r where r.member_id=#{userId,jdbcType=INTEGER}
+-->
+    select
+    count(1)
+    from
+    ef_order efo,
+    es_order eso
+    where 1=1 and  efo.order_no=eso.sn
+    <if test="orderState!=0">
+
+      and efo.order_state=#{orderState,jdbcType=VARCHAR}
+    </if>
+    and efo.is_del=0
+    and eso.member_id=#{userId,jdbcType=INTEGER}
+
+</select>
+
+
+  <select id="totalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+
+    SELECT
+    count(1)
+
+    FROM
+    ef_order efo
+    join es_order r on r.sn=efo.order_no
+    LEFT JOIN es_order_items u ON r.order_id = u.order_id
+
+    LEFT JOIN es_product p ON u.product_id = p.product_id
+    join es_goods eg on u.goods_id=eg.goods_id and p.goods_id=eg.goods_id
+    WHERE
+    r.order_id=#{order_id,jdbcType=INTEGER}
+and efo.is_del=0
+  </select>
+
+
+
+<update id="updateOrderStatus" parameterType="java.util.Map">
+
+UPDATE es_order SET pay_status=#{pay_status,jdbcType=INTEGER}
+ WHERE order_id=#{order_id,jdbcType=INTEGER}
+
+
+</update>
+
+
+
+  <update id="upOrderStatus" parameterType="java.util.Map">
+ UPDATE es_order SET status=#{status,jdbcType=INTEGER}
+ WHERE order_id=#{order_id,jdbcType=INTEGER}
+  </update>
+
+
+
+<update id="upOrderPayStatus" parameterType="java.util.Map">
+UPDATE es_order SET payment_id=#{payment_id,jdbcType=INTEGER},
+pay_status=#{pay_status,jdbcType=INTEGER},status=#{status,jdbcType=INTEGER}
+where order_id=#{order_id,jdbcType=INTEGER}
+</update>
+
+
+
+
+    <resultMap id="speItemVo" type="com.ef.golf.vo.SpeItemVo">
+
+        <id column="orderId" property="orderId" jdbcType="INTEGER" />
+        <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+        <result column="orderState" property="orderState" jdbcType="INTEGER" />
+        <result column="createTime" property="createTime" jdbcType="INTEGER" />
+
+        <result column="price" property="price" jdbcType="DECIMAL" />
+
+        <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+        <result column="spec" property="spec" jdbcType="LONGVARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER" />
+        <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+
+
+
+<select id="selectSpeItemVo" parameterType="java.lang.Integer" resultMap="speItemVo">
+SELECT
+r.create_time AS createTime,
+r.sn AS orderNo,
+r.order_id AS orderId,
+r. STATUS AS orderState,
+(u.price * u.num) AS price,
+p.name AS goodsName,
+g.thumbnail,
+
+		CASE
+		WHEN p.specs IS NULL THEN
+			"0"
+		ELSE
+			p.specs
+		END
+	 AS spec,
+	u.num AS num
+
+FROM
+	es_order r
+LEFT JOIN es_order_items u ON r.order_id = u.order_id
+LEFT JOIN es_product p ON u.product_id = p.product_id
+LEFT JOIN es_goods  g ON p.goods_id=g.goods_id
+WHERE g.goods_id=#{goods_id,jdbcType=INTEGER}
+
+</select>
+
+
+  <select id="getShopOrderIdByMainOrderNo" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select eo.order_id orderId from es_order eo
+    where  eo.sn=#{orderNo,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 查询该订单下各商品价格 -->
+<select id="getShopOrderSendTicket" parameterType="java.lang.String" resultType="com.ef.golf.vo.ShopSendTicketVo">
+  SELECT
+    eg.goods_id goodsId, -- 商品id
+    eg.reduction reduction, -- 是否送券
+    eg.credit credit, -- 折扣
+ 	eoi.num count, -- 数量
+	eg.price price -- 商品价格
+  FROM
+  es_order_items eoi
+  LEFT JOIN es_goods eg ON (eoi.goods_id = eg.goods_id)
+  WHERE
+  order_id = #{orderId}
+</select>
+
+
+
+  <select id="getEsOrderBySn" parameterType="java.lang.String" resultType="com.ef.golf.vo.EsOrderVo">
+    select
+    efo.order_id efOrderId,
+    eso.order_id shopOrderId,
+    eso.sn sn,
+    efo.order_state status,
+    efo.create_time createTime,
+    eso.ship_name name,
+    eso.ship_mobile tel,
+    eso.address_id addressId,
+    CONCAT(eso.shipping_area,ship_addr) address,
+    eso.shipping_amount shippingAmount,
+    efo.order_moeny orderMoney,
+    case when et.ticket_name is null then '无' ELSE  et.ticket_name  end ticketName,
+    case when eso.admin_remark is null then '无' ELSE eso.admin_remark  end remark,
+    eso.logi_name logiName,
+    eso.ship_no shipNo,
+    elc.code companyCode
+
+    from
+    ef_order efo
+    join es_order eso on efo.order_no=eso.sn
+    left join ef_user_ticket eut on eut.id=efo.ticket_id
+    left join ef_ticket et on eut.ticket_id=et.ticket_id
+    left join es_logi_company elc on elc.id=eso.logi_id
+    where 1=1
+    and efo.is_del=0
+    and eso.sn=#{orderNo,jdbcType=VARCHAR}
+
+
+  </select>
+
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.ReportMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Report">
+    <id column="report_id" jdbcType="INTEGER" property="reportId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="bereported_user_id" jdbcType="INTEGER" property="bereportedUserId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="cause" jdbcType="VARCHAR" property="cause" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    report_id, user_id, bereported_user_id, type, cause, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_report
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_report
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Report">
+    insert into ef_report (report_id, user_id, bereported_user_id, 
+      type, cause, create_time
+      )
+    values (#{reportId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bereportedUserId,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{cause,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Report">
+    insert into ef_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reportId != null">
+        report_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bereportedUserId != null">
+        bereported_user_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="cause != null">
+        cause,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reportId != null">
+        #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bereportedUserId != null">
+        #{bereportedUserId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null">
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Report">
+    update ef_report
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bereportedUserId != null">
+        bereported_user_id = #{bereportedUserId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null">
+        cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Report">
+    update ef_report
+    set user_id = #{userId,jdbcType=INTEGER},
+      bereported_user_id = #{bereportedUserId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      cause = #{cause,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取举报的人 -->
+  <select id="getByReportList" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      SELECT
+	      er.bereported_user_id
+      FROM
+          ef_report er
+      WHERE
+          er.type NOT IN (5, 6, 7)
+      AND
+          er.user_id = #{userId}
+  </select>
+</mapper>

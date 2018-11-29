@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.TravelSubjectMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.TravelSubject">
+    <id column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="grounding" jdbcType="INTEGER" property="grounding" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+  </resultMap>
+
+  <resultMap type="com.ef.golf.vo.TravelSubjectLineVo" id="resultMap">
+    <id column="subject_id" property="subjectId" />
+    <result column="subject_name" property="subjectName" />
+    <result column="img_url" property="imgUrl" />
+      <collection  property="travelLineVo"  ofType="com.ef.golf.vo.TravelLineVo" column="subject_id" javaType="java.util.List">
+        <id column="line_id" property="lineId" />
+        <result column="line_name" property="lineName" />
+        <result column="destination" property="destination" />
+        <result column="real_price" property="realPrice" />
+        <result column="original_price" property="originalPrice" />
+        <result column="city" property="city" />
+        <result column="country" property="country" />
+        <result column="sort" property="sort"/>
+          <collection property="pictures" column="line_id"
+                      ofType="java.lang.String" javaType="java.util.List" select="com.ef.golf.mapper.TravelLineMapper.getPictureByTravelLineId">
+          </collection>
+      </collection>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    subject_id, create_time, modify_time, create_user, modify_user, subject_name, sort, 
+    begin_time, end_time, grounding, img_url
+  </sql>
+
+  <select id="getSubjectAndSubjectTravel" resultMap="resultMap">
+    SELECT
+      ets.subject_id,
+      ets.subject_name,
+      ets.img_url,
+      et.line_id,
+      et.line_name,
+      et.destination,
+      et.real_price,
+      et.original_price,
+      et.city,
+      et.country,
+      etsl.sort
+    FROM
+        ef_travel_subject ets
+    LEFT JOIN ef_travel_subject_line etsl ON(ets.subject_id = etsl.subject_id)
+    LEFT JOIN ef_travelline et ON(etsl.line_id = et.line_id)
+    LEFT JOIN ef_travelline_pic etp ON(et.line_id = etp.line_id)
+    WHERE
+    ets.grounding = 0
+    AND NOW() BETWEEN ets.begin_time AND ets.end_time
+    AND NOW() BETWEEN et.begin_time AND et.end_time AND et.grounding = 0
+    ORDER BY ets.sort ASC
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    ef_travel_subject
+    WHERE
+    subject_id = #{subjectId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getTravelBuSubjectId" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.TravelLineVo">
+    SELECT
+	  et.line_id lineId,
+      et.line_name lineName,
+      et.destination destination,
+      et.real_price realPrice,
+      et.original_price originalPrice,
+      et.city city,
+      et.country country
+    FROM
+        ef_travel_subject_line etsl
+    LEFT JOIN ef_travelline et ON (etsl.line_id = et.line_id)
+    WHERE
+        etsl.subject_id = #{subjectId,jdbcType=INTEGER}
+    ORDER BY etsl.sort
+    limit #{pageNo},#{pageSize}
+  </select>
+  <select id="getTravelBuSubjectIdCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM
+    ef_travel_subject_line etsl
+    LEFT JOIN ef_travelline et ON (etsl.line_id = et.line_id)
+    WHERE
+    etsl.subject_id = #{subjectId,jdbcType=INTEGER}
+  </select>
+
+</mapper>

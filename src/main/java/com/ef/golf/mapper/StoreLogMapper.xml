@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.StoreLogMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.StoreLog">
+    <id column="logid" jdbcType="INTEGER" property="logid" />
+    <result column="goodsid" jdbcType="INTEGER" property="goodsid" />
+    <result column="productid" jdbcType="INTEGER" property="productid" />
+    <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
+    <result column="depot_type" jdbcType="INTEGER" property="depotType" />
+    <result column="op_type" jdbcType="INTEGER" property="opType" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="enable_store" jdbcType="INTEGER" property="enableStore" />
+    <result column="dateline" jdbcType="INTEGER" property="dateline" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="depotid" jdbcType="INTEGER" property="depotid" />
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    logid, goodsid, productid, goodsname, depot_type, op_type, num, enable_store, dateline, 
+    userid, username, depotid,remark
+  </sql>
+
+  <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+
+    from es_store_log
+    where logid = #{logid,jdbcType=INTEGER}
+  </select>-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+
+    from es_store_log
+    where logid = #{logid,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_store_log
+    where logid = #{logid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.StoreLog">
+    insert into es_store_log (logid, goodsid, productid, 
+      goodsname, depot_type, op_type, 
+      num, enable_store, dateline, 
+      userid, username, depotid, 
+      remark)
+    values (#{logid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, 
+      #{goodsname,jdbcType=VARCHAR}, #{depotType,jdbcType=INTEGER}, #{opType,jdbcType=INTEGER}, 
+      #{num,jdbcType=INTEGER}, #{enableStore,jdbcType=INTEGER}, #{dateline,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{depotid,jdbcType=INTEGER}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.StoreLog">
+    insert into es_store_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        logid,
+      </if>
+      <if test="goodsid != null">
+        goodsid,
+      </if>
+      <if test="productid != null">
+        productid,
+      </if>
+      <if test="goodsname != null">
+        goodsname,
+      </if>
+      <if test="depotType != null">
+        depot_type,
+      </if>
+      <if test="opType != null">
+        op_type,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="enableStore != null">
+        enable_store,
+      </if>
+      <if test="dateline != null">
+        dateline,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="depotid != null">
+        depotid,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        #{logid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null">
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="depotType != null">
+        #{depotType,jdbcType=INTEGER},
+      </if>
+      <if test="opType != null">
+        #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="enableStore != null">
+        #{enableStore,jdbcType=INTEGER},
+      </if>
+      <if test="dateline != null">
+        #{dateline,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="depotid != null">
+        #{depotid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.StoreLog">
+    update es_store_log
+    <set>
+      <if test="goodsid != null">
+        goodsid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null">
+        productid = #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null">
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="depotType != null">
+        depot_type = #{depotType,jdbcType=INTEGER},
+      </if>
+      <if test="opType != null">
+        op_type = #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="enableStore != null">
+        enable_store = #{enableStore,jdbcType=INTEGER},
+      </if>
+      <if test="dateline != null">
+        dateline = #{dateline,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="depotid != null">
+        depotid = #{depotid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.StoreLog">
+    update es_store_log
+    set goodsid = #{goodsid,jdbcType=INTEGER},
+      productid = #{productid,jdbcType=INTEGER},
+      goodsname = #{goodsname,jdbcType=VARCHAR},
+      depot_type = #{depotType,jdbcType=INTEGER},
+      op_type = #{opType,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      enable_store = #{enableStore,jdbcType=INTEGER},
+      dateline = #{dateline,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      depotid = #{depotid,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.StoreLog">
+    update es_store_log
+    set goodsid = #{goodsid,jdbcType=INTEGER},
+      productid = #{productid,jdbcType=INTEGER},
+      goodsname = #{goodsname,jdbcType=VARCHAR},
+      depot_type = #{depotType,jdbcType=INTEGER},
+      op_type = #{opType,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      enable_store = #{enableStore,jdbcType=INTEGER},
+      dateline = #{dateline,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      depotid = #{depotid,jdbcType=INTEGER}
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Site_priceMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Site_price">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="c_date" jdbcType="DATE" property="cDate" />
+    <result column="c_year" jdbcType="VARCHAR" property="cYear" />
+    <result column="c_month" jdbcType="VARCHAR" property="cMonth" />
+    <result column="c_day" jdbcType="VARCHAR" property="cDay" />
+    <result column="c_week" jdbcType="VARCHAR" property="cWeek" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, site_id, c_date, c_year, c_month, c_day, c_week, price, type, create_time, modify_time, 
+    create_user, modify_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_site_price
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_site_price
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Site_price">
+    insert into ef_site_price (id, site_id, c_date, 
+      c_year, c_month, c_day, 
+      c_week, price, type, 
+      create_time, modify_time, create_user, 
+      modify_user)
+    values (#{id,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{cDate,jdbcType=DATE}, 
+      #{cYear,jdbcType=VARCHAR}, #{cMonth,jdbcType=VARCHAR}, #{cDay,jdbcType=VARCHAR}, 
+      #{cWeek,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Site_price">
+    insert into ef_site_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="cDate != null">
+        c_date,
+      </if>
+      <if test="cYear != null">
+        c_year,
+      </if>
+      <if test="cMonth != null">
+        c_month,
+      </if>
+      <if test="cDay != null">
+        c_day,
+      </if>
+      <if test="cWeek != null">
+        c_week,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="cDate != null">
+        #{cDate,jdbcType=DATE},
+      </if>
+      <if test="cYear != null">
+        #{cYear,jdbcType=VARCHAR},
+      </if>
+      <if test="cMonth != null">
+        #{cMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="cDay != null">
+        #{cDay,jdbcType=VARCHAR},
+      </if>
+      <if test="cWeek != null">
+        #{cWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Site_price">
+    update ef_site_price
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="cDate != null">
+        c_date = #{cDate,jdbcType=DATE},
+      </if>
+      <if test="cYear != null">
+        c_year = #{cYear,jdbcType=VARCHAR},
+      </if>
+      <if test="cMonth != null">
+        c_month = #{cMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="cDay != null">
+        c_day = #{cDay,jdbcType=VARCHAR},
+      </if>
+      <if test="cWeek != null">
+        c_week = #{cWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Site_price">
+    update ef_site_price
+    set site_id = #{siteId,jdbcType=INTEGER},
+      c_date = #{cDate,jdbcType=DATE},
+      c_year = #{cYear,jdbcType=VARCHAR},
+      c_month = #{cMonth,jdbcType=VARCHAR},
+      c_day = #{cDay,jdbcType=VARCHAR},
+      c_week = #{cWeek,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--获取球场三个月的价格信息-->
+  <select id="getSitePrice" parameterType="com.ef.golf.vo.SitePriceVo" resultType="com.ef.golf.pojo.Site_price">
+    SELECT
+      esp.site_id siteId,
+      esp.c_date cDate,
+      esp.c_year cYear,
+      esp.c_month cMonth,
+      esp.c_day cDay,
+      esp.c_week cWeek,
+      CASE  WHEN esp.price=0 THEN  '暂无' ELSE esp.price END price
+    FROM ef_site_price esp
+    WHERE esp.site_id=#{siteId,jdbcType=INTEGER}
+    AND esp.c_date >=#{beginDate,jdbcType=VARCHAR}
+    AND esp.c_date &lt;#{endDate,jdbcType=VARCHAR}
+    ORDER BY c_date
+  </select>
+  <!-- 获取当天价格 -->
+  <select id="getNowPrice" resultType="java.lang.Double">
+    SELECT
+	esp.price
+    FROM
+        ef_site es
+    INNER JOIN ef_site_price esp ON (es.site_id = esp.site_id)
+    WHERE DATE_FORMAT(esp.c_date,'%Y-%m-%d') = DATE_FORMAT(#{playDate},'%Y-%m-%d')
+      AND es.site_id = #{siteId}
+  </select>
+</mapper>

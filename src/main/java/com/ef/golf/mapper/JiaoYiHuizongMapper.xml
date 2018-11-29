@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.JiaoYiHuizongMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.JiaoYiHuizong">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="out_in" jdbcType="INTEGER" property="outIn" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, type, create_time, out_in, money, order_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_jiaoyi_huizong
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_jiaoyi_huizong
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.JiaoYiHuizong">
+    insert into ef_jiaoyi_huizong (id, user_id, type, 
+      create_time, out_in, money, order_no
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{outIn,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{orderNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.JiaoYiHuizong">
+    insert into ef_jiaoyi_huizong
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="outIn != null">
+        out_in,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outIn != null">
+        #{outIn,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.JiaoYiHuizong">
+    update ef_jiaoyi_huizong
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outIn != null">
+        out_in = #{outIn,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.JiaoYiHuizong">
+    update ef_jiaoyi_huizong
+    set user_id = #{userId,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      out_in = #{outIn,jdbcType=INTEGER},
+      money = #{money,jdbcType=DOUBLE},
+      order_no = #{orderNo,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+<!-- 交易类型(1-订单支付 2-预存充值 3-退款 4-提现 5-收入 6-教练结算 7-打赏球童 8-买单 9-支持愿望 10- 红包 11-赠送 12预约课程 13红包退款 14单次课程费)
+-->
+  <select id="selectByUserId" resultType="com.ef.golf.vo.JiaoYiHuizongVo">
+    select
+    DISTINCT
+       user_id  userId,
+      type type,
+      case when type='1' then concat( '订单支付',money,'元')
+       when type='2' then concat( '预存充值',money,'元')
+       when type='3' then concat( '退款',money,'元')
+      when type='4' then  concat('提现',money,'元')
+      when type='5' then concat( '收入',money,'元')
+      when type='6' then  concat('教练结算',money,'元')
+      when type='7' then concat( '打赏球童',money,'元')
+      when type='8'  then concat( '买单',money,'元')
+      when type='9' then  concat('支付愿望',money,'元')
+      when type='10' then  concat('红包',money,'元')
+      when type='11' then  concat('预存赠送',money,'元')
+      when type='12' then  concat('预约课程',money,'元')
+      when type='13' then  concat('红包退款',money,'元')
+      when type='14' then  concat('单次课程费',money,'元')
+      else
+       concat('其他',money,'元')
+      end  typeText,
+      create_time createTime,
+      out_in outIn,
+      money money,
+      order_no orderNo,
+      case when out_in ='1' then concat('+','￥',money)
+      else concat('-','￥',money)
+      end
+        moneyText
+      from ef_jiaoyi_huizong
+      where user_id = #{userId,jdbcType=BIGINT}
+      ORDER by create_time DESC
+      LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="selectByUserIdCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select
+      count(0)
+    from ef_jiaoyi_huizong
+    where user_id = #{userId,jdbcType=BIGINT}
+    ORDER by create_time DESC
+  </select>
+  <!-- 近七天可提现收入余额查询 -->
+  <select id="getUserTxBalance" resultType="java.lang.Double">
+    SELECT
+        SUM(ejh.money)
+    FROM
+        ef_jiaoyi_huizong ejh
+    LEFT JOIN u_user u ON (ejh.user_id = u.id)
+    WHERE
+        ejh.state = '2'
+    AND
+        ejh.out_in = '1'
+    AND
+        DATE_SUB(#{createTime}, INTERVAL (select day FROM ef_poundage where user_type = #{userType}) DAY) <![CDATA[ < ]]> ejh.create_time
+    AND
+        ejh.type in(5,14)
+    AND
+        u.user_type = #{userType}
+    AND
+        ejh.user_id = #{userId}
+  </select>
+</mapper>

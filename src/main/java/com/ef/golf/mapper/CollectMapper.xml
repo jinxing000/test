@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.CollectMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Collect" >
+    <id column="collect_id" property="collectId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="collect_type" property="collectType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    collect_id, user_id, product_id, collect_type, create_time, modify_time, create_user, 
+    modify_user
+  </sql>
+
+  <select id="getCollectByUserIdAndProductId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_collect
+    where user_id = #{userId}
+    AND  product_id = #{productId}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveCollect" parameterType="com.ef.golf.pojo.Collect">
+    INSERT INTO ef_collect
+    (user_id,product_id,collect_type,create_time,modify_time,create_user,modify_user)
+    VALUES
+    (
+      #{userId},
+      #{productId},
+      #{collectType},
+      #{createTime},
+      #{modifyTime},
+      #{createUser},
+      #{modifyUser}
+
+    )
+
+  </insert>
+
+
+  <insert id="insert" parameterType="com.ef.golf.pojo.Collect" >
+    insert into ef_collect (collect_id, user_id, product_id, 
+      collect_type, create_time, modify_time, 
+      create_user, modify_user)
+    values (#{collectId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=INTEGER}, 
+      #{collectType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Collect" >
+    insert into ef_collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectId != null" >
+        collect_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="collectType != null" >
+        collect_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectId != null" >
+        #{collectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="collectType != null" >
+        #{collectType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Collect" >
+    update ef_collect
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="collectType != null" >
+        collect_type = #{collectType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Collect" >
+    update ef_collect
+    set user_id = #{userId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=INTEGER},
+      collect_type = #{collectType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR}
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getCollectSiteListPage" resultType="com.ef.golf.vo.CollectVo" parameterType="com.ef.golf.pojo.User">
+     select site_id siteId,
+        ef_collect.create_time createTime,
+        site_model siteModel,
+        site_param siteParam,
+        reserve4 siteName,
+		ef_site.site_address siteAddress,
+		ef_collect.collect_type collectType,
+        LEAST(
+        weekdays_ef_member_price,
+        weekdays_site_member_price,
+        holiday_ef_member_price,
+        holiday_site_member_price,
+        weekdays_customer_price) minPrice,
+
+        img_url picUrl
+
+        from ef_collect
+				INNER JOIN ef_site ON(ef_collect.product_id=ef_site.site_id)
+				LEFT JOIN ef_img ON(ef_site.site_id=ef_img.product_id)
+				where ef_collect.collect_type=1
+				AND ef_collect.user_id=#{id}
+  </select>
+
+  <select id="getCollectSiteByUserId" resultType="java.lang.Integer" parameterType="com.ef.golf.pojo.Collect">
+    SELECT COUNT(1)
+    FROM ef_collect ec
+    WHERE ec.user_id=#{userId}
+    AND ec.product_id=#{productId}
+    AND ec.collect_type = #{collectType}
+  </select>
+
+  <!--取消关注-->
+  <delete id="CancelCollect">
+    DELETE FROM ef_collect
+    WHERE ef_collect.product_id=#{productId,jdbcType=INTEGER}
+    <!--AND ef_collect.collect_type=#{productType,jdbcType=VARCHAR}-->
+    AND ef_collect.user_id=#{userId,jdbcType=INTEGER}
+  </delete>
+
+  <!--//圈子：查询我关注的人-->
+  <select id="getCollectPersionListPage" resultType="com.ef.golf.vo.CollectPersionsVo" parameterType="com.ef.golf.pojo.User">
+    SELECT
+      DATE_FORMAT(ec.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+      u.id userId,
+      concat("Vip",u.vip) vip,
+      u.nickname nickName,
+      u.head_portrait_url headPortraitUrl,
+      u.user_type userType,
+      u.gender gender,
+      u.grade grade,
+    CASE
+    WHEN ec.remark IS NULL THEN u.realname
+    ELSE ec.remark
+    END remark
+    FROM ef_collect ec
+    INNER JOIN u_user u ON(ec.product_id=u.id)
+    WHERE ec.user_id=#{userId}
+    AND (ec.collect_type=2
+    OR ec.collect_type=3
+    OR ec.collect_type=6
+    OR ec.collect_type=4
+    OR ec.collect_type=9
+    OR ec.collect_type=10
+	OR ec.collect_type=11)
+  </select>
+
+  <!-- 我关注的人的Id -->
+  <select id="getMeCollectPerson" resultType="java.lang.Integer" parameterType="com.ef.golf.pojo.User">
+    SELECT
+    u.id userId
+    FROM ef_collect ec
+    INNER JOIN u_user u ON(ec.product_id=u.id)
+    WHERE ec.user_id=#{userId}
+    AND (ec.collect_type=2
+    OR ec.collect_type=3
+    OR ec.collect_type=6
+    OR ec.collect_type=4
+    OR ec.collect_type=9
+    OR ec.collect_type=10
+    OR ec.collect_type=11)
+  </select>
+
+
+
+  <!--圈子：查询我关注的人的数量-->
+  <select id="getCollectPersionNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  SELECT
+      COUNT(1)
+    FROM ef_collect ec
+    INNER JOIN u_user u ON(ec.product_id=u.id)
+    WHERE ec.user_id=#{userId}
+    AND (ec.collect_type=2
+    OR ec.collect_type=3
+    OR ec.collect_type=4
+    OR ec.collect_type=6
+    OR ec.collect_type=9
+    OR ec.collect_type=10
+		OR ec.collect_type=11)
+
+  </select>
+
+  <!--圈子：查询关注我的人-->
+  <select id="getCollectMineListPage" resultType="com.ef.golf.vo.CollectPersionsVo" parameterType="com.ef.golf.pojo.User">
+    SELECT
+      DATE_FORMAT(ec.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+      u.nickname nickName,
+      u.id userId,
+      concat("Vip",u.vip) vip,
+      u.head_portrait_url headPortraitUrl,
+      u.user_type userType,
+      u.gender gender,
+      u.grade grade,
+  CASE
+  WHEN ec.remark IS NULL THEN u.nickname
+  ELSE ec.remark
+  END remark
+  FROM ef_collect ec
+  INNER JOIN u_user u ON(ec.user_id=u.id)
+  WHERE ec.product_id=#{userId}
+  AND (ec.collect_type=2
+  OR ec.collect_type=3
+  OR ec.collect_type=4
+  OR ec.collect_type=6
+  OR ec.collect_type=9
+  OR ec.collect_type=10
+		OR ec.collect_type=11
+  )
+  </select>
+
+  <!--圈子：查询关注我的人的数量-->
+  <select id="getCollectMineNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+      COUNT(1)
+  FROM ef_collect ec
+  INNER JOIN u_user u ON(ec.user_id=u.id)
+  WHERE ec.product_id=#{userId}
+  AND (ec.collect_type=2
+  OR ec.collect_type=3
+  OR ec.collect_type=4
+  OR ec.collect_type=6
+  OR ec.collect_type=9
+  OR ec.collect_type=10
+		OR ec.collect_type=11)
+  </select>
+
+  <!--查询我是否关注某个人-->
+  <select id="isCollectPersion" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT a.product_id
+    FROM ef_collect a
+    INNER JOIN ef_collect b
+    ON(a.user_id=b.product_id AND a.product_id=b.user_id AND a.user_id=#{userId})
+    WHERE (a.collect_type=2
+    OR a.collect_type=3
+    OR a.collect_type=4
+    OR a.collect_type=6
+    OR a.collect_type=9
+    OR a.collect_type=10
+		OR a.collect_type=11)
+
+  </select>
+
+  <!--查询附近的人-->
+  <select id="getNearByPersionsListPage" parameterType="com.ef.golf.vo.CollectPersionsVo" resultType="com.ef.golf.vo.CollectPersionsVo">
+    SELECT
+      u.id userId,
+      u.nickname nickName,
+      u.gender gender,
+      u.grade grade,
+      u.user_type userType,
+      u.head_portrait_url headPortraitUrl,
+      u.region remark,
+ROUND(
+        6378.138 * 2 * ASIN(
+            SQRT(
+                POW(
+                    SIN(
+                        (
+                            #{lat} * PI() / 180 - u.lat * PI() / 180
+                        ) / 2
+                    ),
+                    2
+                ) + COS(#{lat} * PI() / 180) * COS(u.lat * PI() / 180) * POW(
+                    SIN(
+                        (
+                            #{lng} * PI() / 180 - u.lng * PI() / 180
+                        ) / 2
+                    ),
+                    2
+                )
+            )
+        ) * 1000
+    ) AS distance
+    FROM u_user u
+    WHERE u.lat!='' AND u.lng!=''
+    ORDER BY distance ASC
+
+  </select>
+
+  <!--圈子：根据手机号(数组)查询注册的用户-->
+  <select id="getAddressListUser" resultType="com.ef.golf.vo.CollectPersionsVo">
+    SELECT
+      u.head_portrait_url headPortraitUrl,
+      u.nickname nickName,
+      u.user_type userType,
+      u.phone phone,
+      u.id userId
+    FROM u_user u
+        WHERE  u.user_name IN
+        <foreach collection="list" item="userName" index="index" open="(" close=")" separator=",">
+          #{userName}
+        </foreach>
+  </select>
+  <!-- 个人中心收藏 -->
+  <select id="getSiteCollect" resultType="com.ef.golf.vo.SiteCollectsVo">
+    SELECT
+    es.site_id siteId,
+    ec.create_time createTime,
+    es.site_model siteModel,
+    es.site_param siteParam,
+    es.reserve4 siteName,
+    es.site_address siteAddress,
+    es.site_address siteAddr,
+    ec.collect_type collectType,
+    esp.price minPrice,
+    esi.url picUrl,
+    ROUND(
+    6378.138 * 2 * ASIN(
+    SQRT(
+    POW(
+    SIN(
+    (
+    #{lat} * PI() / 180 - es.reserve2 * PI() / 180
+    ) / 2
+    ),
+    2
+    ) + COS(#{lat} * PI() / 180) * COS(es.reserve2 * PI() / 180) * POW(
+    SIN(
+    (
+    #{lon} * PI() / 180 - es.reserve1 * PI() / 180
+    ) / 2
+    ),
+    2
+    )
+    )
+    ) * 1000
+    ) AS distance,
+    count(c.comments_id) commentNum,
+    IFNULL(sum(c.praise_num),0) praiseNum
+    FROM
+    ef_collect ec
+    INNER JOIN ef_site es ON (ec.product_id = es.site_id)
+    LEFT JOIN ef_siteimg esi ON (es.site_id = esi.product_id)
+    LEFT JOIN ef_site_price esp ON (es.site_id = esp.site_id)
+    LEFT JOIN ef_comments c ON c.product_id = es.site_id
+    WHERE
+    ec.collect_type = 1
+    AND ec.user_id = #{userId}
+    AND DATE_FORMAT(esp.c_date, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+    GROUP BY
+    es.site_id
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getSiteCollectCount" resultType="java.lang.Integer">
+    SELECT
+	count(0)
+    FROM
+        ef_collect ec
+    INNER JOIN ef_site es ON (ec.product_id = es.site_id)
+    WHERE
+        ec.collect_type = 1
+    AND ec.user_id = #{userId}
+  </select>
+
+  <!-- 商品收藏列表 -->
+  <select id="getCollectGoodsList" resultType="com.ef.golf.vo.CollectGoodsListVo">
+    SELECT
+    ec.collect_id   collectId,
+    ec.product_id   goods_id,
+    eg.`name`       name,
+    eg.price        price,
+    eg.enable_store enableStore,
+    eg.thumbnail    thumbnail
+    FROM
+    ef_collect ec
+    LEFT JOIN es_goods eg ON(ec.product_id = eg.goods_id)
+    WHERE ec.user_id = #{userId}
+    AND ec.collect_type = '7'
+    ORDER BY ec.create_time
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getCollectGoodsListCount" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM
+    ef_collect ec
+    LEFT JOIN es_goods eg ON(ec.product_id = eg.goods_id)
+    WHERE ec.user_id = #{userId}
+    AND ec.collect_type = '7'
+  </select>
+</mapper>

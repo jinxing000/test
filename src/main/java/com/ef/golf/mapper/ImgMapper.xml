@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.ImgMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Img" >
+    <id column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_title" property="imgTitle" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="img_type" property="imgType" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="sorting" property="sorting" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    img_id, img_title, img_url, img_type, product_id, sorting, create_time, modify_time, 
+    create_user, modify_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_img
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_img
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Img" >
+    insert into ef_img (img_id, img_title, img_url, 
+      img_type, product_id, sorting, 
+      create_time, modify_time, create_user, 
+      modify_user)
+    values (#{imgId,jdbcType=INTEGER}, #{imgTitle,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{imgType,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, #{sorting,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Img" >
+    insert into ef_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="imgTitle != null" >
+        img_title,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="imgType != null" >
+        img_type,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="sorting != null" >
+        sorting,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="imgTitle != null" >
+        #{imgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null" >
+        #{imgType,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="sorting != null" >
+        #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Img" >
+    update ef_img
+    <set >
+      <if test="imgTitle != null" >
+        img_title = #{imgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null" >
+        img_type = #{imgType,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="sorting != null" >
+        sorting = #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Img" >
+    update ef_img
+    set img_title = #{imgTitle,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_type = #{imgType,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER},
+      sorting = #{sorting,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR}
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getImgs" resultType="com.ef.golf.pojo.Img">
+    select
+      ei.id imgId,
+      ei.title imgTitle,
+      ei.url imgUrl,
+      ei.type imgType,
+      ei.product_id productId,
+      ei.sort sorting,
+      ei.create_time createTime,
+      ei.create_user createUser,
+      ei.modify_time modifyTime,
+      ei.modify_user modifyUser
+    from ef_siteimg ei
+    where ei.type=#{imgType,jdbcType=VARCHAR}
+    and ei.product_id=#{productId,jdbcType=INTEGER}
+    order by ei.create_time DESC
+  </select>
+
+</mapper>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.TicketMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Ticket" >
+    <id column="ticket_id" property="ticketId" jdbcType="INTEGER" />
+    <id column="ticket_name" property="ticketName" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="discount" property="discount" jdbcType="DOUBLE" />
+    <result column="conditions" property="conditions" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="attribution" property="attribution" jdbcType="INTEGER" />
+    <result column="Effective_time" property="effectiveTime" jdbcType="TIMESTAMP" />
+    <result column="Expiry_time" property="expiryTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ticket_id,ticket_name,money,discount,conditions, type, attribution, Effective_time,
+    Expiry_time, create_time, modify_time, create_user, modify_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_ticket
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_ticket
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Ticket" >
+    insert into ef_ticket (ticket_id, ticket_name,user_id, state,
+      money,discount,conditions, type,
+      attribution, Effective_time, Expiry_time, 
+      create_time, modify_time, create_user, 
+      modify_user)
+    values (#{ticketId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, #{ticketName,jdbcType=VARCHAR},
+      #{money,jdbcType=DOUBLE},#{discount,jdbcType=DOUBLE}, #{conditions,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+      #{attribution,jdbcType=INTEGER}, #{effectiveTime,jdbcType=TIMESTAMP}, #{expiryTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Ticket" >
+    insert into ef_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ticketId != null" >
+        ticket_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="ticketName != null" >
+        ticketName,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="conditions != null" >
+        conditions,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="attribution != null" >
+        attribution,
+      </if>
+      <if test="effectiveTime != null" >
+        Effective_time,
+      </if>
+      <if test="expiryTime != null" >
+        Expiry_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ticketId != null" >
+        #{ticketId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="ticketName != null" >
+        #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="conditions != null" >
+        #{conditions,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="attribution != null" >
+        #{attribution,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null" >
+        #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryTime != null" >
+        #{expiryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Ticket" >
+    update ef_ticket
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="ticketName != null" >
+        ticketName = #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        money = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="conditions != null" >
+        conditions = #{conditions,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="attribution != null" >
+        attribution = #{attribution,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null" >
+        Effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryTime != null" >
+        Expiry_time = #{expiryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Ticket" >
+    update ef_ticket
+    set user_id = #{userId,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      ticket_name = #{ticketName,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      discount = #{discount,jdbcType=DOUBLE},
+      conditions = #{conditions,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      attribution = #{attribution,jdbcType=INTEGER},
+      Effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      Expiry_time = #{expiryTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR}
+    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  </update>
+
+  <!--获取用户优惠券-->
+  <select id="getUserTickets" parameterType="com.ef.golf.pojo.User" resultType="com.ef.golf.vo.TicketVo">
+    SELECT
+    et.ticket_id ticketId,
+    et.ticket_name ticketName,
+    et.money money,
+    et.discount discount,
+    et.conditions conditions,
+    et.type type,
+    et.attribution attribution,
+    eut.effective_time effectiveTime,
+    eut.expiry_time expiryTime
+    FROM ef_ticket et
+    INNER JOIN ef_user_ticket eut ON(et.ticket_id=eut.ticket_id)
+    WHERE eut.user_id=#{id}
+    AND eut.state=1 OR eut.state=2
+  </select>
+</mapper>

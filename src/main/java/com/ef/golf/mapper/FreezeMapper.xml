@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.FreezeMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Freeze" >
+    <id column="freeze_id" property="freezeId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="account_id" property="accountId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="account_type" property="accountType" jdbcType="VARCHAR" />
+    <result column="is_alive" property="isAlive" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    freeze_id, order_id, account_id, create_time, modify_time, balance, account_type, 
+    is_alive
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_freeze
+    where freeze_id = #{freezeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_freeze
+    where freeze_id = #{freezeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Freeze" >
+    insert into ef_freeze (freeze_id, order_id, account_id, 
+      create_time, modify_time, balance, 
+      account_type, is_alive)
+    values (#{freezeId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{balance,jdbcType=DOUBLE}, 
+      #{accountType,jdbcType=VARCHAR}, #{isAlive,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Freeze" >
+    insert into ef_freeze
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="freezeId != null" >
+        freeze_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="isAlive != null" >
+        is_alive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="freezeId != null" >
+        #{freezeId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null" >
+        #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Freeze" >
+    update ef_freeze
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null" >
+        is_alive = #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where freeze_id = #{freezeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Freeze" >
+    update ef_freeze
+    set order_id = #{orderId,jdbcType=INTEGER},
+      account_id = #{accountId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      balance = #{balance,jdbcType=DOUBLE},
+      account_type = #{accountType,jdbcType=VARCHAR},
+      is_alive = #{isAlive,jdbcType=VARCHAR}
+    where freeze_id = #{freezeId,jdbcType=INTEGER}
+  </update>
+</mapper>

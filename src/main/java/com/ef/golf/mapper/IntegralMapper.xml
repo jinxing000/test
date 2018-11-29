@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.IntegralMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Integral" >
+    <id column="integral_id" property="integralId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="score_total" property="scoreTotal" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="is_alive" property="isAlive" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    integral_id, user_id, score_total, create_time, modify_time, is_alive
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_integral
+    where integral_id = #{integralId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_integral
+    where integral_id = #{integralId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Integral" >
+    insert into ef_integral (user_id, score_total,
+      create_time, modify_time, is_alive
+      )
+    values ( #{userId,jdbcType=BIGINT}, #{scoreTotal,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{isAlive,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Integral" >
+    insert into ef_integral
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="integralId != null" >
+        integral_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="scoreTotal != null" >
+        score_total,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="isAlive != null" >
+        is_alive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="integralId != null" >
+        #{integralId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="scoreTotal != null" >
+        #{scoreTotal,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAlive != null" >
+        #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Integral" >
+    update ef_integral
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="scoreTotal != null" >
+        score_total = #{scoreTotal,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAlive != null" >
+        is_alive = #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where integral_id = #{integralId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Integral" >
+    update ef_integral
+    set user_id = #{userId,jdbcType=BIGINT},
+      score_total = #{scoreTotal,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      is_alive = #{isAlive,jdbcType=VARCHAR}
+    where integral_id = #{integralId,jdbcType=INTEGER}
+  </update>
+  <!-- 查询用户总积分 -->
+  <select id="getUserTotalScore" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+	  ei.score_total
+    FROM
+	  ef_integral ei
+    WHERE
+	  ei.user_id = #{userId}
+  </select>
+  <!-- 更新用户总积分 -->
+  <update id="updateUserTotalScore">
+    UPDATE ef_integral ei
+    SET ei.score_total = #{scoreTotal},ei.modify_time=#{modifyTime}
+    WHERE
+	user_id = #{userId}
+  </update>
+</mapper>

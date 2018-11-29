@@ -1,0 +1,1191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="pswd" property="pswd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="qq_id" property="qqId" jdbcType="VARCHAR" />
+    <result column="weibo_id" property="weiboId" jdbcType="VARCHAR" />
+    <result column="password_login" property="passwordLogin" jdbcType="VARCHAR" />
+    <result column="password_pay" property="passwordPay" jdbcType="VARCHAR" />
+    <result column="rec_exclusive_no" property="recExclusiveNo" jdbcType="VARCHAR" />
+    <result column="exclusive_no" property="exclusiveNo" jdbcType="VARCHAR" />
+    <result column="subjection_id" property="subjection" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="ball_age" property="ballAge" jdbcType="INTEGER" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="id_card_number" property="idCardNumber" jdbcType="VARCHAR" />
+    <result column="bank_card_number" property="bankCardNumber" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="head_portrait_url" property="headPortraitUrl" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="user_state" property="userState" jdbcType="VARCHAR" />
+    <result column="is_alive" property="isAlive" jdbcType="VARCHAR" />
+    <!--数据库ef_golf（1.7版本）新增字段-->
+    <result column="cha_dian" jdbcType="VARCHAR" property="chaDian" />
+    <result column="recommend" jdbcType="VARCHAR" property="recommend" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="vip" jdbcType="VARCHAR" property="vip"/>
+    <result column="use_pay" jdbcType="DOUBLE" property="usePay" />
+    <result column="score" jdbcType="VARCHAR" property="score" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, nickname, account, pswd, create_time, last_login_time, status, user_name, phone, 
+    open_id, qq_id, weibo_id, password_login, password_pay, rec_exclusive_no, exclusive_no, 
+    subjection_id, description, ball_age, realname, id_card_number, bank_card_number, bank_name,
+    region, gender, birthday, head_portrait_url, modify_time, user_type, user_state, 
+    is_alive,cha_dian, recommend, grade,vip,use_pay, score
+  </sql>
+
+  <select id="getUid" parameterType="java.lang.String" resultType="java.lang.Long">
+    SELECT id
+    FROM u_user
+    WHERE user_name = #{userName}
+  </select>
+
+  <select id="getCount" parameterType="com.ef.golf.pojo.User" resultType="java.lang.Integer">
+    SELECT count(1)
+     FROM u_user
+    <trim prefix="where" prefixOverrides="and|or">
+
+      <if test="userName != null">
+       and  user_name = #{userName}
+      </if>
+      <if test="exclusiveNo != null">
+       and exclusive_no = #{exclusiveNo}
+      </if>
+
+    </trim>
+
+
+   <!-- <where>
+      <if test="nickname != null">
+        nickname = #{nickname}
+      </if>
+      <if test="exclusiveNo != null">
+        exclusive_no = #{exclusiveNo}
+      </if>
+    </where>-->
+
+  </select>
+  <select id="queryAll" resultType="com.ef.golf.pojo.User" parameterType="com.ef.golf.pojo.User">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    u_user
+     WHERE id = #{id}
+  </select>
+
+
+<select id="userLogin" resultType="com.ef.golf.pojo.User" parameterType="com.ef.golf.pojo.User">
+  SELECT
+   u.id id,
+   u.status status,
+   u.nickname nickname,
+   u.user_name userName,
+   u.password_login passwordLogin,
+   u.user_type userType,
+   u.user_state userState,
+   u.is_alive isAlive
+  FROM
+  u_user u
+  WHERE
+  u.user_name = #{nickname} AND
+  u.password_login = #{passwordLogin}
+
+</select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from u_user
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from u_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.User" >
+    insert into u_user (id, nickname, account, 
+      pswd, create_time, last_login_time, 
+      status, user_name, phone, 
+      open_id, qq_id, weibo_id, 
+      password_login, password_pay, rec_exclusive_no, 
+      exclusive_no, subjection_id, description,
+      ball_age, realname, id_card_number, 
+      bank_card_number, bank_name, region, 
+      gender, birthday, head_portrait_url, 
+      modify_time, user_type, user_state, 
+      is_alive)
+    values (#{id,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{pswd,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{openId,jdbcType=VARCHAR}, #{qqId,jdbcType=VARCHAR}, #{weiboId,jdbcType=VARCHAR}, 
+      #{passwordLogin,jdbcType=VARCHAR}, #{passwordPay,jdbcType=VARCHAR}, #{recExclusiveNo,jdbcType=VARCHAR}, 
+      #{exclusiveNo,jdbcType=VARCHAR}, #{subjection,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{ballAge,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR}, #{idCardNumber,jdbcType=VARCHAR}, 
+      #{bankCardNumber,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{headPortraitUrl,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{userState,jdbcType=VARCHAR}, 
+      #{isAlive,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.ef.golf.pojo.User">
+    insert into u_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="pswd != null">
+        pswd,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="qqId != null">
+        qq_id,
+      </if>
+      <if test="weiboId != null">
+        weibo_id,
+      </if>
+      <if test="passwordLogin != null">
+        password_login,
+      </if>
+      <if test="passwordPay != null">
+        password_pay,
+      </if>
+      <if test="recExclusiveNo != null">
+        rec_exclusive_no,
+      </if>
+      <if test="exclusiveNo != null">
+        exclusive_no,
+      </if>
+      <if test="subjection != null">
+        subjection_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="ballAge != null">
+        ball_age,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="idCardNumber != null">
+        id_card_number,
+      </if>
+      <if test="bankCardNumber != null">
+        bank_card_number,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="region != null">
+        region,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="headPortraitUrl != null">
+        head_portrait_url,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="userState != null">
+        user_state,
+      </if>
+      <if test="isAlive != null">
+        is_alive,
+      </if>
+      <if test="chaDian != null">
+        cha_dian,
+      </if>
+      <if test="recommend != null">
+        recommend,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="vip != null">
+        vip,
+      </if>
+      <if test="usePay != null">
+        use_pay,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="pswd != null">
+        #{pswd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="qqId != null">
+        #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboId != null">
+        #{weiboId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordLogin != null">
+        #{passwordLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordPay != null">
+        #{passwordPay,jdbcType=VARCHAR},
+      </if>
+      <if test="recExclusiveNo != null">
+        #{recExclusiveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveNo != null">
+        #{exclusiveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="subjection != null">
+        #{subjection_id,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="ballAge != null">
+        #{ballAge,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNumber != null">
+        #{idCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNumber != null">
+        #{bankCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortraitUrl != null">
+        #{headPortraitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null">
+        #{userState,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null">
+        #{isAlive,jdbcType=VARCHAR},
+      </if>
+      <if test="chaDian != null">
+        #{chaDian,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null">
+        #{vip,jdbcType=varchar},
+      </if>
+      <if test="usePay != null">
+        #{usePay,jdbcType=DOUBLE},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updatePwd" parameterType="com.ef.golf.pojo.User" >
+    UPDATE u_user
+    SET password_login = #{passwordLogin}
+    WHERE user_name = #{nickname}
+  </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.User">
+    update u_user
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="pswd != null">
+        pswd = #{pswd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="qqId != null">
+        qq_id = #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboId != null">
+        weibo_id = #{weiboId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordLogin != null">
+        password_login = #{passwordLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordPay != null">
+        password_pay = #{passwordPay,jdbcType=VARCHAR},
+      </if>
+      <if test="recExclusiveNo != null">
+        rec_exclusive_no = #{recExclusiveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveNo != null">
+        exclusive_no = #{exclusiveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="subjection != null">
+        subjection_id = #{subjection,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="ballAge != null">
+        ball_age = #{ballAge,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNumber != null">
+        id_card_number = #{idCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNumber != null">
+        bank_card_number = #{bankCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortraitUrl != null">
+        head_portrait_url = #{headPortraitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null">
+        user_state = #{userState,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null">
+        is_alive = #{isAlive,jdbcType=VARCHAR},
+      </if>
+      <if test="chaDian != null">
+        cha_dian = #{chaDian,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        recommend = #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <!--<if test="vip != null">
+        vip = #{vip,jdbcType=VARCHAR},
+      </if>-->
+      <if test="usePay != null">
+        use_pay = #{usePay,jdbcType=DOUBLE},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.User" >
+    update u_user
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      pswd = #{pswd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      qq_id = #{qqId,jdbcType=VARCHAR},
+      weibo_id = #{weiboId,jdbcType=VARCHAR},
+      password_login = #{passwordLogin,jdbcType=VARCHAR},
+      password_pay = #{passwordPay,jdbcType=VARCHAR},
+      rec_exclusive_no = #{recExclusiveNo,jdbcType=VARCHAR},
+      exclusive_no = #{exclusiveNo,jdbcType=VARCHAR},
+      subjection_id = #{subjection,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      ball_age = #{ballAge,jdbcType=INTEGER},
+      realname = #{realname,jdbcType=VARCHAR},
+      id_card_number = #{idCardNumber,jdbcType=VARCHAR},
+      bank_card_number = #{bankCardNumber,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      head_portrait_url = #{headPortraitUrl,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      user_state = #{userState,jdbcType=VARCHAR},
+      is_alive = #{isAlive,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--获取关于我的信息-->
+  <select id="getInfo" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.MineVo">
+    SELECT
+    u.id userId,
+    u.head_portrait_url headPortraitUrl,
+    u.region region,
+    u.gender gender,
+    YEAR(CURDATE())-YEAR(u.birthday) age,
+    u.ball_age ballAge,
+    u.phone phone,
+    u.user_type userType,
+     CASE WHEN eau.`status` is NULL THEN '2' ELSE eau.`status` END approveStatus,
+    concat("Vip",u.vip)vip,
+    u.description description,
+    us.nickname qiuHuiName,
+    u.nickname nickName,
+    u.cha_dian chaDian,
+    u.birthday birthday,
+    u.exclusive_no exclusiveNo,
+    u.rec_exclusive_no recExclusiveNo,
+    u.score shibadong,
+    u.use_pay usePay,
+    u.grade grade,
+		CASE
+			WHEN u.password_pay is null THEN
+					true
+			WHEN u.password_pay='' THEN
+					true
+			ELSE
+					false
+    END isSetting,
+    eus.signcount signCount,
+    CASE WHEN ei.score_total &lt; 0 THEN 0 ELSE ei.score_total END scoreTotal,
+    CASE WHEN ei.score_total &lt; 0 THEN 0 ELSE ei.score_total END totalScore,
+    ea.balance balance,
+    em.`member_ level` memberLevel,
+    COUNT(eut.user_id) tickets,
+    u.realname realname
+    FROM u_user u
+    INNER JOIN ef_account ea ON(u.id=ea.user_id)
+    LEFT JOIN ef_member em ON(u.id=em.user_id)
+    LEFT JOIN ef_authentication eau on(u.id = eau.user_id)
+    LEFT JOIN ef_integral ei ON(ei.user_id=u.id)
+   LEFT JOIN ef_user_ticket eut ON(u.id=eut.user_id AND eut.state IN (2,3) AND NOW() &lt; eut.expiry_time)
+    LEFT JOIN ef_user_sign eus ON(u.id=eus.user_id)
+    LEFT JOIN u_user us ON(us.id=u.subjection_id)
+    WHERE
+    u.id=#{userId}
+  </select>
+
+  <!--更新个人信息-->
+  <update id="updateUser">
+    UPDATE u_user
+    <set>
+      <if test="headPortraitUrl!=null">
+        head_portrait_url=#{headPortraitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="realname!=null">
+        realname=#{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender!=null">
+        gender=#{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="phone!=null">
+        phone=#{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="region!=null">
+        region=#{region,jdbcType=VARCHAR},
+      </if>
+      <if test="description!=null">
+        description=#{description,jdbcType=VARCHAR},
+      </if>
+      modify_time=NOW()
+    </set>
+    WHERE
+    u_user.id=#{id,jdbcType=BIGINT}
+  </update>
+
+  <!--更新登录时的地理位置-->
+  <update id="updateUserLocation">
+    UPDATE
+     u_user u
+     SET u.lat=#{lat} ,
+     u.lng=#{lng}
+     WHERE u.id=#{id}
+  </update>
+
+  <select id="getUserInfoByTypeListPage" resultType="com.ef.golf.vo.CollectPersionsVo" parameterType="com.ef.golf.vo.CollectPersionsVo">
+    SELECT
+      u.head_portrait_url headPortraitUrl,
+    /*  u.realname nickName,*/
+      u.nickname nickName,
+      u.gender gender,
+      u.grade grade,
+      u.user_type userType,
+      u.vip vip,
+      u.region remark,
+      u.region region,
+      u.id userId
+    FROM u_user u
+    WHERE u.user_type=#{userType}
+  </select>
+
+  <!--圈子：根据用户id查询用户信息-->
+  <select id="getUserInfoById" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.QuanziUserVo">
+
+<!--
+ private Integer userId;
+    private String nickName;
+    private String headPortraitUrl;
+    private String userType;
+    private String ballAge;
+    private String age;
+    private String chaDian;
+    private String gender;
+    private String grade;//教练等级
+    private String vip;//充值等级
+    private String region;//地区
+    private String shibadong;//十八洞最好成绩只有教练用
+    private String score;//评分  注意与 用户表中的score 区分，用户表中score是教练的十八洞
+    private String subjection;//隶属
+    private String description;
+    private String exclusiveNo;//专属码
+
+
+    private String qiuHuiName;//球会名称
+    private String qiuHuiId;//球会id
+
+    private String sortType;
+    private String serviceAge;
+    private String usePay;//下场费（教练专用）
+
+-->
+
+    SELECT
+      u.id userId,
+      u.head_portrait_url headPortraitUrl,
+      u.nickname nickName,
+      u.user_type userType,
+      CASE WHEN ea.`status` is NULL THEN '2' ELSE ea.`status` END approveStatus,
+      u.ball_age ballAge,
+      YEAR(CURRENT_DATE())-YEAR(u.birthday) age,
+      u.cha_dian chaDian,
+      u.gender gender,
+      u.grade grade,
+      concat("Vip",u.vip)vip,
+      u.region region,
+      u.score shibadong,
+
+      u.subjection_id subjection,
+      u.description description,
+      u.exclusive_no exclusiveNo,
+    uu.nickname qiuhuiName,
+    uu.id qiuhuiId,
+    u.use_pay usePay
+    FROM
+      u_user u
+
+    LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+    LEFT JOIN ef_authentication ea on(u.id = ea.user_id)
+
+    WHERE
+      u.id=#{userId,jdbcType=INTEGER}
+  </select>
+
+  <!--球童：查询本地区推荐的球童-->
+  <select id="getQiuTongListPage" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="com.ef.golf.vo.QuanziUserVo">
+  SELECT
+  u.id userId,
+  u.nickname nickName,
+  u.head_portrait_url headPortraitUrl,
+   u.gender gender,
+  uu.nickname qiuhuiName,
+  uu.id qiuhuiId,
+  u.exclusive_no exclusiveNo,
+  CASE WHEN SUM(eps.score)/COUNT(eps.score) IS NULL THEN 0 ELSE SUM(eps.score)/COUNT(eps.score) END score
+  FROM u_user u
+  LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+  LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+  WHERE u.recommend = '1'
+  AND u.user_type = '3'
+  AND u.region = #{region,jdbcType=VARCHAR}
+  GROUP BY u.id
+  </select>
+
+  <!--球童：查询本地区推荐的球童-->
+  <select id="indexQiuTongList" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="com.ef.golf.vo.QuanziUserVo">
+    SELECT
+    u.id userId,
+    u.nickname nickName,
+    u.head_portrait_url headPortraitUrl,
+    u.gender gender,
+    uu.nickname qiuhuiName,
+    uu.id qiuhuiId,
+    u.exclusive_no exclusiveNo,
+    CASE WHEN SUM(eps.score)/COUNT(eps.score) IS NULL THEN 0 ELSE SUM(eps.score)/COUNT(eps.score) END score
+    FROM u_user u
+    LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+    LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+    WHERE u.recommend = '1'
+    AND u.user_type = '3'
+    AND u.region = #{region,jdbcType=VARCHAR}
+    GROUP BY u.id
+    limit 0,3
+  </select>
+
+  <select id="getQiuTongCount" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM u_user u
+    LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+    LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+    WHERE u.recommend = '1'
+    AND u.user_type = '3'
+    AND u.region = #{region,jdbcType=VARCHAR}
+    GROUP BY u.id
+  </select>
+
+<!--//球童：快速搜索球童-->
+  <select id="qiuTongListPage" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="com.ef.golf.vo.QuanziUserVo">
+    SELECT
+      u.id userId,
+      u.nickname nickName,
+    u.gender gender,
+      u.head_portrait_url headPortraitUrl,
+      uu.nickname qiuhuiName,
+      uu.id qiuhuiId,
+    u.exclusive_no exclusiveNo,
+    CASE WHEN SUM(eps.score)/COUNT(eps.score) IS NULL THEN 0 ELSE SUM(eps.score)/COUNT(eps.score) END score
+    FROM u_user u
+    LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+    LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+    WHERE u.user_type = 3
+    <if test="qiuHuiName!=null and qiuHuiName!=''">
+      AND locate(#{qiuHuiName,jdbcType=VARCHAR},uu.nickname)>0
+    </if>
+    <if test="nickName!=null and nickName!=''">
+      AND locate(#{nickName,jdbcType=VARCHAR},u.nickName)>0
+    </if>
+    <if test="exclusiveNo!=null and exclusiveNo!=''">
+      AND locate(#{exclusiveNo,jdbcType=VARCHAR},u.exclusive_no)>0
+    </if>
+    <if test="serviceAge==1">
+      AND u.ball_age BETWEEN 1 AND 3
+    </if>
+    <if test="serviceAge==2">
+      AND u.ball_age BETWEEN 3 AND 5
+    </if>
+    <if test="serviceAge==3">
+      AND u.ball_age BETWEEN 5 AND 8
+    </if>
+    <if test="serviceAge==4">
+      AND u.ball_age BETWEEN 8 AND 10
+    </if>
+    <if test="serviceAge==5">
+      AND u.ball_age>=10
+    </if>
+    GROUP BY u.id
+    <if test="sortType==1">
+      ORDER BY u.recommend=1 DESC
+    </if>
+    <if test="sortType==2">
+      ORDER BY score
+    </if>
+  </select>
+
+  <!--//球童：查询球会信息-->
+  <select id="queryQiuHuiNames" parameterType="java.lang.String" resultType="com.ef.golf.vo.QiuhuiVo">
+  SELECT
+  u.nickname nickName,u.id id
+  FROM
+  u_user u
+  WHERE
+  u.user_type='5'
+  AND
+  u.nickname
+  LIKE  "%"#{nickName}"%"
+  </select>
+
+  <!--/教练：快速搜索教练-->
+<select id="coachListPage" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="com.ef.golf.vo.QuanziUserVo">
+    SELECT
+    u.id userId,
+    u.nickname nickName,
+    u.gender gender,
+    u.head_portrait_url headPortraitUrl,
+    u.exclusive_no exclusiveNo,
+  CASE WHEN SUM(eps.score)/COUNT(eps.score) IS NULL THEN 0 ELSE SUM(eps.score)/COUNT(eps.score) END score,
+    u.grade grade,
+    u.ball_age ballAge,
+    uu.nickname qiuHuiName,
+    u.use_pay usePay
+    FROM u_user u
+    LEFT JOIN ef_product_score eps ON(u.id=eps.product_id)
+    LEFT JOIN u_user uu ON(u.subjection_id=uu.id)
+    WHERE u.user_type='2'
+    <if test="region!=null and region!=''">
+      AND u.region=#{region,jdbcType=VARCHAR}
+    </if>
+    <if test="qiuHuiName!=null and qiuHuiName!=''">
+      AND uu.nickname LIKE "%"#{qiuHuiName}"%"
+    </if>
+    <if test="nickName!=null and nickName!=''">
+      AND u.nickname LIKE "%"#{nickName}"%"
+      <!-- AND u.nickname=#{nickName,jdbcType=VARCHAR}-->
+    </if>
+    <if test="sortType==1">
+      AND u.recommend='1'
+    </if>
+    <if test="exclusiveNo!=null and exclusiveNo!=''">
+      AND u.exclusive_no=#{exclusiveNo,jdbcType=VARCHAR}
+    </if>
+    <if test="serviceAge==1">
+      AND u.ball_age BETWEEN 1 AND 3
+    </if>
+    <if test="serviceAge==2">
+      AND u.ball_age BETWEEN 3 AND 5
+    </if>
+    <if test="serviceAge==3">
+      AND u.ball_age BETWEEN 5 AND 8
+    </if>
+    <if test="serviceAge==4">
+      AND u.ball_age BETWEEN 8 AND 10
+    </if>
+    <if test="serviceAge==5">
+      AND u.ball_age>=10
+    </if>
+    GROUP BY u.id
+    <if test="sortType==1">
+      ORDER BY u.recommend DESC,score DESC
+    </if>
+    <if test="sortType==2">
+      ORDER BY score DESC
+    </if>
+</select>
+
+  <!--/教练：快速搜索教练的记录数-->
+  <select id="coachListPageCount" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="java.lang.Integer">
+    SELECT
+    count(1)
+    FROM u_user u
+    LEFT JOIN ef_product_score eps ON(u.id=eps.product_id)
+    LEFT JOIN u_user uu ON(u.subjection_id=uu.id)
+    WHERE u.user_type='2'
+    <if test="region!=null and region!=''">
+      AND u.region=#{region,jdbcType=VARCHAR}
+    </if>
+    <if test="qiuHuiName!=null and qiuHuiName!=''">
+      AND uu.nickname LIKE "%"#{qiuHuiName}"%"
+    </if>
+    <if test="nickName!=null and nickName!=''">
+      AND u.nickname LIKE "%"#{nickName}"%"
+      <!-- AND u.nickname=#{nickName,jdbcType=VARCHAR}-->
+    </if>
+    <if test="sortType==1">
+      AND u.recommend='1'
+    </if>
+    <if test="exclusiveNo!=null and exclusiveNo!=''">
+      AND u.exclusive_no=#{exclusiveNo,jdbcType=VARCHAR}
+    </if>
+    <if test="serviceAge==1">
+      AND u.ball_age BETWEEN 1 AND 3
+    </if>
+    <if test="serviceAge==2">
+      AND u.ball_age BETWEEN 3 AND 5
+    </if>
+    <if test="serviceAge==3">
+      AND u.ball_age BETWEEN 5 AND 8
+    </if>
+    <if test="serviceAge==4">
+      AND u.ball_age BETWEEN 8 AND 10
+    </if>
+    <if test="serviceAge==5">
+      AND u.ball_age>=10
+    </if>
+
+
+  </select>
+
+
+
+
+  <!--教练：查询本地区推荐的教练-->
+  <select id="getCoachListPage" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="com.ef.golf.vo.QuanziUserVo">
+    SELECT
+    u.id userId,
+    u.nickname nickName,
+    u.use_pay usePay,
+    u.score shibadong,
+    u.ball_age ballAge,
+    u.gender gender,
+    u.head_portrait_url headPortraitUrl,
+    uu.nickname qiuhuiName,
+    uu.id qiuhuiId,
+    u.exclusive_no exclusiveNo,
+    CASE WHEN SUM(eps.score)/COUNT(eps.score) IS NULL THEN 0 ELSE SUM(eps.score)/COUNT(eps.score) END score
+    FROM u_user u
+    LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+    LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+    WHERE u.recommend = '1'
+    AND u.user_type = '2'
+    <if test="region!=null and region!=''">
+    AND u.region = #{region,jdbcType=VARCHAR}
+    </if>
+    GROUP BY u.id
+  </select>
+
+  <!--教练：查询本地区推荐的教练-->
+  <select id="indexCoachList" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="com.ef.golf.vo.QuanziUserVo">
+    SELECT
+    u.id userId,
+    u.nickname nickName,
+    u.use_pay usePay,
+    u.score shibadong,
+    u.ball_age ballAge,
+    u.gender gender,
+    u.head_portrait_url headPortraitUrl,
+    uu.nickname qiuhuiName,
+    uu.id qiuhuiId,
+    u.exclusive_no exclusiveNo,
+    CASE WHEN SUM(eps.score)/COUNT(eps.score) IS NULL THEN 0 ELSE SUM(eps.score)/COUNT(eps.score) END score
+    FROM u_user u
+    LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+    LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+    WHERE u.recommend = '1'
+    AND u.user_type = '2'
+    <if test="region!=null and region!=''">
+      AND u.region = #{region,jdbcType=VARCHAR}
+    </if>
+    GROUP BY u.id
+    limit 0,3
+  </select>
+
+  <!--教练：查询本地区推荐的教练的记录数数-->
+  <select id="getCoachListPageCount" parameterType="com.ef.golf.vo.QuanziUserVo" resultType="java.lang.Integer">
+    SELECT
+   count(1)
+    FROM u_user u
+    LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+    LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+    WHERE u.recommend = '1'
+    AND u.user_type = '2'
+    <if test="region!=null and region!=''">
+      AND u.region = #{region,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+
+  <!-- Solr 导入球童索引 -->
+  <select id="findCaddieDatabaseToSolrIndex" resultType="com.ef.golf.vo.SolrCaddieVo">
+    SELECT
+	  u.id id,
+	  u.realname realname,
+	  u.nickname nickName,
+	  SUM(eps.score)/COUNT(eps.score) score,
+	  u.recommend recommend,
+	  u.ball_age ballAge,
+	  u.head_portrait_url headPortraitUrl,
+	  u.exclusive_no exclusiveNo,
+	  u.region region,
+	  uu.id qiuhuiId,
+	  uu.nickname qiuhuiName
+    FROM
+	  u_user u
+		LEFT JOIN u_user uu ON (uu.id=u.subjection_id)
+		LEFT JOIN ef_product_score eps ON(eps.product_id=u.id)
+    WHERE
+	  u.user_type = '3'
+	  GROUP BY u.id
+  </select>
+  <!-- 快速搜索所有用户 -->
+  <!-- nickname LIKE #{nickname} -->
+ <select id="fastSearchUserListPage" parameterType="com.ef.golf.vo.UserSearchVo" resultType="com.ef.golf.vo.UserSearchVo">
+        SELECT
+            id userId,
+            nickname nickname,
+            user_type userType,
+            region region,
+            gender gender,
+            phone phone,
+            head_portrait_url headPortraitUrl,
+            lat lat,
+            lng lng
+        FROM
+            u_user
+       <where>
+         <if test="nickname !=null and nickname != ''">
+           nickname like "%"#{nickname}"%"
+         </if>
+         <if test="phone !=null and phone != ''">
+           phone = #{phone,jdbcType=VARCHAR}
+         </if>
+         AND user_state='1'
+         AND user_type not in(6,7)
+       </where>
+  </select>
+  <select id="fastSearchUserCount" parameterType="com.ef.golf.vo.UserSearchVo" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM
+    u_user
+    <where>
+      <if test="nickname !=null and nickname != ''">
+        nickname like "%"#{nickname}"%"
+      </if>
+      <if test="phone !=null and phone != ''">
+        phone = #{phone}
+      </if>
+    </where>
+  </select>
+  <!-- 所有用户 -->
+  <select id="queryAllUserListPage" parameterType="com.ef.golf.vo.UserSearchVo" resultType="com.ef.golf.vo.UserSearchVo">
+        SELECT
+            id userId,
+            nickname nickname,
+            user_type userType,
+            region region,
+            phone phone,
+            gender gender,
+            head_portrait_url headPortraitUrl,
+            lat lat,
+            lng lng
+        FROM u_user
+  </select>
+  <!-- 根据用户类型 -->
+  <select id="queryUserListByType" resultType="com.ef.golf.vo.UserSearchVo">
+    SELECT
+      id userId,
+      nickname nickname,
+      user_type userType,
+      region region,
+      gender gender,
+      head_portrait_url headPortraitUrl,
+      exclusive_no exclusiveNo
+    FROM u_user
+    WHERE
+    <if test="userType == '4'.toString()">
+      <!--user_type = '4' OR user_type = '8'-->
+      user_type IN ('4','8')
+    </if>
+    <if test="userType != '4'.toString()">
+      user_type = #{userType}
+    </if>
+    AND user_state='1'
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="queryUserListByTypeCount" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM u_user
+    WHERE user_type = #{userType}
+  </select>
+  <!-- 根据专属码查用户 -->
+  <select id="getUserMsgByExclusiveNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List" />
+        FROM
+            u_user u
+        WHERE
+        u.exclusive_no = #{exclusiveNo}
+        AND user_state='1'
+  </select>
+  <!-- 根据phone查 useris -->
+  <select id="selectIdByPhone" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT id FROM u_user WHERE user_name = #{phone}
+  </select>
+  <select id="selectRealanemById" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT u.realname FROM u_user u WHERE u.id=#{id}
+  </select>
+<!-- 商家模块搜索球会商家 -->
+  <select id="selectClubOrShop" resultType="com.ef.golf.vo.ClubOrShopVo">
+    SELECT
+      u.id userId,
+      u.user_type userType,
+      u.head_portrait_url headPortraitUrl,
+      u.nickname nickName,
+      eci.settle_item settleItem
+    FROM
+        u_user u
+    LEFT JOIN ef_club_item eci ON (u.id = eci.club_id)
+    <where>
+      <if test="userType !=null and userType != ''">
+        u.user_type=#{userType}
+        AND u.user_state='1'
+      </if>
+    <if test="nickname !=null and nickname != ''">
+     AND u.nickname like "%"#{nickname}"%"
+      AND u.user_state='1'
+    </if>
+      <if test="isRecommand != null and isRecommand!=''">
+        AND u.recommend = #{isRecommand}
+      </if>
+    </where>
+    ORDER BY u.modify_time DESC
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="selectClubOrShopCount" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM
+    u_user u
+    LEFT JOIN ef_club_item eci ON (u.id = eci.club_id)
+    <where>
+      <if test="userType !=null and userType != ''">
+        u.user_type=#{userType}
+      </if>
+      <if test="nickname !=null and nickname != ''">
+        AND u.nickname like "%"#{nickname}"%"
+      </if>
+    </where>
+  </select>
+  <!-- 支付密码校验 -->
+  <select id="payPwdCheck" resultType="java.lang.Integer">
+    SELECT
+	count(0)
+    FROM
+        u_user u
+    WHERE
+        u.id = #{userId}
+    AND u.password_pay = #{passwordPay}
+  </select>
+  <!-- 三方登录 -->
+  <select id="getUserByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM
+    u_user u
+    WHERE
+        u.open_id=#{openId}
+  </select>
+  <!-- 真烦人 -->
+  <select id="getUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    u_user u
+    WHERE
+    u.user_name=#{userName}
+  </select>
+</mapper>

@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.Site_orderMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Site_order" >
+    <id column="site_order_id" property="siteOrderId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="play_date" property="playDate" jdbcType="VARCHAR" />
+    <result column="play_time" property="playTime" jdbcType="VARCHAR" />
+    <result column="play_name" property="playName" jdbcType="VARCHAR" />
+    <result column="contacts_phone" property="contactsPhone" jdbcType="VARCHAR" />
+    <result column="site_member_number" property="siteMemberNumber" jdbcType="INTEGER" />
+    <result column="ef_member_number" property="efMemberNumber" jdbcType="INTEGER" />
+    <result column="guest_number" property="guestNumber" jdbcType="INTEGER" />
+    <result column="customer_number" property="customerNumber" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ticket_id" property="ticketId" jdbcType="INTEGER" />
+    <result column="weekdays_ef_member_price" property="weekdaysEfMemberPrice" jdbcType="VARCHAR" />
+    <result column="weekdays_site_member_price" property="weekdaysSiteMemberPrice" jdbcType="VARCHAR" />
+    <result column="weekdays_customer_price" property="weekdaysCustomerPrice" jdbcType="VARCHAR" />
+    <result column="holiday_ef_member_price" property="holidayEfMemberPrice" jdbcType="VARCHAR" />
+    <result column="holiday_site_member_price" property="holidaySiteMemberPrice" jdbcType="VARCHAR" />
+    <result column="holiday_customer_price" property="holidayCustomerPrice" jdbcType="VARCHAR" />
+    <result column="pay_money" property="payMoney" jdbcType="DOUBLE" />
+    <result column="real_pay_money" property="realPayMoney" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="SiteOrderDetailMapVo" type="com.ef.golf.vo.SiteOrderDatailVo">
+    <id column="order_id" property="order_id" jdbcType="VARCHAR" />
+    <result column="create_time" property="create_time" jdbcType="DATE" />
+    <result column="siteName" property="siteName" jdbcType="VARCHAR" />
+    <result column="play_name" property="play_name" jdbcType="VARCHAR" />
+    <result column="play_date" property="play_date" jdbcType="DATE" />
+    <result column="play_time" property="play_time" jdbcType="VARCHAR" />
+    <result column="contacts_phone" property="contacts_phone" jdbcType="VARCHAR" />
+    <result column="ef_member_number" property="ef_member_number" jdbcType="INTEGER" />
+
+    <result column="customer_number" property="customer_number" jdbcType="INTEGER" />
+    <result column="guest_number" property="guest_number" jdbcType="INTEGER" />
+    <result column="site_member_number" property="site_member_number" jdbcType="INTEGER" />
+    <result column="sumMember" property="sumMember" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="NUMERIC" />
+    <result column="conditions" property="conditions" jdbcType="INTEGER" />
+    <result column="effective_time" property="effective_time" jdbcType="DATE" />
+
+    <result column="expiry_time" property="expiry_time" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="pay_money" property="pay_money" jdbcType="NUMERIC" />
+    <result column="real_pay_money" property="real_pay_money" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    site_order_id, site_id, order_id, play_date, play_time, play_name, contacts_phone,
+    site_member_number, ef_member_number, guest_number, customer_number, remark, ticket_id, 
+    weekdays_ef_member_price, weekdays_site_member_price, weekdays_customer_price,
+    holiday_ef_member_price, holiday_site_member_price, holiday_customer_price, pay_money,
+    real_pay_money, create_time, modify_time, create_user, modify_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_site_order
+    where site_order_id = #{siteOrderId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getSiteOrderDetailsByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from ef_site_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_site_order
+    where site_order_id = #{siteOrderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Site_order" >
+    insert into ef_site_order (site_order_id, site_id, order_id,
+      play_date, play_time, play_name, 
+      contacts_phone, site_member_number, ef_member_number, 
+      guest_number, customer_number, remark, 
+      ticket_id, weekdays_ef_member_price, weekdays_site_member_price, 
+      weekdays_customer_price, holiday_ef_member_price,
+      holiday_site_member_price, holiday_customer_price,
+      pay_money, real_pay_money, create_time, 
+      modify_time, create_user, modify_user
+      )
+    values (#{siteOrderId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+      #{playDate,jdbcType=VARCHAR}, #{playTime,jdbcType=VARCHAR}, #{playName,jdbcType=VARCHAR}, 
+      #{contactsPhone,jdbcType=VARCHAR}, #{siteMemberNumber,jdbcType=INTEGER}, #{efMemberNumber,jdbcType=INTEGER}, 
+      #{guestNumber,jdbcType=INTEGER}, #{customerNumber,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{ticketId,jdbcType=INTEGER}, #{weekdaysEfMemberPrice,jdbcType=VARCHAR}, #{weekdaysSiteMemberPrice,jdbcType=VARCHAR}, 
+      #{weekdaysCustomerPrice,jdbcType=VARCHAR}, #{holidayEfMemberPrice,jdbcType=VARCHAR}, 
+      #{holidaySiteMemberPrice,jdbcType=VARCHAR}, #{holidayCustomerPrice,jdbcType=VARCHAR}, 
+      #{payMoney,jdbcType=DOUBLE}, #{realPayMoney,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Site_order" >
+    insert into ef_site_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="siteOrderId != null" >
+        site_order_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="playDate != null" >
+        play_date,
+      </if>
+      <if test="playTime != null" >
+        play_time,
+      </if>
+      <if test="playName != null" >
+        play_name,
+      </if>
+      <if test="contactsPhone != null" >
+        contacts_phone,
+      </if>
+      <if test="siteMemberNumber != null" >
+        site_member_number,
+      </if>
+      <if test="efMemberNumber != null" >
+        ef_member_number,
+      </if>
+      <if test="guestNumber != null" >
+        guest_number,
+      </if>
+      <if test="customerNumber != null" >
+        customer_number,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="ticketId != 0" >
+        ticket_id,
+      </if>
+      <if test="weekdaysEfMemberPrice != null" >
+        weekdays_ef_member_price,
+      </if>
+      <if test="weekdaysSiteMemberPrice != null" >
+        weekdays_site_member_price,
+      </if>
+      <if test="weekdaysCustomerPrice != null" >
+        weekdays_customer_price,
+      </if>
+      <if test="holidayEfMemberPrice != null" >
+        holiday_ef_member_price,
+      </if>
+      <if test="holidaySiteMemberPrice != null" >
+        holiday_site_member_price,
+      </if>
+      <if test="holidayCustomerPrice != null" >
+        holiday_customer_price,
+      </if>
+      <if test="payMoney != null" >
+        pay_money,
+      </if>
+      <if test="realPayMoney != null" >
+        real_pay_money,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="siteOrderId != null" >
+        #{siteOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="playDate != null" >
+        #{playDate,jdbcType=VARCHAR},
+      </if>
+      <if test="playTime != null" >
+        #{playTime,jdbcType=VARCHAR},
+      </if>
+      <if test="playName != null" >
+        #{playName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null" >
+        #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="siteMemberNumber != null" >
+        #{siteMemberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="efMemberNumber != null" >
+        #{efMemberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="guestNumber != null" >
+        #{guestNumber,jdbcType=INTEGER},
+      </if>
+      <if test="customerNumber != null" >
+        #{customerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketId != 0" >
+        #{ticketId,jdbcType=INTEGER},
+      </if>
+      <if test="weekdaysEfMemberPrice != null" >
+        #{weekdaysEfMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="weekdaysSiteMemberPrice != null" >
+        #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="weekdaysCustomerPrice != null" >
+        #{weekdaysCustomerPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayEfMemberPrice != null" >
+        #{holidayEfMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="holidaySiteMemberPrice != null" >
+        #{holidaySiteMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayCustomerPrice != null" >
+        #{holidayCustomerPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="payMoney != null" >
+        #{payMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="realPayMoney != null" >
+        #{realPayMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Site_order" >
+    update ef_site_order
+    <set >
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="playDate != null" >
+        play_date = #{playDate,jdbcType=VARCHAR},
+      </if>
+      <if test="playTime != null" >
+        play_time = #{playTime,jdbcType=VARCHAR},
+      </if>
+      <if test="playName != null" >
+        play_name = #{playName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null" >
+        contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="siteMemberNumber != null" >
+        site_member_number = #{siteMemberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="efMemberNumber != null" >
+        ef_member_number = #{efMemberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="guestNumber != null" >
+        guest_number = #{guestNumber,jdbcType=INTEGER},
+      </if>
+      <if test="customerNumber != null" >
+        customer_number = #{customerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketId != null" >
+        ticket_id = #{ticketId,jdbcType=INTEGER},
+      </if>
+      <if test="weekdaysEfMemberPrice != null" >
+        weekdays_ef_member_price = #{weekdaysEfMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="weekdaysSiteMemberPrice != null" >
+        weekdays_site_member_price = #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="weekdaysCustomerPrice != null" >
+        weekdays_customer_price = #{weekdaysCustomerPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayEfMemberPrice != null" >
+        holiday_ef_member_price = #{holidayEfMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="holidaySiteMemberPrice != null" >
+        holiday_site_member_price = #{holidaySiteMemberPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayCustomerPrice != null" >
+        holiday_customer_price = #{holidayCustomerPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="payMoney != null" >
+        pay_money = #{payMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="realPayMoney != null" >
+        real_pay_money = #{realPayMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where site_order_id = #{siteOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Site_order" >
+    update ef_site_order
+    set site_id = #{siteId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      play_date = #{playDate,jdbcType=VARCHAR},
+      play_time = #{playTime,jdbcType=VARCHAR},
+      play_name = #{playName,jdbcType=VARCHAR},
+      contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      site_member_number = #{siteMemberNumber,jdbcType=INTEGER},
+      ef_member_number = #{efMemberNumber,jdbcType=INTEGER},
+      guest_number = #{guestNumber,jdbcType=INTEGER},
+      customer_number = #{customerNumber,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      ticket_id = #{ticketId,jdbcType=INTEGER},
+      weekdays_ef_member_price = #{weekdaysEfMemberPrice,jdbcType=VARCHAR},
+      weekdays_site_member_price = #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+      weekdays_customer_price = #{weekdaysCustomerPrice,jdbcType=VARCHAR},
+      holiday_ef_member_price = #{holidayEfMemberPrice,jdbcType=VARCHAR},
+      holiday_site_member_price = #{holidaySiteMemberPrice,jdbcType=VARCHAR},
+      holiday_customer_price = #{holidayCustomerPrice,jdbcType=VARCHAR},
+      pay_money = #{payMoney,jdbcType=DOUBLE},
+      real_pay_money = #{realPayMoney,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR}
+    where site_order_id = #{siteOrderId,jdbcType=INTEGER}
+  </update>
+
+  <!--查询订单详情-->
+  <select id="selectSiteOrderDetail" resultType="com.ef.golf.vo.SiteOrderDatailVo" parameterType="java.lang.Integer">
+    SELECT
+    es.site_id siteId,
+    eo.order_id orderId,
+	eo.order_state orderState,
+    eso.create_time create_time,
+    eo.order_type orderType,
+    ei.img_url imgUrl,
+    eso.play_name play_name,
+    es.reserve4 siteName,
+    eso.play_date play_date,
+    eso.play_time play_time,
+    eso.contacts_phone contacts_phone,
+    eso.ef_member_number ef_member_number,
+    eso.customer_number customer_number,
+    eso.guest_number guest_number,
+    eso.site_member_number site_member_number,
+    eso.ef_member_number+eso.customer_number+eso.guest_number+eso.site_member_number sumMember,
+    et.type ticketType,
+    et.money money,
+    et.conditions conditions,
+    et.effective_time&lt;=NOW() effective_time,
+    et.expiry_time&gt;NOW() expiry_time,
+    eso.remark remark,
+    eso.pay_money pay_money,
+    eso.real_pay_money real_pay_money
+    FROM ef_site_order eso
+    INNER JOIN ef_order eo ON(eo.order_id=eso.order_id)
+    LEFT JOIN ef_img ei ON(eso.site_id=ei.product_id AND ei.img_type=1)
+    INNER JOIN ef_site es ON(eso.site_id=es.site_id)
+    LEFT JOIN ef_ticket et ON(eso.ticket_id=et.ticket_id)
+    WHERE eso.order_id=#{order_id}
+  </select>
+
+  <!--查询订单列表-->
+  <select id="getMyAllOrderListPage" parameterType="com.ef.golf.pojo.Order" resultType="com.ef.golf.vo.OrderVo">
+    SELECT
+    eo.order_state orderState,
+    es.reserve4 AS name,
+    ei.img_url imgUrl,
+    eo.create_time createTime,
+    eo.order_moeny orderMoney,
+    eo.order_id orderId,
+    eo.order_type orderType
+    FROM ef_order eo
+    INNER JOIN ef_site_order eso ON(eso.order_id=eo.order_id)
+    INNER JOIN ef_site es ON(eso.site_id=es.site_id)
+    LEFT JOIN ef_img ei ON(es.site_id=ei.product_id AND ei.img_type=1)
+    WHERE eo.account_id=#{accountId} AND eo.order_type=1
+     <if test="orderState!=null and orderState!=''">
+       AND eo.order_state=#{orderState}
+     </if>
+  </select>
+  <!-- 用户订场订单 -->
+  <select id="selectSiteOrderBystatus" parameterType="java.lang.String" >
+    SELECT
+        eo.order_id           orderId,
+        eo.order_no           orderNo,
+        eo.order_moeny        orderMoney,
+        eo.create_time        createTime,
+        eo.modify_user        modifyUser,
+        eo.modify_time        modifyTime,
+        eo.order_state        orderState,
+        eso.site_id           siteId,
+        eso.create_user       createUser,
+        eso.site_id           siteId,
+        eso.play_name         playName
+    FROM
+        ef_order eo
+    LEFT JOIN ef_site_order eso ON (eo.order_id = eso.order_id)
+    <where>
+      eso.create_user = #{uid}
+      AND
+      eo.is_del=0
+      <!-- 订单状态（1.待支付 2.支付完成 3.退款中 4.退款完成 5.订单完成 6.处理中 7.待确认 8.同意 9.取消 10.拒绝）-->
+      <if test="orderState != null and orderState == '1'.toString()">
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+      <if test="orderState != null and orderState == '6'.toString()">
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+      <if test="orderState != null and orderState == '5'.toString()">
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+      <if test="orderState != null and orderState == '11'.toString()">
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+<!--球场订单  详情    使用手机端跳转-->
+  <select id="getSiteOrderDetails"  parameterType="java.lang.Integer" resultType="com.ef.golf.vo.SiteOrderListVo">
+    SELECT
+    ei.url img_url,
+    eo.order_id orderId,
+    eo.order_no orderNo,
+    DATE_FORMAT(eo.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+    eo.order_state orderState,
+    eo.modify_user modifyUser,
+    DATE_FORMAT(eo.modify_time,'%Y-%m-%d %H:%i:%s') modifyTime,
+    eo.order_moeny orderMoeny,
+    eo.order_moeny orderMoney,
+    eo.ticket_id ticketId,
+    es.site_id siteId,
+    es.reserve4 siteName,
+    es.site_param siteParam,
+    es.reserve_explain reserveExplain,
+    es.cancel_explain cancelExplain,
+    eso.play_date playDate,
+    eso.play_time playTime,
+    eso.contacts_phone contactsPhone,
+    eso.customer_number headcount,
+    eso.play_name playName,
+    CASE WHEN ema.approve_status = '1' THEN ema.realname ELSE '无' END memberUser,
+    et.ticket_name ticketName,
+    eso.remark remark
+    FROM
+    ef_order eo
+    LEFT JOIN ef_site_order eso ON (eo.order_id = eso.order_id)
+    LEFT JOIN ef_siteimg ei ON (ei.product_id = eso.site_id)
+    LEFT JOIN ef_site es ON (es.site_id = eso.site_id)
+    LEFT JOIN ef_member_approve ema ON (ema.user_id = cast(eo.create_user AS signed))
+    LEFT JOIN ef_ticket et ON(eo.ticket_id = et.ticket_id)
+    <where>
+      eo.order_id=#{orderId}
+    AND eo.is_del = 0
+      AND eo.order_type = '1'
+      group  by eo.order_id
+    </where>
+
+
+  </select>
+
+
+  <!-- 个人中心订单列表 订场 -->
+  <select id="getSiteOrderList" resultType="com.ef.golf.vo.SiteOrderListVo">
+    SELECT
+        ei.url img_url,
+        eo.order_id orderId,
+        eo.order_no orderNo,
+        DATE_FORMAT(eo.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+        eo.order_state orderState,
+        eo.modify_user modifyUser,
+        DATE_FORMAT(eo.modify_time,'%Y-%m-%d %H:%i:%s') modifyTime,
+        eo.order_moeny orderMoeny,
+        eo.order_moeny orderMoney,
+        eo.ticket_id ticketId,
+        es.site_id siteId,
+        es.reserve4 siteName,
+        es.site_param siteParam,
+        es.reserve_explain reserveExplain,
+        es.cancel_explain cancelExplain,
+        eso.play_date playDate,
+        eso.play_time playTime,
+        eso.contacts_phone contactsPhone,
+        eso.customer_number headcount,
+        eso.play_name playName,
+        CASE WHEN ema.approve_status = '1' THEN ema.realname ELSE '无' END memberUser,
+        et.ticket_name ticketName,
+        eso.remark remark
+    FROM
+        ef_order eo
+    LEFT JOIN ef_site_order eso ON (eo.order_id = eso.order_id)
+    LEFT JOIN ef_siteimg ei ON (ei.product_id = eso.site_id)
+    LEFT JOIN ef_site es ON (es.site_id = eso.site_id)
+    LEFT JOIN ef_member_approve ema ON (ema.user_id = cast(eo.create_user AS signed) AND es.qiuhui_id = ema.club_id)
+    <!-- LEFT JOIN ef_ticket et ON(eo.ticket_id = et.ticket_id) -->
+    LEFT JOIN ef_user_ticket eut on(eut.id = eo.ticket_id)
+    LEFT JOIN ef_ticket et ON(eut.ticket_id = et.ticket_id)
+    <where>
+    eo.create_user = #{createUser}
+      <if test="orderState == '2'.toString()">
+        AND eo.order_state IN (2,3)
+      </if>
+      <if test="orderState == '6'.toString()">
+        AND eo.order_state IN (6,7,37,38)
+      </if>
+      <if test="orderState != '2'.toString() and orderState != '6'.toString()">
+        AND eo.order_state = #{orderState}
+      </if>
+    AND eo.is_del = 0
+    AND eo.order_type = '1'
+    </where>
+    GROUP BY eo.order_id
+    ORDER BY eo.create_time DESC
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getSiteOrderListCount" resultType="java.lang.Integer">
+    SELECT
+       count(0)
+    FROM
+        ef_order eo
+    LEFT JOIN ef_site_order eso ON (eo.order_id = eso.order_id)
+    <!-- LEFT JOIN ef_img ei ON (ei.product_id = eso.site_id)
+    LEFT JOIN ef_site es ON (es.site_id = eso.site_id)
+    LEFT JOIN ef_member_approve ema ON (ema.user_id = cast(eo.create_user AS signed))
+    LEFT JOIN ef_ticket et ON(eo.ticket_id = et.ticket_id) -->
+    <where>
+      eo.create_user = #{createUser}
+      <if test="orderState == '2'.toString()">
+        AND eo.order_state IN (2,3)
+      </if>
+      <if test="orderState == '6'.toString()">
+        AND eo.order_state IN (6,7,37,38)
+      </if>
+      <if test="orderState != '2'.toString() and orderState != '6'.toString()">
+        AND eo.order_state = #{orderState}
+      </if>
+      AND eo.is_del = 0
+      AND eo.order_type = '1'
+    </where>
+  </select>
+
+</mapper>

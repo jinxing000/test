@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.SystemTransferMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.SystemTransfer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="time_transferred" jdbcType="TIMESTAMP" property="timeTransferred" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="recipient" jdbcType="BIGINT" property="recipient" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="transaction_no" jdbcType="VARCHAR" property="transactionNo" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, amount, time_transferred, status, recipient, description, transaction_no, order_no, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_system_transfer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_system_transfer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.SystemTransfer">
+    insert into ef_system_transfer (id, amount, time_transferred, 
+      status, recipient, description, 
+      transaction_no, order_no, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{amount,jdbcType=DOUBLE}, #{timeTransferred,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{recipient,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, 
+      #{transactionNo,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.SystemTransfer">
+    insert into ef_system_transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="timeTransferred != null">
+        time_transferred,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="recipient != null">
+        recipient,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="transactionNo != null">
+        transaction_no,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="timeTransferred != null">
+        #{timeTransferred,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
+        #{recipient,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionNo != null">
+        #{transactionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.SystemTransfer">
+    update ef_system_transfer
+    <set>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="timeTransferred != null">
+        time_transferred = #{timeTransferred,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
+        recipient = #{recipient,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionNo != null">
+        transaction_no = #{transactionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.SystemTransfer">
+    update ef_system_transfer
+    set amount = #{amount,jdbcType=DOUBLE},
+      time_transferred = #{timeTransferred,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      recipient = #{recipient,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR},
+      transaction_no = #{transactionNo,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

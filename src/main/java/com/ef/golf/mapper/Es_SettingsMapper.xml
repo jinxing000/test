@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.Es_SettingsMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Es_Settings" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="cfg_value" property="cfgValue" jdbcType="VARCHAR" />
+    <result column="cfg_group" property="cfgGroup" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, cfg_value, cfg_group
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_settings
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_settings
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Es_Settings" >
+    insert into es_settings (id, code, cfg_value, 
+      cfg_group)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{cfgValue,jdbcType=VARCHAR}, 
+      #{cfgGroup,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Es_Settings" >
+    insert into es_settings
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="cfgValue != null" >
+        cfg_value,
+      </if>
+      <if test="cfgGroup != null" >
+        cfg_group,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cfgValue != null" >
+        #{cfgValue,jdbcType=VARCHAR},
+      </if>
+      <if test="cfgGroup != null" >
+        #{cfgGroup,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Es_Settings" >
+    update es_settings
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cfgValue != null" >
+        cfg_value = #{cfgValue,jdbcType=VARCHAR},
+      </if>
+      <if test="cfgGroup != null" >
+        cfg_group = #{cfgGroup,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Es_Settings" >
+    update es_settings
+    set code = #{code,jdbcType=VARCHAR},
+      cfg_value = #{cfgValue,jdbcType=VARCHAR},
+      cfg_group = #{cfgGroup,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getSettingPoint" resultType="java.util.Map">
+  select cfg_value from es_settings where cfg_group='point'
+  </select>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.AppVersionMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.AppVersion">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
+    <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+    <result column="package_url" jdbcType="VARCHAR" property="packageUrl" />
+    <result column="shop_url" jdbcType="VARCHAR" property="shopUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, state, platform, version_name, package_url, shop_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_app_version
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_app_version
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.AppVersion">
+    insert into ef_app_version (id, state, platform, 
+      version_name, package_url, shop_url
+      )
+    values (#{id,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, 
+      #{versionName,jdbcType=VARCHAR}, #{packageUrl,jdbcType=VARCHAR}, #{shopUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.AppVersion">
+    insert into ef_app_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="platform != null">
+        platform,
+      </if>
+      <if test="versionName != null">
+        version_name,
+      </if>
+      <if test="packageUrl != null">
+        package_url,
+      </if>
+      <if test="shopUrl != null">
+        shop_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null">
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="versionName != null">
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageUrl != null">
+        #{packageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shopUrl != null">
+        #{shopUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.AppVersion">
+    update ef_app_version
+    <set>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null">
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="versionName != null">
+        version_name = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageUrl != null">
+        package_url = #{packageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shopUrl != null">
+        shop_url = #{shopUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.AppVersion">
+    update ef_app_version
+    set state = #{state,jdbcType=INTEGER},
+      platform = #{platform,jdbcType=VARCHAR},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      package_url = #{packageUrl,jdbcType=VARCHAR},
+      shop_url = #{shopUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findAppVersionByPlatform" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List"/>
+    FROM
+      ef_app_version
+    WHERE
+      platform = #{platform}
+  </select>
+</mapper>

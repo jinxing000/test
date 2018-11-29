@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.HopeMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Hope">
+    <id column="hope_id" jdbcType="INTEGER" property="hopeId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="hope_state" jdbcType="VARCHAR" property="hopeState" />
+    <result column="hope_type" jdbcType="VARCHAR" property="hopeType" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="hope_money" jdbcType="DOUBLE" property="hopeMoney" />
+    <result column="every_hope_money" jdbcType="DOUBLE" property="everyHopeMoney" />
+    <result column="hope_real_money" jdbcType="DOUBLE" property="hopeRealMoney" />
+    <result column="begin_date" jdbcType="DATE" property="beginDate" />
+    <result column="begin_time" jdbcType="VARCHAR" property="beginTime" />
+    <result column="prduct_rule" jdbcType="VARCHAR" property="prductRule" />
+    <result column="hope_content" jdbcType="VARCHAR" property="hopeContent" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="TIMESTAMP" property="reserved3" />
+    <result column="reserved4" jdbcType="TIMESTAMP" property="reserved4" />
+    <result column="realize_time" jdbcType="TIMESTAMP" property="realizeTime" />
+    <result column="get_stauts" jdbcType="VARCHAR" property="getStauts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    hope_id, user_id, hope_state, hope_type, product_id, hope_money, every_hope_money, 
+    hope_real_money, begin_date, begin_time, prduct_rule, hope_content, create_time, 
+    reserved1, reserved2, reserved3, reserved4,realize_time,get_stauts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_hope
+    where hope_id = #{hopeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_hope
+    where hope_id = #{hopeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Hope">
+    insert into ef_hope (hope_id, user_id, hope_state, 
+      hope_type, product_id, hope_money, 
+      every_hope_money, hope_real_money, begin_date, 
+      begin_time, prduct_rule, hope_content, 
+      create_time, reserved1, reserved2, 
+      reserved3, reserved4)
+    values (#{hopeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{hopeState,jdbcType=VARCHAR}, 
+      #{hopeType,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, #{hopeMoney,jdbcType=DOUBLE}, 
+      #{everyHopeMoney,jdbcType=DOUBLE}, #{hopeRealMoney,jdbcType=DOUBLE}, #{beginDate,jdbcType=DATE}, 
+      #{beginTime,jdbcType=VARCHAR}, #{prductRule,jdbcType=VARCHAR}, #{hopeContent,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=TIMESTAMP}, #{reserved4,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Hope">
+    insert into ef_hope
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hopeId != null">
+        hope_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="hopeState != null">
+        hope_state,
+      </if>
+      <if test="hopeType != null">
+        hope_type,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="hopeMoney != null">
+        hope_money,
+      </if>
+      <if test="everyHopeMoney != null">
+        every_hope_money,
+      </if>
+      <if test="hopeRealMoney != null">
+        hope_real_money,
+      </if>
+      <if test="beginDate != null">
+        begin_date,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="prductRule != null">
+        prduct_rule,
+      </if>
+      <if test="hopeContent != null">
+        hope_content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="reserved1 != null">
+        reserved1,
+      </if>
+      <if test="reserved2 != null">
+        reserved2,
+      </if>
+      <if test="reserved3 != null">
+        reserved3,
+      </if>
+      <if test="reserved4 != null">
+        reserved4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hopeId != null">
+        #{hopeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hopeState != null">
+        #{hopeState,jdbcType=VARCHAR},
+      </if>
+      <if test="hopeType != null">
+        #{hopeType,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="hopeMoney != null">
+        #{hopeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="everyHopeMoney != null">
+        #{everyHopeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="hopeRealMoney != null">
+        #{hopeRealMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="beginDate != null">
+        #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="prductRule != null">
+        #{prductRule,jdbcType=VARCHAR},
+      </if>
+      <if test="hopeContent != null">
+        #{hopeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved1 != null">
+        #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        #{reserved3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved4 != null">
+        #{reserved4,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Hope">
+    update ef_hope
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hopeState != null">
+        hope_state = #{hopeState,jdbcType=VARCHAR},
+      </if>
+      <if test="hopeType != null">
+        hope_type = #{hopeType,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="hopeMoney != null">
+        hope_money = #{hopeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="everyHopeMoney != null">
+        every_hope_money = #{everyHopeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="hopeRealMoney != null">
+        hope_real_money = #{hopeRealMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="beginDate != null">
+        begin_date = #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="prductRule != null">
+        prduct_rule = #{prductRule,jdbcType=VARCHAR},
+      </if>
+      <if test="hopeContent != null">
+        hope_content = #{hopeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved4 != null">
+        reserved4 = #{reserved4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realizeTime != null">
+        realize_time = #{realizeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getStauts != null">
+        get_stauts = #{getStauts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hope_id = #{hopeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Hope">
+    update ef_hope
+    set user_id = #{userId,jdbcType=INTEGER},
+      hope_state = #{hopeState,jdbcType=VARCHAR},
+      hope_type = #{hopeType,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER},
+      hope_money = #{hopeMoney,jdbcType=DOUBLE},
+      every_hope_money = #{everyHopeMoney,jdbcType=DOUBLE},
+      hope_real_money = #{hopeRealMoney,jdbcType=DOUBLE},
+      begin_date = #{beginDate,jdbcType=DATE},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      prduct_rule = #{prductRule,jdbcType=VARCHAR},
+      hope_content = #{hopeContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR},
+      reserved3 = #{reserved3,jdbcType=TIMESTAMP},
+      reserved4 = #{reserved4,jdbcType=TIMESTAMP}
+    where hope_id = #{hopeId,jdbcType=INTEGER}
+  </update>
+
+  <!--获取愿望列表-->
+  <select id="getHopes" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.DynamicHopeVo">
+    SELECT
+      eh.hope_id hopeId,
+      eh.hope_type hopeType,
+      eh.user_id userId,
+      eh.prduct_rule prductRule,
+      eh.reserved1 imgUrl,
+      eh.hope_real_money/eh.hope_money hopeState,
+      eh.hope_real_money/eh.hope_money scale,
+      es.reserve4 productName,
+      eh.reserved2 hopeName
+    FROM ef_hope eh
+    LEFT JOIN ef_site es ON (eh.product_id = es.site_id)
+    WHERE eh.hope_type='1'
+    AND eh.user_id=#{userId}
+    AND eh.hope_state='1'
+    AND TIMESTAMPDIFF(HOUR,NOW(),CONCAT(eh.begin_date,' ',eh.begin_time))>48
+    UNION
+    SELECT
+      eh.hope_id hopeId,
+      eh.hope_type hopeType,
+      eh.user_id userId,
+      eh.prduct_rule prductRule,
+      eh.reserved1 imgUrl,
+      eh.hope_real_money/eh.hope_money hopeState,
+      eh.hope_real_money/eh.hope_money scale,
+      eg.name productName,
+      eh.reserved2 hopeName
+    FROM ef_hope eh
+    LEFT JOIN es_goods eg ON (eh.product_id = eg.goods_id)
+    WHERE eh.hope_type='2'
+    AND eh.hope_state='1'
+    AND eh.user_id=#{userId}
+    AND TIMESTAMPDIFF(MONTH,NOW(),eh.create_time)&lt;6
+   <!-- select
+      eh.hope_id hopeId,
+      eh.hope_type hopeType,
+      eh.user_id userId,
+      eh.prduct_rule prductRule,
+      eh.hope_real_money/eh.hope_money hopeState,
+      ei.img_url imgUrl
+  from ef_hope eh
+  left join ef_img ei
+  ON(eh.product_id=ei.product_id)
+  WHERE eh.hope_state=1-->
+  </select>
+
+  <!--根据用户id获取愿望-->
+  <select id="getHopeByUserId" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.DynamicHopeVo">
+
+    SELECT
+    eh.hope_id hopeId,
+    eh.hope_type hopeType,
+    eh.user_id userId,
+    eh.prduct_rule prductRule,
+    eh.reserved1 imgUrl,
+    eh.hope_real_money/eh.hope_money hopeState,
+    es.reserve4 productName,
+    eh.reserved2 hopeName
+    FROM ef_hope eh
+    LEFT JOIN ef_site es ON (eh.product_id = es.site_id)
+    WHERE eh.user_id=#{userId} AND eh.hope_type=1
+    AND eh.hope_state='1'
+    AND TIMESTAMPDIFF(HOUR,NOW(),CONCAT(eh.begin_date,' ',eh.begin_time))>48
+    UNION
+    SELECT
+    eh.hope_id hopeId,
+    eh.hope_type hopeType,
+    eh.user_id userId,
+    eh.prduct_rule prductRule,
+    eh.reserved1 imgUrl,
+    eh.hope_real_money/eh.hope_money hopeState,
+    eg.name productName,
+    eh.reserved2 hopeName
+    FROM ef_hope eh
+    LEFT JOIN es_goods eg ON (eh.product_id = eg.goods_id)
+    WHERE eh.user_id=#{userId} AND eh.hope_type=2
+    AND eh.hope_state='1'
+    AND TIMESTAMPDIFF(MONTH,NOW(),eh.create_time)&lt;6
+    <!--select
+    eh.hope_id hopeId,
+    eh.hope_type hopeType,
+    eh.user_id userId,
+    eh.prduct_rule prductRule,
+    eh.hope_real_money/eh.hope_money hopeState,
+    ei.img_url imgUrl
+    from ef_hope eh
+    left join ef_img ei
+    ON(eh.product_id=ei.product_id)
+    WHERE eh.hope_state=1
+    AND eh.user_id=#{userId,jdbcType=INTEGER}-->
+  </select>
+
+  <!--查询用户的愿望（未实现的）-->
+  <select id="getUnrealizedHopes" resultType="com.ef.golf.pojo.Hope">
+    SELECT
+    <!--eh.hope_id hopeId,
+    eh.reserved1 reserved1,
+    eh.reserved2 reserved2,
+    eh.reserved3 reserved3,
+    eh.hope_type hopeType,
+    eh.prduct_rule reserved2,
+    eh.hope_real_money/eh.hope_money reserved3-->
+    eh.hope_id hopeId,
+    eh.user_id userId,
+    eh.create_time createTime,
+    eh.reserved1 reserved1,
+    eh.reserved2 reserved2,
+    eh.reserved3 reserved3,
+    eh.hope_real_money/eh.hope_money scale,
+    eh.realize_time realizeTime,
+    eh.get_stauts getStauts,
+    eh.hope_type hopeType,
+    eh.hope_money hopeMoney,
+    eh.every_hope_money everyHopeMoney,
+    eh.hope_real_money hopeRealMoney
+    FROM ef_hope eh
+    WHERE eh.user_id=#{userId}
+    AND eh.hope_type='1'
+    AND eh.hope_state='1'
+    AND TIMESTAMPDIFF(HOUR,NOW(),CONCAT(eh.begin_date,' ',eh.begin_time))>48
+    UNION
+    SELECT
+    <!-- eh.hope_id hopeId,
+    eh.reserved1 reserved1,
+    eh.hope_type hopeType,
+    eh.prduct_rule reserved2,
+    eh.hope_real_money/eh.hope_money reserved3 -->
+    eh.hope_id hopeId,
+    eh.user_id userId,
+    eh.create_time createTime,
+    eh.reserved1 reserved1,
+    eh.reserved2 reserved2,
+    eh.reserved3 reserved3,
+    eh.hope_real_money/eh.hope_money scale,
+    eh.realize_time realizeTime,
+    eh.get_stauts getStauts,
+    eh.hope_type hopeType,
+    eh.hope_money hopeMoney,
+    eh.every_hope_money everyHopeMoney,
+    eh.hope_real_money hopeRealMoney
+    FROM ef_hope eh
+    WHERE eh.user_id=#{userId}
+    AND eh.hope_type='2'
+    AND eh.hope_state='1'
+    AND TIMESTAMPDIFF(MONTH,NOW(),eh.create_time)&lt;6
+  </select>
+
+  <!--根据愿望id获取愿望详情-->
+  <select id="getHopeDetailById" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.QuanziHopeDetailVo">
+    SELECT
+      u.id userId,
+      u.nickname nickName,
+      u.head_portrait_url headPortraitUrl,
+      u.gender gender,
+      eh.hope_content hopeContent,
+      eh.hope_id hopeId,
+      eh.prduct_rule prductRule,
+      eh.hope_type hopeType,
+      eh.hope_real_money/eh.hope_money scale,
+      DATE_FORMAT(CONCAT(eh.begin_date,' ',eh.begin_time),'%Y-%m-%d %H:%i:%s') playTime,
+      eh.reserved1 imgUrl,
+      eh.reserved2 hopeName,
+      eh.create_time createTime,
+      eh.realize_time realizeTime,
+      eh.get_stauts getStauts,
+      eh.hope_state hopeState,
+      eh.hope_money hopeMoney,
+      eh.every_hope_money everyHopeMoney,
+      eh.hope_real_money hopeRealMoney,
+      eh.reserved2 hopeName
+    FROM ef_hope eh
+    INNER JOIN u_user u
+    ON(eh.user_id=u.id)
+    WHERE eh.hope_id=#{hopeId}
+  </select>
+<!-- 个人中心愿望列表查询 -->
+  <select id="getHopeList" resultType="com.ef.golf.pojo.Hope">
+    SELECT
+        eh.hope_id hopeId,
+        eh.user_id userId,
+        eh.create_time createTime,
+        eh.reserved1 reserved1,
+        eh.reserved2 reserved2,
+        eh.reserved3 reserved3,
+        eh.reserved4 reserved4,
+        eh.prduct_rule prductRule,
+        DATE_FORMAT(CONCAT(eh.begin_date,' ',eh.begin_time),'%Y-%m-%d %H:%i:%s') playTime,
+        eh.hope_real_money/eh.hope_money scale,
+        eh.realize_time realizeTime,
+        eh.get_stauts getStauts,
+        eh.hope_type hopeType,
+        eh.hope_money hopeMoney,
+        eh.every_hope_money everyHopeMoney,
+        eh.hope_real_money hopeRealMoney
+    FROM
+        ef_hope eh
+    <where>
+        eh.user_id = #{userId}
+        <if test="hopeState == '1'.toString()">
+          AND eh.hope_state = #{hopeState,jdbcType=VARCHAR}
+        </if>
+        <if test="hopeState == '2'.toString()">
+          AND eh.hope_state = #{hopeState,jdbcType=VARCHAR}
+        </if>
+        <if test="hopeState == '3'.toString()">
+          AND eh.hope_state = #{hopeState,jdbcType=VARCHAR}
+        </if>
+    </where>
+    ORDER BY eh.create_time DESC
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <!-- 查询count -->
+  <select id="getHopeListCount" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM
+    ef_hope eh
+    <where>
+      eh.user_id = #{userId}
+      <if test="hopeState == '1'.toString()">
+        AND eh.hope_state = #{hopeState,jdbcType=VARCHAR}
+      </if>
+      <if test="hopeState == '2'.toString()">
+        AND eh.hope_state = #{hopeState,jdbcType=VARCHAR}
+      </if>
+      <if test="hopeState == '3'.toString()">
+        AND eh.hope_state = #{hopeState,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <!-- 个人中心愿望列表查询 -->
+  <select id="getHopeDetails" resultType="com.ef.golf.pojo.Hope">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM
+    ef_hope eh
+    WHERE
+      eh.user_id = #{userId}
+  </select>
+  <select id="selectAllHope" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_hope
+    WHERE
+    hope_state IN ('1','2')
+  </select>
+</mapper>

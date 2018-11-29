@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.TravelLineMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.TravelLine">
+    <id column="line_id" jdbcType="INTEGER" property="lineId" />
+    <result column="line_name" jdbcType="VARCHAR" property="lineName" />
+    <result column="real_price" jdbcType="DOUBLE" property="realPrice" />
+    <result column="original_price" jdbcType="DOUBLE" property="originalPrice" />
+    <result column="home" jdbcType="INTEGER" property="home" />
+    <result column="recommend" jdbcType="INTEGER" property="recommend" />
+    <result column="recommend_sort" jdbcType="INTEGER" property="recommendSort" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="grounding" jdbcType="INTEGER" property="grounding" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="destination" jdbcType="VARCHAR" property="destination" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    line_id, line_name, real_price, original_price, home, recommend, recommend_sort, 
+    sort, grounding, begin_time, end_time, create_time, modify_time, create_user, modify_user, 
+    destination
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_travelline
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_travelline
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.TravelLine">
+    insert into ef_travelline (line_id, line_name, real_price, 
+      original_price, home, recommend, 
+      recommend_sort, sort, grounding, 
+      begin_time, end_time, create_time, 
+      modify_time, create_user, modify_user, 
+      destination)
+    values (#{lineId,jdbcType=INTEGER}, #{lineName,jdbcType=VARCHAR}, #{realPrice,jdbcType=DOUBLE}, 
+      #{originalPrice,jdbcType=DOUBLE}, #{home,jdbcType=INTEGER}, #{recommend,jdbcType=INTEGER}, 
+      #{recommendSort,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{grounding,jdbcType=INTEGER}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, 
+      #{destination,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.TravelLine">
+    insert into ef_travelline
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lineId != null">
+        line_id,
+      </if>
+      <if test="lineName != null">
+        line_name,
+      </if>
+      <if test="realPrice != null">
+        real_price,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="home != null">
+        home,
+      </if>
+      <if test="recommend != null">
+        recommend,
+      </if>
+      <if test="recommendSort != null">
+        recommend_sort,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="grounding != null">
+        grounding,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="destination != null">
+        destination,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lineId != null">
+        #{lineId,jdbcType=INTEGER},
+      </if>
+      <if test="lineName != null">
+        #{lineName,jdbcType=VARCHAR},
+      </if>
+      <if test="realPrice != null">
+        #{realPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="home != null">
+        #{home,jdbcType=INTEGER},
+      </if>
+      <if test="recommend != null">
+        #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="recommendSort != null">
+        #{recommendSort,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="grounding != null">
+        #{grounding,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null">
+        #{destination,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.TravelLine">
+    update ef_travelline
+    <set>
+      <if test="lineName != null">
+        line_name = #{lineName,jdbcType=VARCHAR},
+      </if>
+      <if test="realPrice != null">
+        real_price = #{realPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="home != null">
+        home = #{home,jdbcType=INTEGER},
+      </if>
+      <if test="recommend != null">
+        recommend = #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="recommendSort != null">
+        recommend_sort = #{recommendSort,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="grounding != null">
+        grounding = #{grounding,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null">
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.TravelLine">
+    update ef_travelline
+    set line_name = #{lineName,jdbcType=VARCHAR},
+      real_price = #{realPrice,jdbcType=DOUBLE},
+      original_price = #{originalPrice,jdbcType=DOUBLE},
+      home = #{home,jdbcType=INTEGER},
+      recommend = #{recommend,jdbcType=INTEGER},
+      recommend_sort = #{recommendSort,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      grounding = #{grounding,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR}
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 推荐线路 type = 0 推荐 type = 1 国内 type = 2 国外 -->
+  <select id="getTravelLineByType" resultType="com.ef.golf.vo.TravelLineVo">
+    SELECT
+      line_id lineId,
+      line_name lineName,
+      destination destination,
+      real_price realPrice,
+      original_price originalPrice,
+      city city,
+      country country
+    FROM
+    ef_travelline
+    <where>
+      NOW() BETWEEN begin_time AND end_time
+      AND grounding = 0
+      <if test="type == '0'.toString()">
+        AND recommend = '1'
+        ORDER BY recommend_sort ASC
+      </if>
+      <if test="type == '1'.toString()">
+        AND home = 0
+        ORDER BY sort ASC
+      </if>
+      <if test="type == '2'.toString()">
+        AND home = 1
+        ORDER BY sort ASC
+      </if>
+    </where>
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getTravelLineByTypeCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM
+    ef_travelline
+    <where>
+      1=1
+      AND NOW() BETWEEN begin_time AND end_time
+      AND grounding = 0
+      <if test="_parameter == '0'.toString()">
+        AND recommend = '1'
+      </if>
+      <if test="_parameter == '1'.toString()">
+        AND home = 0
+      </if>
+      <if test="_parameter == '2'.toString()">
+        AND home = 1
+      </if>
+    </where>
+  </select>
+  <!-- 线路详情 主表数据-->
+  <select id="getTravelLineDetailsById" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.TravelLineVo">
+    SELECT
+      line_id lineId,
+      line_name lineName,
+      real_price realPrice,
+      original_price originalPrice,
+      destination destination,
+      city city,
+      country country
+    FROM
+        ef_travelline et
+    WHERE
+        et.line_id = #{lineId}
+  </select>
+  <!-- 线路所属图片 -->
+  <select id="getPictureByTravelLineId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT
+	  line_pic_url
+    FROM
+	  ef_travelline_pic
+	WHERE
+	  line_id = #{lineId}
+	  ORDER BY sort ASC
+  </select>
+
+  <!-- 客服页面信息 -->
+  <select id="getSearchCueMsg" resultType="com.ef.golf.vo.ServiceReplyVo">
+    SELECT
+		pic_url picUrl,
+		remark remark
+    FROM
+        ef_travelline_service_reply
+  </select>
+
+</mapper>

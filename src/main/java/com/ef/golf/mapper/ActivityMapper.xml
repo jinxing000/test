@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Activity" >
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+    <result column="range_type" property="rangeType" jdbcType="SMALLINT" />
+    <result column="activity_type" property="activityType" jdbcType="SMALLINT" />
+    <result column="disabled" property="disabled" jdbcType="SMALLINT" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.Activity" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activity_id, activity_name, start_time, end_time, range_type, activity_type, disabled
+  </sql>
+  <sql id="Blob_Column_List" >
+    description,img,color
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from "es_activity"
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from "es_activity"
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Activity" >
+    insert into "es_activity" (activity_id, activity_name, start_time, 
+      end_time, range_type, activity_type, 
+      disabled, description)
+    values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{startTime,jdbcType=BIGINT}, 
+      #{endTime,jdbcType=BIGINT}, #{rangeType,jdbcType=SMALLINT}, #{activityType,jdbcType=SMALLINT}, 
+      #{disabled,jdbcType=SMALLINT}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Activity" >
+    insert into "es_activity"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="activityName != null" >
+        activity_name,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="rangeType != null" >
+        range_type,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="rangeType != null" >
+        #{rangeType,jdbcType=SMALLINT},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=SMALLINT},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=SMALLINT},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Activity" >
+    update "es_activity"
+    <set >
+      <if test="activityName != null" >
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="rangeType != null" >
+        range_type = #{rangeType,jdbcType=SMALLINT},
+      </if>
+      <if test="activityType != null" >
+        activity_type = #{activityType,jdbcType=SMALLINT},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=SMALLINT},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.Activity" >
+    update "es_activity"
+    set activity_name = #{activityName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      range_type = #{rangeType,jdbcType=SMALLINT},
+      activity_type = #{activityType,jdbcType=SMALLINT},
+      disabled = #{disabled,jdbcType=SMALLINT},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Activity" >
+    update "es_activity"
+    set activity_name = #{activityName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      range_type = #{rangeType,jdbcType=SMALLINT},
+      activity_type = #{activityType,jdbcType=SMALLINT},
+      disabled = #{disabled,jdbcType=SMALLINT}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getActivity" resultMap="BaseResultMap" >
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from es_activity
+      WHERE  start_time &lt;(select UNIX_TIMESTAMP(NOW()))
+        and
+        end_time &gt;(select UNIX_TIMESTAMP(NOW())) and disabled = 0 LIMIT 1
+  </select>
+
+
+
+
+</mapper>

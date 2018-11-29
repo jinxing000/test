@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.MerchantOrderMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.MerchantOrder">
+    <id column="merchant_order_id" jdbcType="BIGINT" property="merchantOrderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="ticket_id" jdbcType="BIGINT" property="ticketId" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="contacts_phone" jdbcType="VARCHAR" property="contactsPhone" />
+    <result column="pay_money" jdbcType="DOUBLE" property="payMoney" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="old_money" jdbcType="DOUBLE" property="oldMoney" />
+    <result column="discounts_money" jdbcType="DOUBLE" property="discountsMoney" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    merchant_order_id, order_no, merchant_id, ticket_id, create_user, merchant_name, 
+    contacts_phone, pay_money, modify_user, create_time, modify_time, old_money, discounts_money, channel
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_merchant_order
+    where merchant_order_id = #{merchantOrderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_merchant_order
+    where merchant_order_id = #{merchantOrderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.MerchantOrder">
+    insert into ef_merchant_order (merchant_order_id, order_no, merchant_id, 
+      ticket_id, create_user, merchant_name, 
+      contacts_phone, pay_money, modify_user, 
+      create_time, modify_time, old_money, 
+      discounts_money)
+    values (#{merchantOrderId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{merchantId,jdbcType=BIGINT},
+      #{ticketId,jdbcType=BIGINT}, #{createUser,jdbcType=BIGINT}, #{merchantName,jdbcType=VARCHAR}, 
+      #{contactsPhone,jdbcType=VARCHAR}, #{payMoney,jdbcType=DOUBLE}, #{modifyUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{oldMoney,jdbcType=DOUBLE}, 
+      #{discountsMoney,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="merchantOrderId" parameterType="com.ef.golf.pojo.MerchantOrder" >
+    insert into ef_merchant_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchantOrderId != null">
+        merchant_order_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="ticketId != null">
+        ticket_id,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="merchantName != null">
+        merchant_name,
+      </if>
+      <if test="contactsPhone != null">
+        contacts_phone,
+      </if>
+      <if test="payMoney != null">
+        pay_money,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="oldMoney != null">
+        old_money,
+      </if>
+      <if test="discountsMoney != null">
+        discounts_money,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchantOrderId != null">
+        #{merchantOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="ticketId != null">
+        #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="merchantName != null">
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null">
+        #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldMoney != null">
+        #{oldMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="discountsMoney != null">
+        #{discountsMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.MerchantOrder">
+    update ef_merchant_order
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="ticketId != null">
+        ticket_id = #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="merchantName != null">
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null">
+        contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldMoney != null">
+        old_money = #{oldMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="discountsMoney != null">
+        discounts_money = #{discountsMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where merchant_order_id = #{merchantOrderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.MerchantOrder">
+    update ef_merchant_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      merchant_id = #{merchantId,jdbcType=BIGINT},
+      ticket_id = #{ticketId,jdbcType=BIGINT},
+      create_user = #{createUser,jdbcType=BIGINT},
+      merchant_name = #{merchantName,jdbcType=VARCHAR},
+      contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      pay_money = #{payMoney,jdbcType=DOUBLE},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      old_money = #{oldMoney,jdbcType=DOUBLE},
+      discounts_money = #{discountsMoney,jdbcType=DOUBLE},
+      channel = #{channel,jdbcType=VARCHAR},
+    where merchant_order_id = #{merchantOrderId,jdbcType=BIGINT}
+  </update>
+</mapper>

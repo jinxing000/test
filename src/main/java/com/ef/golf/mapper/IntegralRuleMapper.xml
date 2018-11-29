@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.IntegralRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.IntegralRule" >
+    <id column="irid" property="irid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="proportion" property="proportion" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+    <result column="is_alive" property="isAlive" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    irid, type, proportion, create_time, modify_time, create_user, modify_user, is_alive
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_integral_rule
+    where irid = #{irid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectRuleByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ef_integral_rule
+    where type = #{type,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_integral_rule
+    where irid = #{irid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.IntegralRule" >
+    insert into ef_integral_rule (irid, type, proportion, 
+      create_time, modify_time, create_user, 
+      modify_user, is_alive)
+    values (#{irid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{proportion,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{isAlive,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.IntegralRule" >
+    insert into ef_integral_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="irid != null" >
+        irid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="proportion != null" >
+        proportion,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+      <if test="isAlive != null" >
+        is_alive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="irid != null" >
+        #{irid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="proportion != null" >
+        #{proportion,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null" >
+        #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.IntegralRule" >
+    update ef_integral_rule
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="proportion != null" >
+        proportion = #{proportion,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null" >
+        is_alive = #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where irid = #{irid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.IntegralRule" >
+    update ef_integral_rule
+    set type = #{type,jdbcType=INTEGER},
+      proportion = #{proportion,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      is_alive = #{isAlive,jdbcType=VARCHAR}
+    where irid = #{irid,jdbcType=INTEGER}
+  </update>
+</mapper>

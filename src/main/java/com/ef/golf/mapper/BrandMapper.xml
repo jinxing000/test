@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.BrandMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Brand" >
+    <id column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
+    <result column="keywords" property="keywords" jdbcType="LONGVARCHAR" />
+    <result column="brief" property="brief" jdbcType="LONGVARCHAR" />
+    <result column="letter" property="letter" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.BrandWithBLOBs" extends="BaseResultMap" >
+    <result column="keywords" property="keywords" jdbcType="LONGVARCHAR" />
+    <result column="brief" property="brief" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    brand_id, name, logo, url, disabled, ordernum
+  </sql>
+  <sql id="Blob_Column_List" >
+    keywords, brief
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from es_brand
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_brand
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.BrandWithBLOBs" >
+    insert into es_brand (brand_id, name, logo, 
+      url, disabled, ordernum, 
+      keywords, brief)
+    values (#{brandId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{disabled,jdbcType=INTEGER}, #{ordernum,jdbcType=INTEGER}, 
+      #{keywords,jdbcType=LONGVARCHAR}, #{brief,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.BrandWithBLOBs" >
+    insert into es_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="ordernum != null" >
+        ordernum,
+      </if>
+      <if test="keywords != null" >
+        keywords,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="brief != null" >
+        #{brief,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.BrandWithBLOBs" >
+    update es_brand
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="brief != null" >
+        brief = #{brief,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.BrandWithBLOBs" >
+    update es_brand
+    set name = #{name,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      ordernum = #{ordernum,jdbcType=INTEGER},
+      keywords = #{keywords,jdbcType=LONGVARCHAR},
+      brief = #{brief,jdbcType=LONGVARCHAR}
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Brand" >
+    update es_brand
+    set name = #{name,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      ordernum = #{ordernum,jdbcType=INTEGER}
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </update>
+  <select id="getList" resultMap="BaseResultMap">
+
+    SELECT * from es_brand  order by ordernum LIMIT 8
+  </select>
+
+  <resultMap id="BaseResultMapVo" type="com.ef.golf.vo.BrandVo" >
+    <id column="brandId" property="brandId" jdbcType="VARCHAR" />
+    <result column="brandname" property="brandname" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+   <!-- <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
+    <result column="keywords" property="keywords" jdbcType="LONGVARCHAR" />
+    <result column="brief" property="brief" jdbcType="LONGVARCHAR" />-->
+    <result column="letter" property="letter" jdbcType="VARCHAR"/>
+  </resultMap>
+
+<select id="getBrandList" resultMap="BaseResultMapVo">
+SELECT
+	GROUP_CONCAT(DISTINCT b.brand_id) AS brandId,
+	GROUP_CONCAT( DISTINCT(
+		CASE
+		WHEN logo IS NULL THEN
+			0
+		ELSE
+			logo
+		END)
+	) AS logo,
+	GROUP_CONCAT(DISTINCT(b.NAME)) AS brandname,
+	letter
+FROM
+	es_brand b
+<if test="catId != null and catId != '' ">
+ LEFT JOIN  es_goods g ON b.brand_id =g.brand_id
+
+where  g.cat_id in  (
+    SELECT cat_id  from es_goods_cat
+      where parent_id in(
+        SELECT  cat_id from es_goods_cat p
+        WHERE p.parent_id =#{catId,jdbcType=INTEGER}
+      )
+    ) and g.market_enable =1
+</if>
+GROUP BY
+	letter
+</select>
+
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.OrderLogMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.OrderLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="op_id" property="opId" jdbcType="INTEGER" />
+    <result column="op_name" property="opName" jdbcType="VARCHAR" />
+    <result column="op_time" property="opTime" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.OrderLog" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, order_id, op_id, op_name, op_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from es_order_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_order_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.OrderLog" >
+    insert into es_order_log (log_id, order_id, op_id, 
+      op_name, op_time, message
+      )
+    values (#{logId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{opId,jdbcType=INTEGER}, 
+      #{opName,jdbcType=VARCHAR}, #{opTime,jdbcType=BIGINT}, #{message,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.OrderLog" >
+    insert into es_order_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="opId != null" >
+        op_id,
+      </if>
+      <if test="opName != null" >
+        op_name,
+      </if>
+      <if test="opTime != null" >
+        op_time,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="opId != null" >
+        #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="opName != null" >
+        #{opName,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        #{opTime,jdbcType=BIGINT},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.OrderLog" >
+    update es_order_log
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="opId != null" >
+        op_id = #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="opName != null" >
+        op_name = #{opName,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        op_time = #{opTime,jdbcType=BIGINT},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.OrderLog" >
+    update es_order_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      op_id = #{opId,jdbcType=INTEGER},
+      op_name = #{opName,jdbcType=VARCHAR},
+      op_time = #{opTime,jdbcType=BIGINT},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.OrderLog" >
+    update es_order_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      op_id = #{opId,jdbcType=INTEGER},
+      op_name = #{opName,jdbcType=VARCHAR},
+      op_time = #{opTime,jdbcType=BIGINT}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

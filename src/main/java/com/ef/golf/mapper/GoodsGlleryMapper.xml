@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.GoodsGlleryMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.GoodsGllery" >
+    <id column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    <result column="small" property="small" jdbcType="VARCHAR" />
+    <result column="big" property="big" jdbcType="VARCHAR" />
+    <result column="original" property="original" jdbcType="VARCHAR" />
+    <result column="tiny" property="tiny" jdbcType="VARCHAR" />
+    <result column="isdefault" property="isdefault" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    img_id, goods_id, thumbnail, small, big, original, tiny, isdefault, sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_goods_gallery
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_goods_gallery
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.GoodsGllery" >
+    insert into es_goods_gallery (img_id, goods_id, thumbnail, 
+      small, big, original, 
+      tiny, isdefault, sort
+      )
+    values (#{imgId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR}, 
+      #{small,jdbcType=VARCHAR}, #{big,jdbcType=VARCHAR}, #{original,jdbcType=VARCHAR}, 
+      #{tiny,jdbcType=VARCHAR}, #{isdefault,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.GoodsGllery" >
+    insert into es_goods_gallery
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail,
+      </if>
+      <if test="small != null" >
+        small,
+      </if>
+      <if test="big != null" >
+        big,
+      </if>
+      <if test="original != null" >
+        original,
+      </if>
+      <if test="tiny != null" >
+        tiny,
+      </if>
+      <if test="isdefault != null" >
+        isdefault,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="thumbnail != null" >
+        #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null" >
+        #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="big != null" >
+        #{big,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null" >
+        #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="tiny != null" >
+        #{tiny,jdbcType=VARCHAR},
+      </if>
+      <if test="isdefault != null" >
+        #{isdefault,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.GoodsGllery" >
+    update es_goods_gallery
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null" >
+        small = #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="big != null" >
+        big = #{big,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null" >
+        original = #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="tiny != null" >
+        tiny = #{tiny,jdbcType=VARCHAR},
+      </if>
+      <if test="isdefault != null" >
+        isdefault = #{isdefault,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.GoodsGllery" >
+    update es_goods_gallery
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      small = #{small,jdbcType=VARCHAR},
+      big = #{big,jdbcType=VARCHAR},
+      original = #{original,jdbcType=VARCHAR},
+      tiny = #{tiny,jdbcType=VARCHAR},
+      isdefault = #{isdefault,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER}
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+
+select <include refid="Base_Column_List" />
+    from es_goods_gallery where goods_id=#{goods_id,jdbcType=INTEGER}
+  </select>
+
+
+
+
+</mapper>

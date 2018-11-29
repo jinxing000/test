@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.ShareMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Share">
+    <id column="share_id" jdbcType="INTEGER" property="shareId" />
+    <result column="share_user_id" jdbcType="INTEGER" property="shareUserId" />
+    <result column="share_type" jdbcType="CHAR" property="shareType" />
+    <result column="share_dynamic_id" jdbcType="INTEGER" property="shareDynamicId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    share_id, share_user_id, share_type, share_dynamic_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_share
+    where share_id = #{shareId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_share
+    where share_id = #{shareId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Share">
+    insert into ef_share (share_id, share_user_id, share_type, 
+      share_dynamic_id, create_time)
+    values (#{shareId,jdbcType=INTEGER}, #{shareUserId,jdbcType=INTEGER}, #{shareType,jdbcType=CHAR}, 
+      #{shareDynamicId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Share">
+    insert into ef_share
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shareId != null">
+        share_id,
+      </if>
+      <if test="shareUserId != null">
+        share_user_id,
+      </if>
+      <if test="shareType != null">
+        share_type,
+      </if>
+      <if test="shareDynamicId != null">
+        share_dynamic_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shareId != null">
+        #{shareId,jdbcType=INTEGER},
+      </if>
+      <if test="shareUserId != null">
+        #{shareUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shareType != null">
+        #{shareType,jdbcType=CHAR},
+      </if>
+      <if test="shareDynamicId != null">
+        #{shareDynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Share">
+    update ef_share
+    <set>
+      <if test="shareUserId != null">
+        share_user_id = #{shareUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shareType != null">
+        share_type = #{shareType,jdbcType=CHAR},
+      </if>
+      <if test="shareDynamicId != null">
+        share_dynamic_id = #{shareDynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where share_id = #{shareId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Share">
+    update ef_share
+    set share_user_id = #{shareUserId,jdbcType=INTEGER},
+      share_type = #{shareType,jdbcType=CHAR},
+      share_dynamic_id = #{shareDynamicId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where share_id = #{shareId,jdbcType=INTEGER}
+  </update>
+
+  <!--根据动态id获取分享的记录信息-->
+  <select id="getShares" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.QuanziUserVo">
+    SELECT
+      u.id userId,
+      u.head_portrait_url headPortraitUrl,
+      u.gender gender,
+      u.user_type userType,
+      u.nickname nickName
+    FROM ef_share es
+    INNER JOIN u_user u
+    ON(es.share_user_id=u.id)
+    WHERE es.share_dynamic_id=#{dynamicId}
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getSharesCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM ef_share es
+    INNER JOIN u_user u
+    ON(es.share_user_id=u.id)
+    WHERE es.share_dynamic_id=#{dynamicId}
+  </select>
+
+</mapper>

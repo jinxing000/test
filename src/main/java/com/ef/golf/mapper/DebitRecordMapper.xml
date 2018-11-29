@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.DebitRecordMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.DebitRecord">
+    <id column="debit_record_id" jdbcType="BIGINT" property="debitRecordId" />
+    <result column="account_id" jdbcType="BIGINT" property="accountId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="cz_balance" jdbcType="DOUBLE" property="czBalance" />
+    <result column="sr_balance" jdbcType="DOUBLE" property="srBalance" />
+    <result column="zs_balance" jdbcType="DOUBLE" property="zsBalance" />
+    <result column="pay_form" jdbcType="VARCHAR" property="payForm" />
+    <result column="ping_id" jdbcType="VARCHAR" property="pingId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    debit_record_id, account_id, user_id, cz_balance, sr_balance, zs_balance, create_time, pay_form, ping_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_debit_record
+    where debit_record_id = #{debitRecordId,jdbcType=BIGINT}
+  </select>
+
+  <select id="getDebitRecord" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+        <include refid="Base_Column_List" />
+    FROM
+        ef_debit_record
+    WHERE
+        ping_id = #{orderNo}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_debit_record
+    where debit_record_id = #{debitRecordId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.DebitRecord">
+    insert into ef_debit_record (debit_record_id, account_id, user_id, 
+      cz_balance, sr_balance, zs_balance, 
+      create_time,pay_form,ping_id)
+    values (#{debitRecordId,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{czBalance,jdbcType=DOUBLE}, #{srBalance,jdbcType=DOUBLE}, #{zsBalance,jdbcType=DOUBLE},
+      #{createTime,jdbcType=TIMESTAMP},#{payForm,jdbcType=VARCHAR},#{pingId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.DebitRecord">
+    insert into ef_debit_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="debitRecordId != null">
+        debit_record_id,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="czBalance != null">
+        cz_balance,
+      </if>
+      <if test="srBalance != null">
+        sr_balance,
+      </if>
+      <if test="zsBalance != null">
+        zs_balance,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="payForm != null">
+        pay_form,
+      </if>
+      <if test="pingId != null">
+        ping_id,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="debitRecordId != null">
+        #{debitRecordId,jdbcType=BIGINT},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="czBalance != null">
+        #{czBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="srBalance != null">
+        #{srBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="zsBalance != null">
+        #{zsBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payForm != null">
+        #{payForm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pingId != null">
+        #{pingId,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.DebitRecord">
+    update ef_debit_record
+    <set>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="czBalance != null">
+        cz_balance = #{czBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="srBalance != null">
+        sr_balance = #{srBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="zsBalance != null">
+        zs_balance = #{zsBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payForm != null">
+        pay_form = #{payForm,jdbcType=VARCHAR},
+      </if>
+      <if test="pingId != null">
+        ping_id = #{pingId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where debit_record_id = #{debitRecordId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.DebitRecord">
+    update ef_debit_record
+    set account_id = #{accountId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      cz_balance = #{czBalance,jdbcType=DOUBLE},
+      sr_balance = #{srBalance,jdbcType=DOUBLE},
+      zs_balance = #{zsBalance,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_form = #{payForm,jdbcType=VARCHAR},
+      ping_id = #{pingId,jdbcType=VARCHAR}
+    where debit_record_id = #{debitRecordId,jdbcType=BIGINT}
+  </update>
+</mapper>

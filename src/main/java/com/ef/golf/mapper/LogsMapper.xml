@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.LogsMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Logs">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="request_url" jdbcType="VARCHAR" property="requestUrl" />
+    <result column="request_parameter" jdbcType="VARCHAR" property="requestParameter" />
+    <result column="server_addr" jdbcType="VARCHAR" property="serverAddr" />
+    <result column="remote_addr" jdbcType="VARCHAR" property="remoteAddr" />
+    <result column="exception" jdbcType="VARCHAR" property="exception" />
+    <result column="syslog_title" jdbcType="VARCHAR" property="syslogTitle" />
+    <result column="syslog_methods" jdbcType="VARCHAR" property="syslogMethods" />
+    <result column="syslog_description" jdbcType="VARCHAR" property="syslogDescription" />
+    <result column="args" jdbcType="VARCHAR" property="args" />
+    <result column="body" jdbcType="VARCHAR" property="body" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, request_url, request_parameter, server_addr, remote_addr, exception,
+    syslog_title, syslog_methods, syslog_description, args, body
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_logs
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_logs
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Logs">
+    insert into ef_logs (id, create_time, request_url,
+      request_parameter, server_addr, remote_addr,
+      exception, syslog_title, syslog_methods,
+      syslog_description, args)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{requestUrl,jdbcType=VARCHAR},
+      #{requestParameter,jdbcType=VARCHAR}, #{serverAddr,jdbcType=VARCHAR}, #{remoteAddr,jdbcType=VARCHAR},
+      #{exception,jdbcType=VARCHAR}, #{syslogTitle,jdbcType=VARCHAR}, #{syslogMethods,jdbcType=VARCHAR},
+      #{syslogDescription,jdbcType=VARCHAR}, #{args,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Logs">
+    insert into ef_logs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="requestUrl != null">
+        request_url,
+      </if>
+      <if test="requestParameter != null">
+        request_parameter,
+      </if>
+      <if test="serverAddr != null">
+        server_addr,
+      </if>
+      <if test="remoteAddr != null">
+        remote_addr,
+      </if>
+      <if test="exception != null">
+        exception,
+      </if>
+      <if test="syslogTitle != null">
+        syslog_title,
+      </if>
+      <if test="syslogMethods != null">
+        syslog_methods,
+      </if>
+      <if test="syslogDescription != null">
+        syslog_description,
+      </if>
+      <if test="args != null">
+        args,
+      </if>
+      <if test="body != null">
+        body,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requestUrl != null">
+        #{requestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParameter != null">
+        #{requestParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="serverAddr != null">
+        #{serverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null">
+        #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="syslogTitle != null">
+        #{syslogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="syslogMethods != null">
+        #{syslogMethods,jdbcType=VARCHAR},
+      </if>
+      <if test="syslogDescription != null">
+        #{syslogDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="args != null">
+        #{args,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        #{body,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Logs">
+    update ef_logs
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requestUrl != null">
+        request_url = #{requestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParameter != null">
+        request_parameter = #{requestParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="serverAddr != null">
+        server_addr = #{serverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null">
+        exception = #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="syslogTitle != null">
+        syslog_title = #{syslogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="syslogMethods != null">
+        syslog_methods = #{syslogMethods,jdbcType=VARCHAR},
+      </if>
+      <if test="syslogDescription != null">
+        syslog_description = #{syslogDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="args != null">
+        args = #{args,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Logs">
+    update ef_logs
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      request_url = #{requestUrl,jdbcType=VARCHAR},
+      request_parameter = #{requestParameter,jdbcType=VARCHAR},
+      server_addr = #{serverAddr,jdbcType=VARCHAR},
+      remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+      exception = #{exception,jdbcType=VARCHAR},
+      syslog_title = #{syslogTitle,jdbcType=VARCHAR},
+      syslog_methods = #{syslogMethods,jdbcType=VARCHAR},
+      syslog_description = #{syslogDescription,jdbcType=VARCHAR},
+      args = #{args,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

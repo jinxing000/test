@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.SellbackGoodsListMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.SellbackGoodsList" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="recid" property="recid" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="ship_num" property="shipNum" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="return_num" property="returnNum" jdbcType="INTEGER" />
+    <result column="storage_num" property="storageNum" jdbcType="INTEGER" />
+    <result column="goods_remark" property="goodsRemark" jdbcType="VARCHAR" />
+    <result column="goods_sn" property="goodsSn" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_image" property="goodsImage" jdbcType="VARCHAR" />
+    <result column="spec_json" property="specJson" jdbcType="VARCHAR" />
+    <result column="return_type" property="returnType" jdbcType="INTEGER" />
+    <result column="item_type" property="itemType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, item_id, recid, goods_id, product_id, ship_num, price, return_num, storage_num, 
+    goods_remark, goods_sn, goods_name, goods_image, spec_json, return_type, item_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_sellback_goodslist
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_sellback_goodslist
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.SellbackGoodsList" >
+    insert into es_sellback_goodslist (id, item_id, recid, 
+      goods_id, product_id, ship_num, 
+      price, return_num, storage_num, 
+      goods_remark, goods_sn, goods_name, 
+      goods_image, spec_json, return_type, 
+      item_type)
+    values (#{id,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{recid,jdbcType=INTEGER}, 
+      #{goodsId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{shipNum,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{returnNum,jdbcType=INTEGER}, #{storageNum,jdbcType=INTEGER}, 
+      #{goodsRemark,jdbcType=VARCHAR}, #{goodsSn,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsImage,jdbcType=VARCHAR}, #{specJson,jdbcType=VARCHAR}, #{returnType,jdbcType=INTEGER}, 
+      #{itemType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.SellbackGoodsList" >
+    insert into es_sellback_goodslist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="recid != null" >
+        recid,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="shipNum != null" >
+        ship_num,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="returnNum != null" >
+        return_num,
+      </if>
+      <if test="storageNum != null" >
+        storage_num,
+      </if>
+      <if test="goodsRemark != null" >
+        goods_remark,
+      </if>
+      <if test="goodsSn != null" >
+        goods_sn,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsImage != null" >
+        goods_image,
+      </if>
+      <if test="specJson != null" >
+        spec_json,
+      </if>
+      <if test="returnType != null" >
+        return_type,
+      </if>
+      <if test="itemType != null" >
+        item_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="recid != null" >
+        #{recid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="shipNum != null" >
+        #{shipNum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="returnNum != null" >
+        #{returnNum,jdbcType=INTEGER},
+      </if>
+      <if test="storageNum != null" >
+        #{storageNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsRemark != null" >
+        #{goodsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSn != null" >
+        #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImage != null" >
+        #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="specJson != null" >
+        #{specJson,jdbcType=VARCHAR},
+      </if>
+      <if test="returnType != null" >
+        #{returnType,jdbcType=INTEGER},
+      </if>
+      <if test="itemType != null" >
+        #{itemType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.SellbackGoodsList" >
+    update es_sellback_goodslist
+    <set >
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="recid != null" >
+        recid = #{recid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="shipNum != null" >
+        ship_num = #{shipNum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="returnNum != null" >
+        return_num = #{returnNum,jdbcType=INTEGER},
+      </if>
+      <if test="storageNum != null" >
+        storage_num = #{storageNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsRemark != null" >
+        goods_remark = #{goodsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSn != null" >
+        goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImage != null" >
+        goods_image = #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="specJson != null" >
+        spec_json = #{specJson,jdbcType=VARCHAR},
+      </if>
+      <if test="returnType != null" >
+        return_type = #{returnType,jdbcType=INTEGER},
+      </if>
+      <if test="itemType != null" >
+        item_type = #{itemType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.SellbackGoodsList" >
+    update es_sellback_goodslist
+    set item_id = #{itemId,jdbcType=INTEGER},
+      recid = #{recid,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      ship_num = #{shipNum,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      return_num = #{returnNum,jdbcType=INTEGER},
+      storage_num = #{storageNum,jdbcType=INTEGER},
+      goods_remark = #{goodsRemark,jdbcType=VARCHAR},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_image = #{goodsImage,jdbcType=VARCHAR},
+      spec_json = #{specJson,jdbcType=VARCHAR},
+      return_type = #{returnType,jdbcType=INTEGER},
+      item_type = #{itemType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <resultMap id="backGoods" type="com.ef.golf.vo.BackGoodsVo">
+    <result  column="goods_name"  property="goods_name" jdbcType="VARCHAR" />
+    <result column="specs" property="specs" jdbcType="VARCHAR"/>
+    <result  column="return_num" property="return_num" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL"/>
+    <result column="thumbnail"  property="thumbnail" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+
+
+
+
+  <select id="BackGoodsVoList" parameterType="java.lang.Integer" resultMap="backGoods">
+SELECT
+	s.goods_name,
+	p.specs,
+  s.return_num,
+  s.price,
+  t.thumbnail
+FROM
+	es_sellback_goodslist s
+LEFT JOIN es_goods t ON s.goods_id = t.goods_id
+LEFT JOIN es_product p ON t.goods_id = p.goods_id
+
+WHERE s.recid=#{recid,jdbcType=INTEGER}
+
+  </select>
+
+
+
+
+</mapper>

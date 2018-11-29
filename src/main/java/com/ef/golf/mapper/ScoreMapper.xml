@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.ScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Score" >
+    <id column="score_id" property="scoreId" jdbcType="INTEGER" />
+    <result column="oder_id" property="oderId" jdbcType="INTEGER" />
+    <result column="attr_id" property="attrId" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    score_id, oder_id, attr_id, score
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_score
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_score
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Score" >
+    insert into ef_score (score_id, oder_id, attr_id, 
+      score)
+    values (#{scoreId,jdbcType=INTEGER}, #{oderId,jdbcType=INTEGER}, #{attrId,jdbcType=INTEGER}, 
+      #{score,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Score" >
+    insert into ef_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        score_id,
+      </if>
+      <if test="oderId != null" >
+        oder_id,
+      </if>
+      <if test="attrId != null" >
+        attr_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        #{scoreId,jdbcType=INTEGER},
+      </if>
+      <if test="oderId != null" >
+        #{oderId,jdbcType=INTEGER},
+      </if>
+      <if test="attrId != null" >
+        #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Score" >
+    update ef_score
+    <set >
+      <if test="oderId != null" >
+        oder_id = #{oderId,jdbcType=INTEGER},
+      </if>
+      <if test="attrId != null" >
+        attr_id = #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Score" >
+    update ef_score
+    set oder_id = #{oderId,jdbcType=INTEGER},
+      attr_id = #{attrId,jdbcType=INTEGER},
+      score = #{score,jdbcType=VARCHAR}
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </update>
+
+  <!--评分-->
+  <insert id="doComment">
+    INSERT INTO
+    ef_score(ef_score.oder_id,ef_score.attr_id,ef_score.score)
+    VALUES(#{order_id},#{attr_id},#{score})
+  </insert>
+
+  <select id="selectHaveScore" resultType="int" parameterType="java.lang.Integer">
+    SELECT COUNT(1) FROM
+    ef_score
+    WHERE ef_score.oder_id=#{order_id}
+  </select>
+
+</mapper>

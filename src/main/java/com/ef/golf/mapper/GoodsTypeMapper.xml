@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.GoodsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.GoodsType" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="is_physical" property="isPhysical" jdbcType="INTEGER" />
+    <result column="have_prop" property="haveProp" jdbcType="INTEGER" />
+    <result column="have_parm" property="haveParm" jdbcType="INTEGER" />
+    <result column="join_brand" property="joinBrand" jdbcType="INTEGER" />
+    <result column="have_field" property="haveField" jdbcType="INTEGER" />
+    <result column="join_spec" property="joinSpec" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.GoodsTypeWithBLOBs" extends="BaseResultMap" >
+    <result column="props" property="props" jdbcType="LONGVARCHAR" />
+    <result column="params" property="params" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    type_id, name, disabled, is_physical, have_prop, have_parm, join_brand, have_field, 
+    join_spec
+  </sql>
+  <sql id="Blob_Column_List" >
+    props, params
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from es_goods_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_goods_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.GoodsTypeWithBLOBs" >
+    insert into es_goods_type (type_id, name, disabled, 
+      is_physical, have_prop, have_parm, 
+      join_brand, have_field, join_spec, 
+      props, params)
+    values (#{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{disabled,jdbcType=INTEGER}, 
+      #{isPhysical,jdbcType=INTEGER}, #{haveProp,jdbcType=INTEGER}, #{haveParm,jdbcType=INTEGER}, 
+      #{joinBrand,jdbcType=INTEGER}, #{haveField,jdbcType=INTEGER}, #{joinSpec,jdbcType=INTEGER}, 
+      #{props,jdbcType=LONGVARCHAR}, #{params,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.GoodsTypeWithBLOBs" >
+    insert into es_goods_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="isPhysical != null" >
+        is_physical,
+      </if>
+      <if test="haveProp != null" >
+        have_prop,
+      </if>
+      <if test="haveParm != null" >
+        have_parm,
+      </if>
+      <if test="joinBrand != null" >
+        join_brand,
+      </if>
+      <if test="haveField != null" >
+        have_field,
+      </if>
+      <if test="joinSpec != null" >
+        join_spec,
+      </if>
+      <if test="props != null" >
+        props,
+      </if>
+      <if test="params != null" >
+        params,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="isPhysical != null" >
+        #{isPhysical,jdbcType=INTEGER},
+      </if>
+      <if test="haveProp != null" >
+        #{haveProp,jdbcType=INTEGER},
+      </if>
+      <if test="haveParm != null" >
+        #{haveParm,jdbcType=INTEGER},
+      </if>
+      <if test="joinBrand != null" >
+        #{joinBrand,jdbcType=INTEGER},
+      </if>
+      <if test="haveField != null" >
+        #{haveField,jdbcType=INTEGER},
+      </if>
+      <if test="joinSpec != null" >
+        #{joinSpec,jdbcType=INTEGER},
+      </if>
+      <if test="props != null" >
+        #{props,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="params != null" >
+        #{params,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.GoodsTypeWithBLOBs" >
+    update es_goods_type
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="isPhysical != null" >
+        is_physical = #{isPhysical,jdbcType=INTEGER},
+      </if>
+      <if test="haveProp != null" >
+        have_prop = #{haveProp,jdbcType=INTEGER},
+      </if>
+      <if test="haveParm != null" >
+        have_parm = #{haveParm,jdbcType=INTEGER},
+      </if>
+      <if test="joinBrand != null" >
+        join_brand = #{joinBrand,jdbcType=INTEGER},
+      </if>
+      <if test="haveField != null" >
+        have_field = #{haveField,jdbcType=INTEGER},
+      </if>
+      <if test="joinSpec != null" >
+        join_spec = #{joinSpec,jdbcType=INTEGER},
+      </if>
+      <if test="props != null" >
+        props = #{props,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="params != null" >
+        params = #{params,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.GoodsTypeWithBLOBs" >
+    update es_goods_type
+    set name = #{name,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      is_physical = #{isPhysical,jdbcType=INTEGER},
+      have_prop = #{haveProp,jdbcType=INTEGER},
+      have_parm = #{haveParm,jdbcType=INTEGER},
+      join_brand = #{joinBrand,jdbcType=INTEGER},
+      have_field = #{haveField,jdbcType=INTEGER},
+      join_spec = #{joinSpec,jdbcType=INTEGER},
+      props = #{props,jdbcType=LONGVARCHAR},
+      params = #{params,jdbcType=LONGVARCHAR}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.GoodsType" >
+    update es_goods_type
+    set name = #{name,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      is_physical = #{isPhysical,jdbcType=INTEGER},
+      have_prop = #{haveProp,jdbcType=INTEGER},
+      have_parm = #{haveParm,jdbcType=INTEGER},
+      join_brand = #{joinBrand,jdbcType=INTEGER},
+      have_field = #{haveField,jdbcType=INTEGER},
+      join_spec = #{joinSpec,jdbcType=INTEGER}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.HotcityMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Hotcity" >
+    <id column="hotcity_id" property="hotcityId" jdbcType="INTEGER" />
+    <result column="hotcity" property="hotcity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    hotcity_id, hotcity
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_hotcity
+    where hotcity_id = #{hotcityId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getHotCitys" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from ef_hotcity
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_hotcity
+    where hotcity_id = #{hotcityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Hotcity" >
+    insert into ef_hotcity (hotcity_id, hotcity)
+    values (#{hotcityId,jdbcType=INTEGER}, #{hotcity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Hotcity" >
+    insert into ef_hotcity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotcityId != null" >
+        hotcity_id,
+      </if>
+      <if test="hotcity != null" >
+        hotcity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotcityId != null" >
+        #{hotcityId,jdbcType=INTEGER},
+      </if>
+      <if test="hotcity != null" >
+        #{hotcity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Hotcity" >
+    update ef_hotcity
+    <set >
+      <if test="hotcity != null" >
+        hotcity = #{hotcity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotcity_id = #{hotcityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Hotcity" >
+    update ef_hotcity
+    set hotcity = #{hotcity,jdbcType=VARCHAR}
+    where hotcity_id = #{hotcityId,jdbcType=INTEGER}
+  </update>
+</mapper>

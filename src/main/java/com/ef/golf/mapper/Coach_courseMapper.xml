@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Coach_courseMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Coach_course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="coach_id" jdbcType="INTEGER" property="coachId" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="course_num" jdbcType="INTEGER" property="courseNum" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, coach_id, img_url, course_num, course_name, introduce, site_id, price, status, 
+    create_time, modify_time
+  </sql>
+    <!-- 教练课程 -->
+    <select id="getCoachCourseLists" resultType="com.ef.golf.pojo.Coach_course">
+        SELECT
+            ecc.id id,
+            ecc.coach_id coachId,
+            u.nickname coachName,
+            ecc.img_url imgUrl,
+            ecc.course_name courseName,
+            ecc.introduce introduce,
+            ecc.site_id siteId,
+            ecc.price price,
+            ecc.course_num courseNum,
+            ecc.STATUS STATUS,
+            ecc.create_time createTime,
+            ecc.modify_time modifyTime,
+            CASE
+        WHEN ecc.course_num = '1' THEN
+            '单次课'
+        ELSE
+            '套次课'
+        END courseType
+        FROM
+            ef_coach_course ecc
+        LEFT JOIN u_user u ON (coach_id = u.id)
+        WHERE
+            ecc.coach_id = #{coachId}
+        AND ecc.STATUS = '1'
+        LIMIT #{pageNo},#{pageSize}
+    </select>
+    <select id="getCoachCourseListCount" resultType="java.lang.Integer">
+        SELECT
+        count(0)
+        FROM
+        ef_coach_course
+        WHERE
+        coach_id = #{coachId}
+    </select>
+
+  <select id="queryAllCourseListPage" parameterType="com.ef.golf.vo.CoachCourseVo" resultType="com.ef.golf.vo.CoachCourseVo">
+      SELECT
+          c.id,
+          c.course_name courseName,
+          u.nickname coachName,
+          c.img_url imgUrl,
+          price price,
+      CASE
+      WHEN course_num = 1 THEN
+      '单次课'
+      ELSE
+      '套次课'
+      END courseType
+      FROM
+      ef_coach_course c
+      JOIN u_user u ON u.id = c.coach_id
+      WHERE
+      c. STATUS = '1'
+       AND c.recommend = #{recommend}
+   </select>
+
+  <select id="queryAllCourseListPageCount"  resultType="java.lang.Integer">
+    SELECT
+    COUNT(0)
+    FROM
+    ef_coach_course c
+    JOIN u_user u ON u.id = c.coach_id
+    WHERE
+    c. STATUS = '1'
+      AND c.recommend = #{recommend,jdbcType=INTEGER}
+  </select>
+  <!-- 搜索课程 -->
+  <select id="getCoachCourseList" parameterType="java.lang.String" resultType="com.ef.golf.vo.CoachCourseVo">
+
+SELECT
+      c.id,c.course_name courseName, u.nickname coachName,c.img_url imgUrl,price price, case when course_num=1 then '单次课' else '套次课' end courseType
+    FROM
+    ef_coach_course c
+    JOIN  u_user u
+
+    on u.id=c.coach_id
+
+    WHERE c.status='1' and u.user_type=2
+
+    AND course_name
+    LIKE "%"#{courseName}"%"
+
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_coach_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_coach_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Coach_course">
+    insert into ef_coach_course (id, coach_id, img_url, 
+      course_num, course_name, introduce, 
+      site_id, price, status, 
+      create_time, modify_time)
+    values (#{id,jdbcType=INTEGER}, #{coachId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{courseNum,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
+      #{siteId,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Coach_course">
+    insert into ef_coach_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="coachId != null">
+        coach_id,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="courseNum != null">
+        course_num,
+      </if>
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="introduce != null">
+        introduce,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="coachId != null">
+        #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNum != null">
+        #{courseNum,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Coach_course">
+    update ef_coach_course
+    <set>
+      <if test="coachId != null">
+        coach_id = #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNum != null">
+        course_num = #{courseNum,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Coach_course">
+    update ef_coach_course
+    set coach_id = #{coachId,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      course_num = #{courseNum,jdbcType=INTEGER},
+      course_name = #{courseName,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 查询课程详情 -->
+  <select id="getCourseDetails" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.CourseDetailsVo">
+
+/*
+private Integer coachId;//教练ID
+    private String coachName;//教练真实姓名
+    private String coachHead;//教练头像
+    private Integer siteId; //球场id
+    private String siteName;//隶属球场
+
+    private Integer id;//课程id
+    private String courseName;//课程名
+    private String imgUrl;//课程图片
+    private String courseNum;//课程次数
+    private String courseType;//根据次数产生  单次  套次
+    private String introduce;//课程介绍
+    private String[] imgs;//封装课程图片
+ */
+    SELECT
+      u.id coachId,
+      u.nickname coachName,
+      u.head_portrait_url coachHead,
+	  uu.id siteId,
+      uu.nickname siteName,
+      ecc.id id,
+	  ecc.course_name courseName,
+	  ecc.price price,
+	  ecc.img_url imgUrl,
+	  ecc.course_num courseNum,
+	  case when ecc.course_num=1 then '单次课' else '套次课' end courseType,
+	  ecc.introduce introduce
+    FROM
+	  u_user u
+    RIGHT JOIN ef_coach_course ecc ON u.id = ecc.coach_id
+    <!-- join ef_site es on es.site_id=ecc.site_id -->
+      join u_user uu on uu.id=ecc.site_id
+    WHERE
+	ecc.id = #{id}
+	AND ecc.status = '1'
+  </select>
+  <!--根据课程id逻辑删除课程 -->
+  <select id="courseDel" parameterType="java.lang.Integer">
+      UPDATE ef_coach_course
+      SET `status` = 0
+      WHERE
+	  id = #{id};
+  </select>
+</mapper>

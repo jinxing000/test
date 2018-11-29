@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.SiteOrderTdMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.SiteOrderTd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="site_order_id" jdbcType="INTEGER" property="siteOrderId" />
+    <result column="member_td_number" jdbcType="INTEGER" property="memberTdNumber" />
+    <result column="guest_td_number" jdbcType="INTEGER" property="guestTdNumber" />
+    <result column="refund_money" jdbcType="DOUBLE" property="refundMoney" />
+    <result column="real_money" jdbcType="DOUBLE" property="realMoney" />
+    <result column="td_reason" jdbcType="VARCHAR" property="tdReason" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, site_order_id, member_td_number, guest_td_number, refund_money, real_money, td_reason, 
+    order_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_site_order_td
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_site_order_td
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.SiteOrderTd">
+    insert into ef_site_order_td (id, site_order_id, member_td_number, 
+      guest_td_number, refund_money, real_money, 
+      td_reason, order_no)
+    values (#{id,jdbcType=INTEGER}, #{siteOrderId,jdbcType=INTEGER}, #{memberTdNumber,jdbcType=INTEGER}, 
+      #{guestTdNumber,jdbcType=INTEGER}, #{refundMoney,jdbcType=DOUBLE}, #{realMoney,jdbcType=DOUBLE}, 
+      #{tdReason,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.SiteOrderTd">
+    insert into ef_site_order_td
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="siteOrderId != null">
+        site_order_id,
+      </if>
+      <if test="memberTdNumber != null">
+        member_td_number,
+      </if>
+      <if test="guestTdNumber != null">
+        guest_td_number,
+      </if>
+      <if test="refundMoney != null">
+        refund_money,
+      </if>
+      <if test="realMoney != null">
+        real_money,
+      </if>
+      <if test="tdReason != null">
+        td_reason,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="siteOrderId != null">
+        #{siteOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="memberTdNumber != null">
+        #{memberTdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="guestTdNumber != null">
+        #{guestTdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="refundMoney != null">
+        #{refundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="realMoney != null">
+        #{realMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="tdReason != null">
+        #{tdReason,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.SiteOrderTd">
+    update ef_site_order_td
+    <set>
+      <if test="siteOrderId != null">
+        site_order_id = #{siteOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="memberTdNumber != null">
+        member_td_number = #{memberTdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="guestTdNumber != null">
+        guest_td_number = #{guestTdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="refundMoney != null">
+        refund_money = #{refundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="realMoney != null">
+        real_money = #{realMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="tdReason != null">
+        td_reason = #{tdReason,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.SiteOrderTd">
+    update ef_site_order_td
+    set site_order_id = #{siteOrderId,jdbcType=INTEGER},
+      member_td_number = #{memberTdNumber,jdbcType=INTEGER},
+      guest_td_number = #{guestTdNumber,jdbcType=INTEGER},
+      refund_money = #{refundMoney,jdbcType=DOUBLE},
+      real_money = #{realMoney,jdbcType=DOUBLE},
+      td_reason = #{tdReason,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

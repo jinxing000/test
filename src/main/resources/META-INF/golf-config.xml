@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                  http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:META-INF/jdbc.properties</value>
+                <value>classpath:META-INF/config.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="redisOutTime" class="java.lang.String">
+        <constructor-arg value="${redisOutTime}"/>
+    </bean>
+    <bean id="mobleRedisOutTime" class="java.lang.String">
+        <constructor-arg value="${mRedisOutTime}"/>
+    </bean>
+    <bean id="pxxAppId" class="java.lang.String">
+        <constructor-arg value="${appId}"/>
+    </bean>
+    <bean id="PxxApiKey" class="java.lang.String">
+        <constructor-arg value="${apiKey}"/>
+    </bean>
+    <bean id="success_url" class="java.lang.String">
+        <constructor-arg value="${success_url}"/>
+    </bean>
+    <bean id="cancel_url" class="java.lang.String">
+        <constructor-arg value="${cancel_url}"/>
+    </bean>
+    <bean id="mobAppkey" class="java.lang.String">
+        <constructor-arg value="${mobAppkey}"/>
+    </bean>
+    <bean id="mobAppSecret" class="java.lang.String">
+        <constructor-arg value="${mobAppSecret}"/>
+    </bean>
+    <!--<import resource="dataSource.xml"/>-->
+    <import resource="retCodeConf.xml"/>
+</beans>

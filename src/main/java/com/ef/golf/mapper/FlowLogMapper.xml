@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.FlowLogMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.FlowLog" >
+    <id column="flow_id" property="flowId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="visit_time" property="visitTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    flow_id, goods_id, visit_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_flow_log
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_flow_log
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.FlowLog" >
+    insert into es_flow_log (flow_id, goods_id, visit_time
+      )
+    values (#{flowId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{visitTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.FlowLog" >
+    insert into es_flow_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        flow_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="visitTime != null" >
+        visit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="visitTime != null" >
+        #{visitTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.FlowLog" >
+    update es_flow_log
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="visitTime != null" >
+        visit_time = #{visitTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.FlowLog" >
+    update es_flow_log
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      visit_time = #{visitTime,jdbcType=BIGINT}
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </update>
+</mapper>

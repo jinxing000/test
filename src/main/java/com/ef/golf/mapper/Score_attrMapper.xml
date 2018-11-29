@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.Score_attrMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Score_attr" >
+    <id column="attr_id" property="attrId" jdbcType="INTEGER" />
+    <result column="attr_nam" property="attrNam" jdbcType="VARCHAR" />
+    <result column="attr_ascription" property="attrAscription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attr_id, attr_nam, attr_ascription
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_score_attr
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_score_attr
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Score_attr" >
+    insert into ef_score_attr (attr_id, attr_nam, attr_ascription
+      )
+    values (#{attrId,jdbcType=INTEGER}, #{attrNam,jdbcType=VARCHAR}, #{attrAscription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Score_attr" >
+    insert into ef_score_attr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attrId != null" >
+        attr_id,
+      </if>
+      <if test="attrNam != null" >
+        attr_nam,
+      </if>
+      <if test="attrAscription != null" >
+        attr_ascription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attrId != null" >
+        #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="attrNam != null" >
+        #{attrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="attrAscription != null" >
+        #{attrAscription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Score_attr" >
+    update ef_score_attr
+    <set >
+      <if test="attrNam != null" >
+        attr_nam = #{attrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="attrAscription != null" >
+        attr_ascription = #{attrAscription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Score_attr" >
+    update ef_score_attr
+    set attr_nam = #{attrNam,jdbcType=VARCHAR},
+      attr_ascription = #{attrAscription,jdbcType=VARCHAR}
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </update>
+  <select id="selectScoreAttr" parameterType="java.lang.String" resultType="com.ef.golf.pojo.Score_attr">
+      SELECT
+        attr_id attrId,
+        attr_nam attrNam,
+        attr_ascription attrAscription
+      FROM
+          ef_score_attr
+      WHERE
+          attr_ascription = #{attrAscription}
+  </select>
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.CommentsMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Comments" >
+    <id column="comments_id" property="commentsId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="comments_type" property="commentsType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="praise_num" property="praiseNum" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+  </resultMap>
+
+  <resultMap id="CommentsResultMap" type="com.ef.golf.vo.SiteCommentVo">
+    <id column="product_id" property="product_id" jdbcType="INTEGER"/>
+    <result column="user_id" property="user_id" jdbcType="INTEGER"/>
+    <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+    <result column="comments_id" property="comments_id" jdbcType="INTEGER"/>
+    <result column="comments_type" property="comments_type" jdbcType="VARCHAR"/>
+    <result column="praise_num" property="praise_num" jdbcType="INTEGER"/>
+    <result column="content" property="content" jdbcType="VARCHAR"/>
+    <result column="is_del" property="is_del" jdbcType="INTEGER"/>
+    <result column="is_praise" property="is_praise" jdbcType="VARCHAR"/>
+    <result column="head_portrait_url" property="head_portrait_url" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    comments_id, user_id,order_id, product_id, comments_type, create_time, praise_num, content, is_del
+  </sql>
+
+  <select id="getCommentCount" resultType="java.lang.Integer" parameterType="com.ef.golf.pojo.Comments" >
+    SELECT count(1)
+    from ef_comments
+    <where>
+      <if test="orderId != null" >
+        order_id = #{orderId}
+      </if>
+    </where>
+
+  </select>
+
+  <update id="savePraise" parameterType="com.ef.golf.pojo.Praise">
+    UPDATE ef_comments
+    SET  praise_num = praise_num + ( #{praiseNum} )
+    WHERE comments_id  = #{commentsId}
+  </update>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_comments
+    where comments_id = #{commentsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Comments" >
+    insert into ef_comments (comments_id, user_id,order_id, product_id,
+      comments_type, create_time, praise_num, 
+      content, is_del)
+    values (#{commentsId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT},#{orderId,jdbcType=BIGINT}, #{productId,jdbcType=INTEGER},
+      #{commentsType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{praiseNum,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{isDel,jdbcType=BIT})
+  </insert>
+
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="commentsId" parameterType="com.ef.golf.pojo.Comments" >
+    insert into ef_comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentsId != null" >
+        comments_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="commentsType != null" >
+        comments_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="praiseNum != null" >
+        praise_num,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentsId != null" >
+        #{commentsId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="commentsType != null" >
+        #{commentsType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="praiseNum != null" >
+        #{praiseNum,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Comments" >
+    update ef_comments
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="commentsType != null" >
+        comments_type = #{commentsType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="praiseNum != null" >
+        praise_num = #{praiseNum,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+    </set>
+    where comments_id = #{commentsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Comments" >
+    update ef_comments
+    set user_id = #{userId,jdbcType=BIGINT},
+    order_id = #{orderId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=INTEGER},
+      comments_type = #{commentsType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      praise_num = #{praiseNum,jdbcType=INTEGER}
+    where comments_id = #{commentsId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectCommentsByProductIdAndCommentType" resultMap="CommentsResultMap">
+    <!--SELECT com.*,u.nickname
+    FROM ef_comments com
+    INNER JOIN u_user u ON(com.user_id=u.id)
+    WHERE com.product_id=#{site_id,jdbcType=INTEGER}
+    AND com.comments_type=1
+    AND is_del=0;-->
+    SELECT ec.*,u.nickname,u.head_portrait_url,
+    <if test="user_id==null">-1</if>
+    <if test="user_id!=null">
+      case
+        WHEN ep.user_id is not null then 1
+        WHEN ep.user_id is NULL THEN -1
+      end
+    </if>
+    as is_praise
+    FROM ef_comments ec
+    INNER JOIN u_user u ON(ec.user_id=u.id)
+    LEFT JOIN ef_praise ep ON(ec.comments_id=ep.comments_id)
+    WHERE ec.product_id=#{productId,jdbcType=INTEGER}
+    AND ec.comments_type=#{commentType,jdbcType=INTEGER}
+    AND is_del=0
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+<!-- -->
+  <select id="getCommentCountByProductIdAndCommentType" resultType="java.lang.Integer" >
+    SELECT count(1)
+    from ef_comments ec
+    INNER JOIN u_user u ON(ec.user_id=u.id)
+    LEFT JOIN ef_praise ep ON(ec.comments_id=ep.comments_id)
+    WHERE ec.product_id=#{productId,jdbcType=INTEGER}
+    AND ec.comments_type=#{commentType,jdbcType=INTEGER}
+    AND is_del=0;
+
+  </select>
+  <!--评分-->
+</mapper>

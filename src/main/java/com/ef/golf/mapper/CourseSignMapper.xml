@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.CourseSignMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.CourseSign">
+    <id column="sign_id" jdbcType="BIGINT" property="signId" />
+    <result column="course_id" jdbcType="BIGINT" property="courseId" />
+    <result column="stu_id" jdbcType="BIGINT" property="stuId" />
+    <result column="caoch_id" jdbcType="BIGINT" property="caochId" />
+    <result column="coach_sign_stauts" jdbcType="VARCHAR" property="coachSignStauts" />
+    <result column="sign_num" jdbcType="BIGINT" property="signNum" />
+    <result column="stu_sign_stauts" jdbcType="VARCHAR" property="stuSignStauts" />
+    <result column="stu_sign_date" jdbcType="TIMESTAMP" property="stuSignDate" />
+    <result column="coach_sign_date" jdbcType="TIMESTAMP" property="coachSignDate" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sign_id, course_id, stu_id, caoch_id, coach_sign_stauts, sign_num, stu_sign_stauts, 
+    stu_sign_date, coach_sign_date, order_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_course_sign
+    where sign_id = #{signId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_course_sign
+    where sign_id = #{signId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.CourseSign">
+    insert into ef_course_sign (sign_id, course_id, stu_id, 
+      caoch_id, coach_sign_stauts, sign_num, 
+      stu_sign_stauts, stu_sign_date, coach_sign_date, order_id
+      )
+    values (#{signId,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, #{stuId,jdbcType=BIGINT}, 
+      #{caochId,jdbcType=BIGINT}, #{coachSignStauts,jdbcType=VARCHAR}, #{signNum,jdbcType=BIGINT}, 
+      #{stuSignStauts,jdbcType=VARCHAR}, #{stuSignDate,jdbcType=TIMESTAMP}, #{coachSignDate,jdbcType=TIMESTAMP}, #{orderId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.CourseSign">
+    insert into ef_course_sign
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="signId != null">
+        sign_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="caochId != null">
+        caoch_id,
+      </if>
+      <if test="coachSignStauts != null">
+        coach_sign_stauts,
+      </if>
+      <if test="signNum != null">
+        sign_num,
+      </if>
+      <if test="stuSignStauts != null">
+        stu_sign_stauts,
+      </if>
+      <if test="stuSignDate != null">
+        stu_sign_date,
+      </if>
+      <if test="coachSignDate != null">
+        coach_sign_date,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="signId != null">
+        #{signId,jdbcType=BIGINT},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="stuId != null">
+        #{stuId,jdbcType=BIGINT},
+      </if>
+      <if test="caochId != null">
+        #{caochId,jdbcType=BIGINT},
+      </if>
+      <if test="coachSignStauts != null">
+        #{coachSignStauts,jdbcType=VARCHAR},
+      </if>
+      <if test="signNum != null">
+        #{signNum,jdbcType=BIGINT},
+      </if>
+      <if test="stuSignStauts != null">
+        #{stuSignStauts,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSignDate != null">
+        #{stuSignDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coachSignDate != null">
+        #{coachSignDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        #{order_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.CourseSign">
+    update ef_course_sign
+    <set>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="stuId != null">
+        stu_id = #{stuId,jdbcType=BIGINT},
+      </if>
+      <if test="caochId != null">
+        caoch_id = #{caochId,jdbcType=BIGINT},
+      </if>
+      <if test="coachSignStauts != null">
+        coach_sign_stauts = #{coachSignStauts,jdbcType=VARCHAR},
+      </if>
+      <if test="signNum != null">
+        sign_num = #{signNum,jdbcType=BIGINT},
+      </if>
+      <if test="stuSignStauts != null">
+        stu_sign_stauts = #{stuSignStauts,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSignDate != null">
+        stu_sign_date = #{stuSignDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coachSignDate != null">
+        coach_sign_date = #{coachSignDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where sign_id = #{signId,jdbcType=BIGINT}
+  </update>
+  <update id="updateSignStatus">
+    UPDATE ef_course_sign ecs
+    <set>
+      <if test="stuSignStauts != null">
+        ecs.stu_sign_stauts = #{stuSignStauts},
+      </if>
+      <if test="coachSignStauts != null">
+        ecs.coach_sign_stauts = #{coachSignStauts},
+      </if>
+    </set>
+      WHERE
+          ecs.sign_id = #{signId}
+      AND ecs.caoch_id = #{caochId}
+      AND ecs.stu_id = #{stuId}
+      AND  order_id = #{orderId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.CourseSign">
+    update ef_course_sign
+    set course_id = #{courseId,jdbcType=BIGINT},
+      stu_id = #{stuId,jdbcType=BIGINT},
+      caoch_id = #{caochId,jdbcType=BIGINT},
+      coach_sign_stauts = #{coachSignStauts,jdbcType=VARCHAR},
+      sign_num = #{signNum,jdbcType=BIGINT},
+      stu_sign_stauts = #{stuSignStauts,jdbcType=VARCHAR},
+      stu_sign_date = #{stuSignDate,jdbcType=TIMESTAMP},
+      coach_sign_date = #{coachSignDate,jdbcType=TIMESTAMP},
+      order_id = #{orderId,jdbcType=BIGINT}
+    where sign_id = #{signId,jdbcType=BIGINT}
+  </update>
+  <!-- 签到记录插入 -->
+  <insert id="insertCourseRecord" parameterType="java.util.ArrayList">
+    insert into ef_course_sign (course_id,stu_id,caoch_id,coach_sign_stauts,sign_num,stu_sign_stauts,order_id) VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.courseId},#{item.stuId},#{item.caochId},#{item.coachSignStauts},#{item.signNum},#{item.stuSignStauts},#{item.orderId})
+    </foreach>
+  </insert>
+  <!-- 课程签到记录查询 -->
+  <select id="getCourseSignRecord" resultType="com.ef.golf.pojo.CourseSign">
+    SELECT
+      order_id orderId,
+      sign_id signId,
+      course_id courseId,
+      stu_id stuId,
+      caoch_id caochId,
+      CASE WHEN coach_sign_stauts='0' THEN '未签到' WHEN coach_sign_stauts='1' THEN '已签到' WHEN coach_sign_stauts='2' THEN '不可签到' END coachSign,
+      coach_sign_stauts coachSignStauts,
+      sign_num signNum,
+      stu_sign_stauts stuSignStauts,
+      CASE WHEN stu_sign_stauts='0' THEN '未签到' WHEN stu_sign_stauts='1' THEN '已签到' WHEN stu_sign_stauts='2' THEN '不可签到' END stuSign,
+      stu_sign_date stuSignDate,
+      coach_sign_date coachSignDate
+    FROM ef_course_sign
+    WHERE course_id = #{courseId}
+      AND stu_id = #{stuId}
+      AND caoch_id = #{coachId}
+      AND  order_id = #{orderId,jdbcType=BIGINT}
+      ORDER BY sign_id ASC
+  </select>
+  <!-- 签到处理准备 -->
+  <select id="selectCourseSignById"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_course_sign
+    where sign_id = #{signId,jdbcType=BIGINT}
+    <if test="coachId != null">
+      AND  caoch_id = #{coachId,jdbcType=BIGINT}
+    </if>
+    <if test="stuId != null">
+      AND  stu_id = #{stuId,jdbcType=BIGINT}
+    </if>
+    AND  order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+</mapper>

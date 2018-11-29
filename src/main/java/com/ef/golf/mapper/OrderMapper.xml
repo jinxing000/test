@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Order" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="INTEGER" />
+    <result column="order_state" property="orderState" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="order_moeny" property="orderMoeny" jdbcType="DOUBLE" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="coupon_amount" property="couponAmount" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+    <result column="ping_id" property="pingId" jdbcType="VARCHAR"/>
+    <result column="channel" property="channel" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, order_no,account_id, order_state, order_type, order_moeny, create_time, modify_time,
+    create_user, modify_user, is_del,ping_id,amount,coupon_amount,channel
+  </sql>
+
+  <select id="getSiteOrder" resultType="com.ef.golf.vo.SiteOrderVo" parameterType="com.ef.golf.pojo.Order">
+    select
+      o.order_id orderID ,
+      order_state orderState,
+      order_no orderNo,
+      order_type orderType,
+      order_moeny orderMoney,
+      o.create_time createTime,
+      o.modify_time modifyTime,
+      site_id siteId
+    from
+      ef_order o ,ef_site_order s
+    WHERE
+      o.is_del = 0
+      and o.order_id = s.order_id
+    <if test="orderId != null" >
+      AND o.order_id = #{orderId}
+    </if>
+    <if test="accountId != null" >
+      AND o.account_id = #{accountId}
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from ef_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Order" >
+    insert into ef_order (order_id, order_no, account_id, order_state,
+      order_type, order_moeny, create_time, 
+      modify_time, create_user, modify_user, 
+      is_del)
+    values (#{orderId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER},#{orderState,jdbcType=VARCHAR},
+      #{orderType,jdbcType=VARCHAR}, #{orderMoeny,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.ef.golf.pojo.Order" >
+    insert into ef_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+     <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="pingId!=null">
+        ping_id,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="orderMoeny != null" >
+        order_moeny,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="couponAmount != null" >
+        coupon_amount,
+      </if>
+      <if test="ticketId != null" >
+        ticket_id,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="pingId!=null">
+        #{pingId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMoeny != null" >
+        #{orderMoeny,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="couponAmount != null" >
+        #{couponAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="ticketId != null" >
+        #{ticketId,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Order" >
+    update ef_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMoeny != null" >
+        order_moeny = #{orderMoeny,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=BIT},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Order" >
+    update ef_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      order_moeny = #{orderMoeny,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <!-- 逻辑删除本地主Order -->
+  <update id="updateOrderIsDel" parameterType="java.lang.Integer">
+    UPDATE ef_order eo
+      SET eo.is_del = '1'
+      WHERE eo.order_id = #{orderId}
+  </update>
+  <update id="updateByOrderNo" parameterType="java.lang.String">
+    UPDATE ef_order eo SET eo.order_state=#{status,jdbcType=VARCHAR},eo.modify_time=NOW(),eo.channel=#{channel} WHERE eo.order_no=#{orderNo,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据订单编号(本系统)查询ping++系统的订单编号-->
+  <select id="getPingOrderId" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT eo.ping_id FROM ef_order eo WHERE eo.order_id=#{orderId,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据orderid查询用户表id -->
+  <select id="getUserAccountId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+	  eo.account_id
+    FROM
+	  ef_order eo
+    WHERE
+	  eo.order_id = #{orderId}
+  </select>
+  <!--根据订单编号（本系统）查询订单信息-->
+  <select id="getOrderByNo" parameterType="java.lang.String" resultType="com.ef.golf.pojo.Order">
+    SELECT order_id orderId, account_id accountId, order_no orderNo, order_state orderState,
+     ping_id pingId, order_type orderType, order_moeny orderMoeny,
+      create_time createTime, modify_time modifyTime, create_user createUser, modify_user modifyUser, is_del isDel, coupon_amount couponAmount, amount amount, ticket_id ticketId, channel channel
+     FROM ef_order eo WHERE eo.order_no=#{orderNo,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据订单编号查询订单详情-->
+  <select id="getOrderDetails" resultType="com.ef.golf.vo.WorkOrderDeatilsVo">
+    SELECT
+      eo.order_no orderNo,
+      eo.order_id orderId,
+      eo.amount coachOrderMoney,<!-- 此处工单价格为订单实付价格 -->
+      DATE_FORMAT(eo.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+      eo.order_state orderState,
+      eo.order_type orderType,
+      eco1.play_date coachPlayDate,
+      eco1.play_time coachPlayTime,
+      eco1.play_name coachPlayName,
+      eco1.contacts_phone   coachContactsPhone,
+      eco1.qiuHui_id	coachQiuHuiId,
+      eco1.qiuHui_name coachQiuHuiName,
+      eco1.remark coachRemark,
+      eqo.play_date qiuTongPlayDate,
+      eqo.play_time  qiuTongPlayTime,
+      eqo.play_name qiuTongPlayName,
+      eqo.contacts_phone qiuTongContactsPhone,
+      eqo.qiuHui_id	qiuTongQiuHuiId,
+      eqo.qiuHui_name qiuTongQiuHuiName,
+      eqo.remark	qiuTongRemark,
+      eco2.coach_id courseCoachId,
+      eco2.coach_name courseCoachName,
+      case when eco2.course_num=1 then '单次课' else '套次课' end courseType,
+      eco2.course_time courseTime,
+      eco2.course_date	courseDate,
+      eco2.site_id siteId,
+      eco2.site_name siteName,
+      eco2.course_name courseName,
+      eco2.course_num	courseNum,
+      eco2.reserve_name reserveName,
+      eco2.contacts_phone courseContactsPhone,
+      eco2.remark courseRemark
+  FROM
+        ef_order eo
+  LEFT JOIN ef_coach_order eco1 ON (eo.order_id = eco1.order_id)
+  LEFT JOIN ef_course_order eco2 ON (eo.order_id = eco2.order_id)
+  LEFT JOIN ef_qiutong_order eqo ON (eo.order_id = eqo.order_id)
+  WHERE
+        eo.order_no = #{orderNo}
+  AND   eo.order_type = #{orderType}
+  </select>
+  <!-- 根据ping_id查询orderId -->
+  <select id="selectOrderIdByPingId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+	order_id
+    FROM
+        ef_order
+    WHERE
+	ping_id = #{pingId}
+  </select>
+  <!-- 工单状态更新 -->
+  <update id="updateWorkOrderStauts">
+    UPDATE ef_order eo
+    SET eo.order_state = #{orderState},eo.modify_user=#{modifyUser},eo.modify_time=#{modifyTime}
+    WHERE
+    eo.order_id = #{orderId}
+    AND eo.order_no = #{orderNo}
+  </update>
+  <!-- 逻辑删除工单 -->
+  <update id="delWorkOrder" >
+    UPDATE ef_order eo
+    SET eo.is_del = 1
+    WHERE
+    eo.order_id = #{orderId}
+    AND eo.order_no = #{orderNo}
+  </update>
+
+  <!-- 球童订单成功预约到达指定时间自动修改状态为待评价 statementType="CALLABLE" mybatis调用存储过程-->
+  <!-- call update_caddie_order_status -->
+  <update id="updateCaddieOrderState" >
+    UPDATE ef_order
+        SET order_state = '10'
+        WHERE
+        order_state='9'
+        AND 	order_id IN (
+		SELECT
+			order_id
+		FROM
+			ef_qiutong_order eqo
+		WHERE
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s') >= DATE_FORMAT(CONCAT(eqo.play_date,' ',eqo.play_time),'%Y-%m-%d %H:%i:%s'))
+  </update>
+
+  <update id="updateSiteOrderState">
+    UPDATE ef_order
+        SET order_state = '4'
+        WHERE
+        order_state='3'
+        AND 	order_id IN (
+		SELECT
+			order_id
+		FROM
+			ef_site_order eso
+		WHERE
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i') >= DATE_FORMAT(CONCAT(eso.play_date,' ',eso.play_time),'%Y-%m-%d %H:%i'))
+  </update>
+  <!-- 检索出过时未支付订单 -->
+  <select id="chaoshiOrder" resultType="com.ef.golf.pojo.Order">
+    select order_id orderId,order_type orderType from ef_order eo WHERE HOUR (timediff(now(), eo.create_time)) >= 1 AND eo.order_state in(1,14,21,28)
+</select>
+
+  <select id="findByTickId" resultType="java.lang.Integer">
+   SELECT  count(1) from ef_order where ticket_id =#{ticketid}
+  </select>
+
+</mapper>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.GoodsCatMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.GoodsCat" >
+    <id column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="cat_path" property="catPath" jdbcType="VARCHAR" />
+    <result column="goods_count" property="goodsCount" jdbcType="INTEGER" />
+    <result column="cat_order" property="catOrder" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="list_show" property="listShow" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cat_id, name, parent_id, cat_path, goods_count, cat_order, type_id, list_show, image
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_goods_cat
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_goods_cat
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.GoodsCat" >
+    insert into es_goods_cat (cat_id, name, parent_id, 
+      cat_path, goods_count, cat_order, 
+      type_id, list_show, image
+      )
+    values (#{catId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{catPath,jdbcType=VARCHAR}, #{goodsCount,jdbcType=INTEGER}, #{catOrder,jdbcType=INTEGER}, 
+      #{typeId,jdbcType=INTEGER}, #{listShow,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.GoodsCat" >
+    insert into es_goods_cat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="catId != null" >
+        cat_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="catPath != null" >
+        cat_path,
+      </if>
+      <if test="goodsCount != null" >
+        goods_count,
+      </if>
+      <if test="catOrder != null" >
+        cat_order,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="listShow != null" >
+        list_show,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="catId != null" >
+        #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="catPath != null" >
+        #{catPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null" >
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="catOrder != null" >
+        #{catOrder,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="listShow != null" >
+        #{listShow,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.GoodsCat" >
+    update es_goods_cat
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="catPath != null" >
+        cat_path = #{catPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null" >
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="catOrder != null" >
+        cat_order = #{catOrder,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="listShow != null" >
+        list_show = #{listShow,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.GoodsCat" >
+    update es_goods_cat
+    set name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      cat_path = #{catPath,jdbcType=VARCHAR},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      cat_order = #{catOrder,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      list_show = #{listShow,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR}
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMapVo" type="com.ef.golf.vo.GoodsCatVo" >
+    <id column="goods_id" property="goods_id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="enable_store" property="enableStore" jdbcType="INTEGER" />
+    <result column="tag_name" property="tag_name" jdbcType="VARCHAR" />
+    <result column="catname" property="catname" jdbcType="VARCHAR" />
+    <result column="cat_id" property="cat_id" jdbcType="INTEGER" />
+    <result column="thumbnail " property="thumbnail " jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="catList" resultMap="BaseResultMap">
+ SELECT * from es_goods_cat s where s.parent_id =0 LIMIT 0,6
+  </select>
+
+  <select id="secondCatList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+      SELECT * FROM es_goods_cat k WHERE k.parent_id= #{cat_id,jdbcType=INTEGER}
+      ORDER BY cat_order LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="secondspecCatGoodsList"  resultType="com.ef.golf.vo.GoodsCatVo" parameterType="java.util.Map">
+    select g.goods_id,g.name,g.price,g.enable_store enableStore,GROUP_CONCAT(u.tag_name) AS tag_name,er.name as catname,er.cat_id,g.thumbnail,g.reduction, g.credit
+    from es_goods g
+    LEFT JOIN es_goods_cat er ON g.cat_id = er.cat_id
+    LEFT JOIN es_tag_rel r ON g.goods_id = r.rel_id
+    LEFT JOIN es_tags u ON r.tag_id = u.tag_id
+    WHERE 1=1 and  g.market_enable=1
+    and  g.goods_id NOT IN ( SELECT t.goods_id FROM es_activity y LEFT JOIN es_activity_goods t ON y.activity_id = t.activity_id WHERE y.disabled = 0 )
+    AND er.cat_id in(select cat_id from es_goods_cat where parent_id=#{cat_id,jdbcType=INTEGER})
+    GROUP BY g.goods_id
+    ORDER BY g.sord ASC ,g.last_modify DESC
+    LIMIT #{pageNo},#{pageSize}
+    </select>
+  <select id="firstspecCatGoodsList" resultType="com.ef.golf.vo.GoodsCatVo" parameterType="java.util.Map">
+    select g.goods_id,g.name,g.price,g.enable_store enableStore,GROUP_CONCAT(u.tag_name) AS tag_name,er.name as catname,er.cat_id,g.thumbnail,g.reduction, g.credit
+    from es_goods g
+    LEFT JOIN es_goods_cat er ON g.cat_id = er.cat_id
+    LEFT JOIN es_tag_rel r ON g.goods_id = r.rel_id
+    LEFT JOIN es_tags u ON r.tag_id = u.tag_id
+    WHERE 1=1 and  g.market_enable=1
+    and g.goods_id NOT IN ( SELECT t.goods_id FROM es_activity y LEFT JOIN es_activity_goods t ON y.activity_id = t.activity_id WHERE y.disabled = 0 )
+    AND er.cat_id in(select cat_id from es_goods_cat where parent_id in (select cat_id from es_goods_cat where parent_id=#{cat_id,jdbcType=INTEGER}))
+    GROUP BY g.goods_id
+    ORDER BY g.sord ASC ,g.last_modify DESC
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="firstCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+ SELECT count(*) FROM es_goods g
+    LEFT JOIN es_goods_cat er ON g.cat_id = er.cat_id
+    LEFT JOIN es_tag_rel r ON g.goods_id = r.rel_id
+    LEFT JOIN es_tags u ON r.tag_id = u.tag_id
+    WHERE 1=1
+    AND g.market_enable = 1
+    AND er.cat_id in (select cat_id from es_goods_cat where parent_id in (select cat_id from es_goods_cat where parent_id=#{cat_id,jdbcType=INTEGER}))
+  </select>
+
+<select id="sencondCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  select COUNT(1)
+    from es_goods g
+    LEFT JOIN es_goods_cat er ON g.cat_id = er.cat_id
+    LEFT JOIN es_tag_rel r ON g.goods_id = r.rel_id
+    LEFT JOIN es_tags u ON r.tag_id = u.tag_id
+    WHERE 1=1
+    AND g.market_enable = 1
+    AND er.cat_id in(select cat_id from es_goods_cat where parent_id=#{cat_id,jdbcType=INTEGER})
+
+</select>
+
+
+  <select id="getBigCatId" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+
+    SELECT SUBSTR(cat_path,3,1) parentCatId FROM ES_GOODS_CAT WHERE CAT_ID=#{catId,jdbcType=INTEGER}
+
+  </select>
+
+</mapper>

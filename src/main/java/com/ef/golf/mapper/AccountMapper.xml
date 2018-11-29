@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Account" >
+    <id column="account_id" property="accountId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="cz_balance" property="czBalance" jdbcType="DOUBLE" />
+    <result column="sr_balance" property="srBalance" jdbcType="DOUBLE" />
+    <result column="zs_balance" property="zsBalance" jdbcType="DOUBLE" />
+    <result column="is_alive" property="isAlive" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    account_id, user_id, create_time, modify_time, balance, cz_balance, sr_balance, zs_balance, is_alive
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_account
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAccountIdByUid" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select
+    account_id  accountId
+    from ef_account a ,u_user u
+    where
+    a.user_id = u.id
+    and
+    u.id = #{userId}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_account
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Account" >
+    insert into ef_account (account_id, user_id, create_time, 
+      modify_time, balance,cz_balance,sr_balance,zs_balance,is_alive
+      )
+    values (#{accountId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{balance,jdbcType=DOUBLE},#{czBalance,jdbcType=DOUBLE},#{srBalance,jdbcType=DOUBLE},#{zsBalance,jdbcType=DOUBLE}, #{isAlive,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="accountId"  parameterType="com.ef.golf.pojo.Account" >
+    insert into ef_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="czBalance != null" >
+        cz_balance,
+      </if>
+      <if test="srBalance != null" >
+        sr_balance,
+      </if>
+      <if test="zsBalance != null" >
+        zs_balance,
+      </if>
+      <if test="isAlive != null" >
+        is_alive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="czBalance != null" >
+        #{czBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="srBalance != null" >
+        #{srBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="zsBalance != null" >
+        #{zsBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="isAlive != null" >
+        #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Account" >
+    update ef_account
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="czBalance != null" >
+        cz_balance = #{czBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="srBalance != null" >
+        sr_balance = #{srBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="zsBalance != null" >
+        zs_balance = #{zsBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="isAlive != null" >
+        is_alive = #{isAlive,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Account" >
+    update ef_account
+    set user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      balance = #{balance,jdbcType=DOUBLE},
+      cz_balance = #{czBalance,jdbcType=DOUBLE},
+      sr_balance = #{srBalance,jdbcType=DOUBLE},
+      zs_balance = #{zsBalance,jdbcType=DOUBLE},
+      is_alive = #{isAlive,jdbcType=VARCHAR}
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取userid -->
+  <select id="getAccountUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+	  ea.user_id
+    FROM
+	  ef_account ea
+    WHERE
+	  ea.account_id=#{accountId}
+  </select>
+  <select id="selectAccountId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    SELECT ef_account.account_id FROM ef_account WHERE ef_account.user_id=#{userId}
+  </select>
+  <!-- 查询余额 -->
+  <select id="getUserBalance" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM
+        ef_account ea
+    WHERE
+        user_id = #{userId}
+  </select>
+  <!-- 总余额更新 -->
+  <update id="updateUserBalance">
+      UPDATE ef_account ea
+      SET ea.balance = #{balance}
+      WHERE
+	  ea.user_id = #{userId}
+  </update>
+  <!-- 充值余额更新 -->
+  <update id="updateUserCzBalance">
+    UPDATE ef_account ea
+    SET ea.cz_balance = #{czBalance}
+    WHERE
+    ea.user_id = #{userId}
+  </update>
+  <!-- 收入余额更新 -->
+  <update id="updateUserSrBalance">
+    UPDATE ef_account ea
+    SET ea.sr_balance = #{srBalance}
+    WHERE
+    ea.user_id = #{userId}
+  </update>
+  <!-- 赠送余额更新 -->
+  <update id="updateUserZsBalance">
+    UPDATE ef_account ea
+    SET ea.zs_balance = #{zsBalance}
+    WHERE
+    ea.user_id = #{userId}
+  </update>
+
+
+
+  <select id="getAccount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_account
+    where user_id = #{userId,jdbcType=INTEGER}
+
+
+  </select>
+</mapper>

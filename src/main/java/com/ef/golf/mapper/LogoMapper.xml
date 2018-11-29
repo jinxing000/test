@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.LogoMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Logo">
+    <id column="logo_id" jdbcType="INTEGER" property="logoId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
+    <result column="sorting" jdbcType="INTEGER" property="sorting" />
+    <result column="ios_version" jdbcType="VARCHAR" property="iosVersion" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="android_version" jdbcType="VARCHAR" property="androidVersion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    logo_id, title, url, link_url, sorting, ios_version, create_time, modify_time, create_user, 
+    modify_user, android_version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_logo
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_logo
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Logo">
+    insert into ef_logo (logo_id, title, url, 
+      link_url, sorting, ios_version, 
+      create_time, modify_time, create_user, 
+      modify_user, android_version)
+    values (#{logoId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{linkUrl,jdbcType=VARCHAR}, #{sorting,jdbcType=INTEGER}, #{iosVersion,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{androidVersion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Logo">
+    insert into ef_logo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logoId != null">
+        logo_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="linkUrl != null">
+        link_url,
+      </if>
+      <if test="sorting != null">
+        sorting,
+      </if>
+      <if test="iosVersion != null">
+        ios_version,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="androidVersion != null">
+        android_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logoId != null">
+        #{logoId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null">
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sorting != null">
+        #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="iosVersion != null">
+        #{iosVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="androidVersion != null">
+        #{androidVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Logo">
+    update ef_logo
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null">
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sorting != null">
+        sorting = #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="iosVersion != null">
+        ios_version = #{iosVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="androidVersion != null">
+        android_version = #{androidVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Logo">
+    update ef_logo
+    set title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      sorting = #{sorting,jdbcType=INTEGER},
+      ios_version = #{iosVersion,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      android_version = #{androidVersion,jdbcType=VARCHAR}
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </update>
+  <select id="findAppIndexIcoByVersion" resultType="com.ef.golf.pojo.Logo">
+    SELECT
+      logo_id logoId,
+      title title,
+      sorting sorting,
+      url url,
+      link_url  linkUrl
+    FROM
+        ef_logo
+    <where>
+      <if test="platform == 'Android'">
+        android_version = #{versionName,jdbcType=VARCHAR}
+      </if>
+      <if test="platform == 'iOS'">
+        ios_version = #{versionName,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY sorting
+  </select>
+</mapper>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Product" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="store" property="store" jdbcType="INTEGER" />
+    <result column="enable_store" property="enableStore" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="is_pack" property="isPack" jdbcType="INTEGER" />
+    <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.Product" extends="BaseResultMap" >
+    <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, goods_id, name, sn, store, enable_store, price, cost, weight, is_pack,specs
+  </sql>
+  <sql id="Blob_Column_List" >
+    specs
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from es_product
+    where product_id = #{productId,jdbcType=INTEGER}  for update
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Product" >
+    insert into es_product (product_id, goods_id, name, 
+      sn, store, enable_store, 
+      price, cost, weight, 
+      is_pack, specs)
+    values (#{productId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sn,jdbcType=VARCHAR}, #{store,jdbcType=INTEGER}, #{enableStore,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{cost,jdbcType=DECIMAL}, #{weight,jdbcType=DECIMAL}, 
+      #{isPack,jdbcType=INTEGER}, #{specs,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Product" >
+    insert into es_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="store != null" >
+        store,
+      </if>
+      <if test="enableStore != null" >
+        enable_store,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="isPack != null" >
+        is_pack,
+      </if>
+      <if test="specs != null" >
+        specs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null" >
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="enableStore != null" >
+        #{enableStore,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="isPack != null" >
+        #{isPack,jdbcType=INTEGER},
+      </if>
+      <if test="specs != null" >
+        #{specs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Product" >
+    update es_product
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null" >
+        store = #{store,jdbcType=INTEGER},
+      </if>
+      <if test="enableStore != null" >
+        enable_store = #{enableStore,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="isPack != null" >
+        is_pack = #{isPack,jdbcType=INTEGER},
+      </if>
+      <if test="specs != null" >
+        specs = #{specs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.Product" >
+    update es_product
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      store = #{store,jdbcType=INTEGER},
+      enable_store = #{enableStore,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      cost = #{cost,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=DECIMAL},
+      is_pack = #{isPack,jdbcType=INTEGER},
+      specs = #{specs,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Product" >
+    update es_product
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      store = #{store,jdbcType=INTEGER},
+      enable_store = #{enableStore,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      cost = #{cost,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=DECIMAL},
+      is_pack = #{isPack,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+select * from es_product where goods_id=#{goods_id,jdbcType=INTEGER}
+  </select>
+
+
+
+  <update id="updateProduct" parameterType="java.util.Map">
+
+update es_product set enable_store=enable_store-#{num,jdbcType=INTEGER} where product_id=#{product_id,jdbcType=INTEGER}
+
+
+  </update>
+</mapper>

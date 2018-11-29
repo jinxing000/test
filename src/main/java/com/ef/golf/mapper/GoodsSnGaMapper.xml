@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.GoodsSnGaMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.GoodsSnGa" >
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="snapshot_id" property="snapshotId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    <result column="small" property="small" jdbcType="VARCHAR" />
+    <result column="big" property="big" jdbcType="VARCHAR" />
+    <result column="original" property="original" jdbcType="VARCHAR" />
+    <result column="tiny" property="tiny" jdbcType="VARCHAR" />
+    <result column="isdefault" property="isdefault" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.ef.golf.pojo.GoodsSnGa" >
+    insert into es_goods_snapshot_gallery (img_id, snapshot_id, goods_id, 
+      thumbnail, small, big, 
+      original, tiny, isdefault, 
+      sort)
+    values (#{imgId,jdbcType=INTEGER}, #{snapshotId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{thumbnail,jdbcType=VARCHAR}, #{small,jdbcType=VARCHAR}, #{big,jdbcType=VARCHAR}, 
+      #{original,jdbcType=VARCHAR}, #{tiny,jdbcType=VARCHAR}, #{isdefault,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.GoodsSnGa" >
+    insert into es_goods_snapshot_gallery
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="snapshotId != null" >
+        snapshot_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail,
+      </if>
+      <if test="small != null" >
+        small,
+      </if>
+      <if test="big != null" >
+        big,
+      </if>
+      <if test="original != null" >
+        original,
+      </if>
+      <if test="tiny != null" >
+        tiny,
+      </if>
+      <if test="isdefault != null" >
+        isdefault,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="thumbnail != null" >
+        #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null" >
+        #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="big != null" >
+        #{big,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null" >
+        #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="tiny != null" >
+        #{tiny,jdbcType=VARCHAR},
+      </if>
+      <if test="isdefault != null" >
+        #{isdefault,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

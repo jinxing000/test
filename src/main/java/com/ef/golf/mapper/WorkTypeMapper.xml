@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.WorkTypeMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.WorkType">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="read_unread" jdbcType="VARCHAR" property="readUnread" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="big_type" jdbcType="VARCHAR" property="bigType" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, type, product_id, read_unread, create_time, big_type, order_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_work_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_work_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.WorkType">
+    insert into ef_work_type (id, user_id, type, 
+      product_id, read_unread, create_time, big_type
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=BIGINT}, #{readUnread,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+       #{bigType,jdbcType=VARCHAR}, #{orderId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.WorkType">
+    insert into ef_work_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="readUnread != null">
+        read_unread,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="bigType != null">
+        big_type,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="readUnread != null">
+        #{readUnread,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bigType != null">
+        #{bigType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.WorkType">
+    update ef_work_type
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="readUnread != null">
+        read_unread = #{readUnread,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bigType != null">
+        big_type = #{bigType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.WorkType">
+    update ef_work_type
+    set user_id = #{userId,jdbcType=BIGINT},
+      type = #{type,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      read_unread = #{readUnread,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      big_type = #{bigType,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 推送圈子消息 -->
+  <select id="getPushWorkTypeMsg" resultType="com.ef.golf.vo.PushWorkTypeVo">
+    SELECT
+        ewt.product_id productId,
+        ewt.read_unread readUnread,
+        ewt.type `type`,
+        ewt.user_id workUserId,
+        ed.user_id sendUserId
+    FROM
+        ef_work_type ewt
+    LEFT JOIN ef_dynamic  ed ON(ed.dynamic_id = ewt.product_id)
+    WHERE
+        ewt.read_unread = '0'
+        AND ewt.big_type='1'
+    GROUP BY ed.user_id
+  </select>
+  <!-- 推送系统消息 -->
+  <select id="getPushWorkCenterMsg" resultType="com.ef.golf.vo.PushWorkTypeVo">
+    SELECT
+    ewt.product_id productId,
+    ewt.read_unread readUnread,
+    ewt.type `type`,
+    ewt.user_id workUserId
+    FROM
+    ef_work_type ewt
+    WHERE
+    ewt.read_unread = '0'
+    AND ewt.big_type='2'
+    GROUP BY ed.user_id
+  </select>
+
+  <!-- 消息列表内容 -->
+  <select id="getPushMsgList" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.PushMsgListVo">
+    SELECT
+        ewt.id workTypeId,
+        ewt.product_id dynamicId,
+        ewt.type workType,
+        ewt.read_unread readUnread,
+        CASE
+    WHEN ewt.type = '1' THEN
+            '对你的动态进行了点赞,点击查看详情'
+    WHEN ewt.type = '2' THEN
+            '对你的动态进行了评论,点击查看详情'
+    WHEN ewt.type = '3' THEN
+            '对你的评论进行了回复,点击查看详情'
+    WHEN ewt.type = '4' THEN
+            '分享了你的动态,点击查看详情'
+    ELSE
+            '收到积分礼物，您获得积分'
+    END content,
+        uu.id workId,
+        uu.head_portrait_url headPortraitUrl,
+        uu.nickname nickName,
+        uu.user_type userType,
+        CASE WHEN uu.gender is null THEN 0 ELSE uu.gender END gender,
+        concat("Vip",u.vip)vip,
+        ewt.create_time createTime
+    FROM
+        u_user u
+    LEFT JOIN ef_dynamic ed ON (u.id = ed.user_id)
+    LEFT JOIN ef_work_type ewt ON (
+        ed.dynamic_id = ewt.product_id
+    )
+    LEFT JOIN u_user uu ON (uu.id = ewt.user_id)
+    WHERE
+        u.id = #{userId}
+    AND ed.dynamic_id = ewt.product_id
+    AND ewt.big_type='1'
+    ORDER BY ewt.create_time DESC
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getPushMsgListCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM
+    u_user u
+    LEFT JOIN ef_dynamic ed ON (u.id = ed.user_id)
+    LEFT JOIN ef_work_type ewt ON (
+    ed.dynamic_id = ewt.product_id
+    )
+    LEFT JOIN u_user uu ON (uu.id = ewt.user_id)
+    WHERE
+    u.id = #{userId}
+    AND ed.dynamic_id = ewt.product_id
+    AND ewt.big_type='1'
+  </select>
+  <select id="getWorkTypeMsgCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+	  count(0)
+    FROM
+        ef_work_type ewt
+    LEFT JOIN ef_dynamic ed ON(ed.dynamic_id = ewt.product_id)
+    WHERE
+        ed.user_id = #{userId}
+    AND ewt.read_unread = '0'
+    AND ewt.big_type='1'
+  </select>
+</mapper>

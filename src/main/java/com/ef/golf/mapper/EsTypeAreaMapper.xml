@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsTypeAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsTypeArea" >
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="has_cod" property="hasCod" jdbcType="INTEGER" />
+    <result column="area_id_group" property="areaIdGroup" jdbcType="LONGVARCHAR" />
+    <result column="area_name_group" property="areaNameGroup" jdbcType="LONGVARCHAR" />
+    <result column="expressions" property="expressions" jdbcType="LONGVARCHAR" />
+    <result column="config" property="config" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.EsTypeAreaWithBLOBs" extends="BaseResultMap" >
+    <result column="area_id_group" property="areaIdGroup" jdbcType="LONGVARCHAR" />
+    <result column="area_name_group" property="areaNameGroup" jdbcType="LONGVARCHAR" />
+    <result column="expressions" property="expressions" jdbcType="LONGVARCHAR" />
+    <result column="config" property="config" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    area_id_group, area_name_group, expressions, config,type_id,has_cod
+  </sql>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsTypeAreaWithBLOBs" >
+    insert into es_dly_type_area (type_id, has_cod, area_id_group, 
+      area_name_group, expressions, config
+      )
+    values (#{typeId,jdbcType=INTEGER}, #{hasCod,jdbcType=INTEGER}, #{areaIdGroup,jdbcType=LONGVARCHAR}, 
+      #{areaNameGroup,jdbcType=LONGVARCHAR}, #{expressions,jdbcType=LONGVARCHAR}, #{config,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.EsTypeAreaWithBLOBs" >
+    insert into es_dly_type_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="hasCod != null" >
+        has_cod,
+      </if>
+      <if test="areaIdGroup != null" >
+        area_id_group,
+      </if>
+      <if test="areaNameGroup != null" >
+        area_name_group,
+      </if>
+      <if test="expressions != null" >
+        expressions,
+      </if>
+      <if test="config != null" >
+        config,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="hasCod != null" >
+        #{hasCod,jdbcType=INTEGER},
+      </if>
+      <if test="areaIdGroup != null" >
+        #{areaIdGroup,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="areaNameGroup != null" >
+        #{areaNameGroup,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="expressions != null" >
+        #{expressions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="config != null" >
+        #{config,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+    <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT * FROM es_dly_type_area WHERE
+
+    type_id=#{type_id,jdbcType=INTEGER}
+
+
+</select>
+
+    <select id="getListOne" resultMap="BaseResultMap" >
+        SELECT * FROM es_dly_type_area
+
+
+
+
+    </select>
+
+
+
+
+</mapper>

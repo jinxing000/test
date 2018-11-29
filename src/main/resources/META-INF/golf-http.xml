@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-http="http://www.springframework.org/schema/integration/http"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                  http://www.springframework.org/schema/beans/spring-beans.xsd
+                  http://www.springframework.org/schema/integration
+                  http://www.springframework.org/schema/integration/spring-integration.xsd
+                  http://www.springframework.org/schema/integration/http
+                  http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+
+    <int:channel id="RequestChannel"/>
+    <int:channel id="ReplyChannel"/>
+    <int:channel id="ErrorChannel"/>
+
+    <int-http:inbound-gateway supported-methods="GET,POST,DELETE,PUT" path="/{path}"
+                              request-channel="RequestChannel" error-channel="ErrorChannel"
+                              reply-channel="ReplyChannel" reply-timeout="5000"
+                              mapped-request-headers="Content-type,user-agent,host,outbound,X-TRD-*"
+                              mapped-response-headers="contenttype,MESSAGE">
+        <int-http:header name="servicePath" expression="#pathVariables.path"/>
+    </int-http:inbound-gateway>
+
+    <int:chain input-channel="RequestChannel" output-channel="ServiceReplyTransformerRouter">
+        <int:header-enricher>
+            <int:header name="serviceName"
+                        expression="headers.http_requestMethod.toLowerCase() + '_' + headers.servicePath"/>
+        </int:header-enricher>
+        <int:gateway request-channel="ServiceTransformerRouter" error-channel="ErrorChannel"/>
+    </int:chain>
+
+    <int:header-value-router input-channel="ServiceTransformerRouter" header-name="serviceName"
+                             default-output-channel="ServiceNotExistsChannel" resolution-required="false"/>
+
+    <int:payload-type-router input-channel="ServiceReplyTransformerRouter"
+                             default-output-channel="ServiceResultTransformerRouter">
+        <int:mapping type="com.ef.golf.core.service.ServiceInterface" channel="ServiceExecuteChannel"/>
+    </int:payload-type-router>
+
+    <int:transformer input-channel="ServiceNotExistsChannel"
+                     expression="T(com.ef.golf.core.service.ExecutionResult).getServiceNotExists()"/>
+
+    <int:transformer input-channel="ErrorChannel" output-channel="ServiceResultTransformerRouter"
+                     expression="@executionService.getExceptionResult(payload)"/>
+
+    <int:transformer input-channel="ServiceExecuteChannel" output-channel="ServiceResultTransformerRouter"
+                     expression="@executionService.executeService(headers,payload)"/>
+
+    <int:payload-type-router input-channel="ServiceResultTransformerRouter"
+                             default-output-channel="JsonResponseTransformerChannel">
+        <int:mapping type="com.ef.golf.core.service.ExecutionResult" channel="ResultTransformerChannel"/>
+    </int:payload-type-router>
+
+    <int:chain input-channel="ResultTransformerChannel" output-channel="JsonResponseTransformerChannel">
+        <int:header-enricher>
+            <int:header name="http_statusCode" expression="payload.code" overwrite="true"/>
+        </int:header-enricher>
+        <int:transformer expression="payload.data"/>
+    </int:chain>
+
+    <int:object-to-json-transformer input-channel="JsonResponseTransformerChannel" content-type="application/json;charset=utf-8"/>
+
+</beans>

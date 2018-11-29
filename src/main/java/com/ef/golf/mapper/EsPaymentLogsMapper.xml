@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsPaymentLogsMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.PaymentLog" >
+    <id column="payment_id" property="payment_id" jdbcType="INTEGER" />
+    <result column="order_id" property="order_id" jdbcType="INTEGER" />
+    <result column="order_sn" property="order_sn" jdbcType="VARCHAR" />
+    <result column="member_id" property="member_id" jdbcType="INTEGER" />
+    <result column="pay_user" property="pay_user" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="pay_date" property="pay_date" jdbcType="INTEGER" />
+    <result column="pay_method" property="pay_method" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="create_time" jdbcType="BIGINT" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="market_point" property="market_point" jdbcType="DOUBLE" />
+    <result column="credit" property="credit" jdbcType="DOUBLE" />
+    <result column="admin_user" property="admin_user" jdbcType="VARCHAR" />
+    <result column="paymoney" property="paymoney" jdbcType="DOUBLE" />
+    <result column="trasaction_id" property="trasaction_id" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.ef.golf.pojo.PaymentLog" >
+    insert into es_payment_logs (order_id, order_sn, member_id,
+      pay_user, money, pay_date,pay_method,remark,type,status,create_time,sn,market_point,credit,
+      admin_user,paymoney,trasaction_id
+      )
+    values (#{order_id,jdbcType=INTEGER},#{order_sn,jdbcType=VARCHAR},#{member_id,jdbcType=INTEGER},
+     #{pay_user,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{pay_date,jdbcType=INTEGER},
+      #{pay_method,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER},#{create_time,jdbcType=BIGINT},#{sn,jdbcType=VARCHAR},
+      #{market_point,jdbcType=DOUBLE},#{credit,jdbcType=DOUBLE},#{admin_user,jdbcType=VARCHAR},
+      #{paymoney,jdbcType=DOUBLE},#{trasaction_id,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.PaymentLog" >
+    insert into es_payment_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="order_id != null" >
+        order_id,
+      </if>
+      <if test="order_sn != null" >
+        order_sn,
+      </if>
+      <if test="member_id != null" >
+        member_id,
+      </if>
+      <if test="pay_user!= null" >
+        pay_user,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="pay_date != null" >
+        pay_date,
+      </if>
+      <if test="pay_method != null" >
+        pay_method,
+      </if>
+
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="type != null" >
+        type,
+    </if>
+      <if test="status != null" >
+        status,
+    </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="market_point != null" >
+        market_point,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="admin_user != null" >
+        admin_user,
+      </if>
+      <if test="paymoney != null" >
+        paymoney,
+      </if>
+      <if test="trasaction_id != null" >
+        trasaction_id,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="order_id != null" >
+        #{order_id,jdbcType=INTEGER},
+      </if>
+      <if test="order_sn != null" >
+        #{order_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="member_id != null" >
+        #{member_id,jdbcType=INTEGER},
+      </if>
+      <if test="pay_user != null" >
+        #{pay_user,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="pay_date != null" >
+        #{pay_date,jdbcType=INTEGER},
+      </if>
+      <if test="pay_method != null" >
+        #{pay_method,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=BIGINT},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="market_point != null" >
+        #{market_point,jdbcType=DOUBLE},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=DOUBLE},
+      </if>
+      <if test="admin_user != null" >
+        #{admin_user,jdbcType=VARCHAR},
+      </if>
+      <if test="paymoney != null" >
+        #{paymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="trasaction_id != null" >
+        #{trasaction_id,jdbcType=VARCHAR}
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="com.ef.golf.pojo.PaymentLog">
+    update es_payment_logs
+    <set>
+      <if test="order_id != null">
+        order_id = #{order_id,jdbcType=INTEGER},
+      </if>
+      <if test="order_sn != null">
+        order_sn = #{order_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="member_id != null">
+        member_id = #{member_id,jdbcType=INTEGER},
+      </if>
+      <if test="pay_method != null">
+        pay_method = #{pay_method,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="pay_user != null">
+        pay_user = #{pay_user,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="pay_date != null">
+        pay_date = #{pay_date,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=BIGINT},
+      </if>
+      <if test="admin_user != null">
+        admin_user = #{admin_user,jdbcType=VARCHAR},
+      </if>
+      <if test="paymoney != null">
+        paymoney = #{paymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="market_point != null">
+        market_point = #{market_point,jdbcType=DECIMAL},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=DECIMAL},
+      </if>
+      <if test="trasaction_id != null">
+        trasaction_id = #{trasaction_id,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where payment_id = #{payment_id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getPaymentLogId"  parameterType="java.lang.Integer" resultType="com.ef.golf.pojo.PaymentLog">
+
+      select * from es_payment_logs where order_id=#{orderId,jdbcType=INTEGER} and type=1
+  </select>
+
+</mapper>

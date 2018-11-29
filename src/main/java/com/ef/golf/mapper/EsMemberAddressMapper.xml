@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsMemberAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsMemberAddress" >
+    <id column="addr_id" property="addrId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="town_id" property="townId" jdbcType="INTEGER" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="town" property="town" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="zip" property="zip" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="def_addr" property="defAddr" jdbcType="INTEGER" />
+    <result column="isDel" property="isdel" jdbcType="INTEGER" />
+    <result column="shipAddressName" property="shipaddressname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    addr_id, member_id, name, country, province_id, city_id, region_id, town_id, region, 
+    city, province, town, addr, zip, tel, mobile, def_addr, isDel, shipAddressName
+  </sql>
+
+  <select id="selectByPrimaryKey"  parameterType="java.lang.Integer"  resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_member_address
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_member_address
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsMemberAddress" >
+    insert into "es_member_address" (addr_id, member_id, name, 
+      country, province_id, city_id, 
+      region_id, town_id, region, 
+      city, province, town, 
+      addr, zip, tel, mobile, 
+      def_addr, isDel, shipAddressName
+      )
+    values (#{addrId,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
+      #{regionId,jdbcType=INTEGER}, #{townId,jdbcType=INTEGER}, #{region,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{town,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{zip,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{defAddr,jdbcType=INTEGER}, #{isdel,jdbcType=INTEGER}, #{shipaddressname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective"    useGeneratedKeys="true" keyProperty="addrId"    parameterType="com.ef.golf.pojo.EsMemberAddress" >
+    insert into es_member_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addrId != null" >
+        addr_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="townId != null" >
+        town_id,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="town != null" >
+        town,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="zip != null" >
+        zip,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="defAddr != null" >
+        def_addr,
+      </if>
+      <if test="isdel != null" >
+        isDel,
+      </if>
+      <if test="shipaddressname != null" >
+        shipAddressName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addrId != null" >
+        #{addrId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="townId != null" >
+        #{townId,jdbcType=INTEGER},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="town != null" >
+        #{town,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null" >
+        #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="defAddr != null" >
+        #{defAddr,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="shipaddressname != null" >
+        #{shipaddressname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.EsMemberAddress" >
+    update es_member_address
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        region_id = #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="townId != null" >
+        town_id = #{townId,jdbcType=INTEGER},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="town != null" >
+        town = #{town,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null" >
+        zip = #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="defAddr != null" >
+        def_addr = #{defAddr,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isDel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="shipaddressname != null" >
+        shipAddressName = #{shipaddressname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.EsMemberAddress" >
+    update "es_member_address"
+    set member_id = #{memberId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      region_id = #{regionId,jdbcType=INTEGER},
+      town_id = #{townId,jdbcType=INTEGER},
+      region = #{region,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      town = #{town,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      zip = #{zip,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      def_addr = #{defAddr,jdbcType=INTEGER},
+      isDel = #{isdel,jdbcType=INTEGER},
+      shipAddressName = #{shipaddressname,jdbcType=VARCHAR}
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </update>
+  <select id="getMemberAddress" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from es_member_address where member_id =#{user_id,jdbcType=INTEGER}  and isDel = 0 order by def_addr desc
+  </select>
+
+  <select id="MemberAddressCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select count(*) from es_member_address where member_id=#{user_id,jdbcType=INTEGER} and isDel = 0
+  </select>
+
+  <!--根据userId查询所属地址-->
+  <select id="getUserAddressByUserId" resultMap="BaseResultMap">
+
+    SELECT
+     <include refid="Base_Column_List"/>
+    FROM  es_member_address
+
+    where member_id=#{userId,jdbcType=INTEGER}
+
+    AND def_addr=1
+
+
+  </select>
+
+
+
+  <select id="getAddress"  resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from es_member_address
+    where addr_id = #{addrId,jdbcType=INTEGER}
+
+  </select>
+
+  <select id="specilAddress" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+
+select
+    <include refid="Base_Column_List" />
+    from es_member_address s WHERE s.member_id=#{userId,jdbcType=INTEGER}
+AND s.def_addr=1
+
+
+  </select>
+
+<update id="updateOtherDefAddr" parameterType="com.ef.golf.pojo.EsMemberAddress">
+
+     update es_member_address set def_addr=#{defAddr,jdbcType=INTEGER}
+     where addr_id!=#{addrId,jdbcType=INTEGER} and member_id=#{memberId,jdbcType=INTEGER}
+</update>
+
+
+</mapper>

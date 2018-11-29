@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Dynamic_praiseMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Dynamic_praise">
+    <id column="dynamic_praise_id" jdbcType="INTEGER" property="dynamicPraiseId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="dynamic_id" jdbcType="INTEGER" property="dynamicId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_alive" jdbcType="CHAR" property="isAlive" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dynamic_praise_id, user_id, dynamic_id, create_time, is_alive
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_dynamic_praise
+    where dynamic_praise_id = #{dynamicPraiseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_dynamic_praise
+    where dynamic_praise_id = #{dynamicPraiseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Dynamic_praise">
+    insert into ef_dynamic_praise (dynamic_praise_id, user_id, dynamic_id, 
+      create_time, is_alive)
+    values (#{dynamicPraiseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{dynamicId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{isAlive,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Dynamic_praise">
+    insert into ef_dynamic_praise
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dynamicPraiseId != null">
+        dynamic_praise_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="dynamicId != null">
+        dynamic_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isAlive != null">
+        is_alive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dynamicPraiseId != null">
+        #{dynamicPraiseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicId != null">
+        #{dynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAlive != null">
+        #{isAlive,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Dynamic_praise">
+    update ef_dynamic_praise
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicId != null">
+        dynamic_id = #{dynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAlive != null">
+        is_alive = #{isAlive,jdbcType=CHAR},
+      </if>
+    </set>
+    where dynamic_praise_id = #{dynamicPraiseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Dynamic_praise">
+    update ef_dynamic_praise
+    set user_id = #{userId,jdbcType=INTEGER},
+      dynamic_id = #{dynamicId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_alive = #{isAlive,jdbcType=CHAR}
+    where dynamic_praise_id = #{dynamicPraiseId,jdbcType=INTEGER}
+  </update>
+  <!-- 查询点赞记录是否存在 -->
+  <select id="selectPraisesRecord" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+	  edp.user_id
+    FROM
+    ef_dynamic_praise edp
+    WHERE
+    edp.dynamic_id=#{dynamicId}
+  </select>
+  <!-- 取消点赞 -->
+  <delete id="delPraises">
+    DELETE
+    FROM
+        ef_dynamic_praise edp
+    WHERE user_id=#{userId}
+        AND dynamic_id=#{dynamicId}
+  </delete>
+
+  <!--根据动态id获取动态的点赞记录-->
+  <select id="getPraises" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.QuanziUserVo">
+    SELECT
+      u.id userId,
+      u.head_portrait_url headPortraitUrl,
+      u.gender gender,
+      u.user_type userType,
+      u.nickname nickName
+    FROM ef_dynamic_praise edp
+    INNER JOIN u_user u
+    ON(edp.user_id=u.id)
+    WHERE edp.dynamic_id=#{dynamicId}
+    AND edp.is_alive=2
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getPraisesCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM ef_dynamic_praise edp
+    INNER JOIN u_user u
+    ON(edp.user_id=u.id)
+    WHERE edp.dynamic_id=#{dynamicId}
+    AND edp.is_alive=2
+  </select>
+</mapper>

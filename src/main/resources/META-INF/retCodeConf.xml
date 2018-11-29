@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="retCode" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="0" value="正常"/>
+
+
+
+				<entry key="-9999" value="未知异常！"/>
+
+				<!--登陆注册相关 -->
+				<entry key="-1000" value="登录失效！"/>
+				<entry key="-1001" value="注册失败！"/>
+				<entry key="-1002" value="修改密码失败！"/>
+				<entry key="-1003" value="账户不存在！"/>
+				<entry key="-1004" value="验证码错误！"/>
+				<entry key="-1005" value="手机号已被注册！"/>
+				<entry key="-1006" value="专属码不存在！"/>
+				<entry key="-1007" value="手机号未被注册！"/>
+				<entry key="-1010" value="账号或密码错误！"/>
+				<entry key="-1011" value="账号被冻结,无法登陆！"/>
+				<entry key="-1012" value="账号已被锁定,无法登陆！"/>
+				<entry key="-1013" value="参数不全"/>
+				<entry key="-1014" value="参数与实际不符！"/>
+				<entry key="-1015" value="无城市数据"/>
+				<entry key="-1016" value="err"/>
+
+				<!--系统相关异常 -->
+				<entry key="-11000" value="操作失败！"/>
+				<entry key="-11001" value="生成订单时发生异常！"/>
+
+				<!--查询异常-->
+				<entry key="-10000" value="服务器繁忙！"/>
+				<entry key="-10001" value="场地不存在！"/>
+				<entry key="-10002" value="该用户下无此订单！"/>
+				<entry key="-10003" value="暂无订单"/>
+				<entry key="-10004" value="暂无信息"/>
+				<entry key="-10004" value="用户下没有该优惠券！"/>
+				<entry key="-10005" value="该城市无球场信息！"/>
+				<entry key="-14000" value="查询价格异常"/>
+
+				<!--需求相关异常-->
+				<entry key="-12001" value="场地已下架！"/>
+				<entry key="-12002" value="优惠券无法使用！"/>
+				<entry key="-12003" value="该优惠券已被使用请选择其他优惠卷使用！"/>
+				<entry key="-12004" value="不满足优惠券使用条件！"/>
+				<entry key="-12005" value="已评论过此订单！"/>
+				<entry key="-12006" value="订单未完成,无法进行评价！"/>
+				<entry key="-12007" value="订单金额与实际不符！"/>
+				<entry key="-12008" value="会员价与优惠券不能同享！"/>
+				<!--更新、新增相关异常-->
+				<entry key="-13000" value="更新失败"/>
+				<entry key="-13001" value="新增失败"/>
+
+				<!-- 支付相关 -->
+				<entry key="-111222" value="充值失败"/>
+				<entry key="-111333" value="转账失败"/>
+				<entry key="-111444" value="余额不足"/>
+				<entry key="-333333" value="可消费余额不足"/>
+				<entry key="-111555" value="密码错误"/>
+				<entry key="-110012" value="订单已过期"/>
+				<!-- 点赞 -->
+				<entry key="-222111" value="已点过赞啦"/>
+				<!-- 群错误 -->
+				<entry key="-111666" value="查询群列表失败"/>
+				<entry key="-111777" value="群操作失败"/>
+				<!-- 礼物 -->
+				<entry key="-111888" value="礼物操作异常"/>
+				<!-- 愿望领取相关 -->
+				<entry key="-222222" value="已失效不可领取"/>
+				<entry key="-222333" value="已领取过"/>
+				<entry key="-222444" value="网络繁忙"/>
+				<!-- 价格比对异常 -->
+				<entry key="-222555" value="价格异常"/>
+
+				<!--商城操作异常-->
+				<entry key="-300000" value="价格与实际不符"/>
+				<entry key="-300001" value="商品库存不足"/>
+				<entry key="-300002" value="购物车不能为空"/>
+				<entry key="-300003" value="订单不存在"/>
+				<entry key="-300004" value="订单不能取消"/>
+				<entry key="-300005" value="活动商品不能使用优惠劵"/>
+				<entry key="-110011" value="操作异常"/>
+				<entry key="-110013" value="开球前24小时内不可退订"/>
+
+				<entry key="-110015" value="您当前可用余额只能用于订场、商城购物!"/>
+				<entry key="-110016" value="当日打赏球童次数已达上限,请明天再试哦~"/>
+				<entry key="-110017" value="赠送异常,请联系客服。"/>
+				<entry key="-110018" value="可用余额不足,赠送余额只能用于订场及商城!"/>
+				<entry key="-110019" value="提交信息有误!"/>
+
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+

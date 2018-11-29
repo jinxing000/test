@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.CashBackMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.CashBack">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="maxnum" jdbcType="VARCHAR" property="maxnum" />
+    <result column="minnum" jdbcType="VARCHAR" property="minnum" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="modify_userid" jdbcType="INTEGER" property="modifyUserid" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="proportion" jdbcType="INTEGER" property="proportion" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, maxnum, minnum, create_user, create_time, create_userid, modify_user, modify_userid, 
+    modify_time, proportion, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_cashback
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectCashBackMsg" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_cashback
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_cashback
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.CashBack">
+    insert into ef_cashback (id, maxnum, minnum, 
+      create_user, create_time, create_userid, 
+      modify_user, modify_userid, modify_time, 
+      proportion, remark)
+    values (#{id,jdbcType=INTEGER}, #{maxnum,jdbcType=VARCHAR}, #{minnum,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUserid,jdbcType=INTEGER}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyUserid,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{proportion,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.CashBack">
+    insert into ef_cashback
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="maxnum != null">
+        maxnum,
+      </if>
+      <if test="minnum != null">
+        minnum,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="modifyUserid != null">
+        modify_userid,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="proportion != null">
+        proportion,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="maxnum != null">
+        #{maxnum,jdbcType=VARCHAR},
+      </if>
+      <if test="minnum != null">
+        #{minnum,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserid != null">
+        #{modifyUserid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modify_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proportion != null">
+        #{proportion,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.CashBack">
+    update ef_cashback
+    <set>
+      <if test="maxnum != null">
+        maxnum = #{maxnum,jdbcType=VARCHAR},
+      </if>
+      <if test="minnum != null">
+        minnum = #{minnum,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserid != null">
+        modify_userid = #{modifyUserid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proportion != null">
+        proportion = #{proportion,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.CashBack">
+    update ef_cashback
+    set maxnum = #{maxnum,jdbcType=VARCHAR},
+      minnum = #{minnum,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_userid = #{modifyUserid,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      proportion = #{proportion,jdbcType=INTEGER},
+
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getCashBackScaleVo" resultType="com.ef.golf.vo.CashBackVo">
+    SELECT
+      ec.minnum,
+      ec.maxnum,
+      ec.maxnum - ec.minnum areaDistance,
+      ec.proportion rate
+    FROM
+        ef_cashback ec
+    ORDER BY
+	    ec.minnum
+  </select>
+</mapper>

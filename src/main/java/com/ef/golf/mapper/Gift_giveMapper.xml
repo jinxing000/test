@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Gift_giveMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Gift_give">
+    <id column="gift_record_id" jdbcType="INTEGER" property="giftRecordId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="dynamic_id" jdbcType="INTEGER" property="dynamicId" />
+    <result column="gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="reciever_id" jdbcType="INTEGER" property="recieverId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gift_record_id, user_id, dynamic_id, gift_id, create_time ,reciever_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_gift_give
+    where gift_record_id = #{giftRecordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_gift_give
+    where gift_record_id = #{giftRecordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Gift_give">
+    insert into ef_gift_give (gift_record_id, user_id, dynamic_id, 
+      gift_id, create_time ,reciever_id)
+    values (#{giftRecordId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{dynamicId,jdbcType=INTEGER}, 
+      #{giftId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},#{recieverId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="giftRecordId" parameterType="com.ef.golf.pojo.Gift_give">
+    insert into ef_gift_give
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="giftRecordId != null">
+        gift_record_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="dynamicId != null">
+        dynamic_id,
+      </if>
+      <if test="giftId != null">
+        gift_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="recieverId != null">
+        reciever_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="giftRecordId != null">
+        #{giftRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicId != null">
+        #{dynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="giftId != null">
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recieverId != null">
+        #{recieverId,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Gift_give">
+    update ef_gift_give
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicId != null">
+        dynamic_id = #{dynamicId,jdbcType=INTEGER},
+      </if>
+      <if test="giftId != null">
+        gift_id = #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recieverId != null">
+        reciever_id = #{recieverId,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gift_record_id = #{giftRecordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Gift_give">
+    update ef_gift_give
+    set user_id = #{userId,jdbcType=INTEGER},
+      dynamic_id = #{dynamicId,jdbcType=INTEGER},
+      gift_id = #{giftId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+      reciever_id = #{recieverId,jdbcType=INTEGER}
+    where gift_record_id = #{giftRecordId,jdbcType=INTEGER}
+  </update>
+
+  <!--获取动态的礼物记录-->
+  <select id="getGifts" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.QuanziGiftVo">
+    SELECT
+      eg.gift_img giftImg,
+      COUNT(egg.gift_id) giftNum
+    FROM ef_gift_give egg
+    INNER JOIN ef_gift eg
+    ON(egg.gift_id=eg.gift_id)
+    WHERE egg.dynamic_id=#{dynamicId}
+    AND eg.is_alive=1
+    GROUP BY egg.gift_id
+  </select>
+</mapper>

@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.SiteMapper">
+    <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Site">
+        <id column="site_id" property="siteId" jdbcType="INTEGER"/>
+        <result column="site_model" property="siteModel" jdbcType="VARCHAR"/>
+        <result column="site_create_time" property="siteCreateTime" jdbcType="VARCHAR"/>
+        <result column="site_area" property="siteArea" jdbcType="VARCHAR"/>
+        <result column="green_grass_type" property="greenGrassType" jdbcType="VARCHAR"/>
+        <result column="site_param" property="siteParam" jdbcType="VARCHAR"/>
+        <result column="site_designer" property="siteDesigner" jdbcType="VARCHAR"/>
+        <result column="fairway_length" property="fairwayLength" jdbcType="VARCHAR"/>
+        <result column="fairway_grass_type" property="fairwayGrassType" jdbcType="VARCHAR"/>
+        <result column="site_address" property="siteAddress" jdbcType="VARCHAR"/>
+        <result column="site_city" property="siteCity" jdbcType="VARCHAR"/>
+        <result column="site_phone" property="sitePhone" jdbcType="VARCHAR"/>
+        <result column="service1" property="service1" jdbcType="VARCHAR"/>
+        <result column="service2" property="service2" jdbcType="VARCHAR"/>
+        <result column="service3" property="service3" jdbcType="VARCHAR"/>
+        <result column="service4" property="service4" jdbcType="VARCHAR"/>
+        <result column="service5" property="service5" jdbcType="VARCHAR"/>
+        <result column="service6" property="service6" jdbcType="VARCHAR"/>
+        <result column="service7" property="service7" jdbcType="VARCHAR"/>
+        <result column="service8" property="service8" jdbcType="VARCHAR"/>
+        <result column="service9" property="service9" jdbcType="VARCHAR"/>
+        <result column="shelves_time" property="shelvesTime" jdbcType="TIMESTAMP"/>
+        <result column="shelf_time" property="shelfTime" jdbcType="TIMESTAMP"/>
+        <result column="sales_volume" property="salesVolume" jdbcType="INTEGER"/>
+        <result column="weekdays_ef_member_price" property="weekdaysEfMemberPrice" jdbcType="VARCHAR"/>
+        <result column="weekdays_site_member_price" property="weekdaysSiteMemberPrice" jdbcType="VARCHAR"/>
+        <result column="weekdays_customer_price" property="weekdaysCustomerPrice" jdbcType="VARCHAR"/>
+        <result column="holiday_ef_member_price" property="holidayEfMemberPrice" jdbcType="VARCHAR"/>
+        <result column="holiday_site_member_price" property="holidaySiteMemberPrice" jdbcType="VARCHAR"/>
+        <result column="holiday_customer_price" property="holidayCustomerPrice" jdbcType="VARCHAR"/>
+        <result column="tehuiri_price" property="tehuiriPrice" jdbcType="VARCHAR"/>
+        <result column="tehuiri" property="tehuiri" jdbcType="VARCHAR"/>
+        <result column="reserve_explain" property="reserveExplain" jdbcType="VARCHAR"/>
+        <result column="cancel_explain" property="cancelExplain" jdbcType="VARCHAR"/>
+        <result column="site_remarks" property="siteRemarks" jdbcType="VARCHAR"/>
+        <result column="site_jw" property="siteJw" jdbcType="VARCHAR"/>
+        <result column="reserve1" property="reserve1" jdbcType="VARCHAR"/>
+        <result column="reserve2" property="reserve2" jdbcType="VARCHAR"/>
+        <result column="reserve3" property="reserve3" jdbcType="VARCHAR"/>
+        <result column="reserve4" property="reserve4" jdbcType="VARCHAR"/>
+        <result column="reserve5" property="reserve5" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="modify_user" property="modifyUser" jdbcType="VARCHAR"/>
+        <result column="site_introduction" property="siteIntroduction" jdbcType="VARCHAR"/>
+        <result column="qiuhui_id" property="qiuHuiId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    site_id, site_model, site_create_time, site_area, green_grass_type, site_param, site_designer, 
+    fairway_length, fairway_grass_type, site_address, site_city, site_phone, service1, 
+    service2, service3, service4, service5, service6, service7, service8, service9, shelves_time, 
+    shelf_time, sales_volume, weekdays_ef_member_price, weekdays_site_member_price, weekdays_customer_price, 
+    holiday_ef_member_price, holiday_site_member_price, holiday_customer_price, reserve_explain, 
+    cancel_explain, site_remarks, site_jw, reserve1, reserve2, reserve3, reserve4, 
+    reserve5, create_time, modify_time, create_user, modify_user,site_introduction, qiuhui_id
+  </sql>
+    <!-- 2018.3.16 wanxiaochao start -->
+    <sql id="Base_Column_List2">
+        site_id, site_model, site_create_time, site_area, green_grass_type, site_param, site_designer,
+        fairway_length, fairway_grass_type, site_address, site_city, site_phone, service1,
+        service2, service3, shelves_time,
+        shelf_time, sales_volume, weekdays_ef_member_price, weekdays_site_member_price, weekdays_customer_price,
+        holiday_ef_member_price, holiday_site_member_price, holiday_customer_price, reserve_explain,
+        cancel_explain, site_remarks, site_jw, reserve1, reserve2, reserve3, reserve4,
+        reserve5, create_time, modify_time, create_user, modify_user, qiuhui_id
+    </sql>
+    <!-- 球场信息 -->
+    <sql id="Site_List">
+        site_id,site_area,site_address,site_city,qiuhui_id,reserve4,site_param
+    </sql>
+    <!-- 2018.3.16 wanxiaochao end -->
+
+    <sql id="Blob_Column_List">
+    "site_introduction"
+    </sql>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ef_site
+        where site_id = #{siteId,jdbcType=INTEGER}
+        AND reserve3 = '1'
+    </select>
+    <!-- 球场信息    -->
+    <select id="selectSiteByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Site_List"/>
+        from ef_site
+        where site_id = #{siteId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getSiteListPage"  resultType="com.ef.golf.vo.SiteVo" parameterType="com.ef.golf.pojo.Site">
+        select s.site_id siteID,
+        site_model siteModel,
+        site_param siteParam,
+        s.reserve4 siteName,
+        s.site_address siteAddr,
+        CASE  WHEN esp.price=0 THEN  '暂无' ELSE esp.price END minPrice,
+        i.url picUrl,
+        s.reserve5
+        <if test="reserve1 != null ">
+            ,
+            ROUND(
+            6378.138 * 2 * ASIN(
+            SQRT(
+            POW(
+            SIN(
+            (
+            #{reserve2} * PI() / 180 - reserve2 * PI() / 180
+            ) / 2
+            ),
+            2
+            ) + COS(#{reserve2} * PI() / 180) * COS(reserve2 * PI() / 180) * POW(
+            SIN(
+            (
+            #{reserve1} * PI() / 180 - reserve1 * PI() / 180
+            ) / 2
+            ),
+            2
+            )
+            )
+            ) * 1000
+            ) AS distance,
+            count(c.comments_id) commentNum,
+            IFNULL(sum(c.praise_num),0) praiseNum
+        </if>
+        from ef_site s
+        left join ef_siteimg i on i.product_id = s.site_id and i.type = 1
+        LEFT JOIN ef_comments c ON c.product_id = s.site_id
+        LEFT JOIN ef_site_price esp ON (s.site_id=esp.site_id  AND  DATE_FORMAT(esp.c_date,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d'))
+        where 1=1
+        AND reserve3 = '1'
+
+        <if test="siteCity != null">
+            AND s.site_city LIKE CONCAT('%',#{siteCity},'%')
+
+        </if>
+        <if test="reserve4 != null">
+            AND s.reserve4 LIKE "%"#{reserve4}"%"
+        </if>
+        GROUP BY s.site_id
+        <if test="reserve1 != null ">
+            <if test="sortType == 0">
+                ORDER by s.reserve5,s.modify_time DESC
+                <!--ORDER by s.reserve5 ASC,s.sort ASC-->
+            </if>
+            <if test="sortType == 1">
+                ORDER BY esp.price,s.reserve5, distance ASC
+             </if>
+             <if test="sortType == 2">
+                 ORDER BY distance,esp.price,s.reserve5 ASC
+             </if>
+         </if>
+         <if test="reserve1 == null ">
+             ORDER by reserve5 ASC<!--,s.sort ASC-->
+         </if>
+     </select>
+
+
+
+
+    <select id="indexSiteList"  resultType="com.ef.golf.vo.SiteVo" parameterType="com.ef.golf.pojo.Site">
+        select s.site_id siteID,
+        site_model siteModel,
+        site_param siteParam,
+        s.reserve4 siteName,
+        s.site_address siteAddr,
+        CASE  WHEN esp.price=0 THEN  '暂无' ELSE esp.price END minPrice,
+        i.url picUrl,
+        s.reserve5,
+            ROUND(
+            6378.138 * 2 * ASIN(
+            SQRT(
+            POW(
+            SIN(
+            (
+            #{reserve2} * PI() / 180 - reserve2 * PI() / 180
+            ) / 2
+            ),
+            2
+            ) + COS(#{reserve2} * PI() / 180) * COS(reserve2 * PI() / 180) * POW(
+            SIN(
+            (
+            #{reserve1} * PI() / 180 - reserve1 * PI() / 180
+            ) / 2
+            ),
+            2
+            )
+            )
+            ) * 1000
+            ) AS distance,
+            count(c.comments_id) commentNum,
+            IFNULL(sum(c.praise_num),0) praiseNum
+        from ef_site s
+        left join ef_siteimg i on i.product_id = s.site_id and i.type = 1
+        LEFT JOIN ef_comments c ON c.product_id = s.site_id
+        LEFT JOIN ef_site_price esp ON (s.site_id=esp.site_id  )
+        where  reserve3 = '1'
+        <if test="siteCity != null">
+            AND s.site_city LIKE CONCAT('%',#{siteCity},'%')
+        </if>
+        AND  DATE_FORMAT(esp.c_date,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d')
+        GROUP BY s.site_id
+        ORDER  BY  s.reserve5,s.modify_time DESC
+        <!-- <if test="reserve1 != null ">
+            <if test="sortType == 0">
+                ORDER by s.reserve5,s.modify_time DESC
+                ORDER by s.reserve5 ASC,s.sort ASC
+            </if>
+            <if test="sortType == 1">
+                ORDER BY esp.price,s.reserve5, distance ASC
+            </if>
+            <if test="sortType == 2">
+                ORDER BY distance,esp.price,s.reserve5 ASC
+            </if>
+        </if>
+        <if test="reserve1 == null ">
+            ORDER by reserve5 ASC,s.sort ASC
+        </if> -->
+        LIMIT 0,3
+    </select>
+
+
+
+
+     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+     delete from ef_site
+     where site_id = #{siteId,jdbcType=INTEGER}
+   </delete>
+     <insert id="insert" parameterType="com.ef.golf.pojo.Site">
+     insert into ef_site (site_id, site_model, site_create_time,
+       site_area, green_grass_type, site_param,
+       site_designer, fairway_length, fairway_grass_type,
+       site_address, site_city, site_phone,
+       service1, service2, service3,
+       service4, service5, service6,
+       service7, service8, service9,
+       shelves_time, shelf_time, sales_volume,
+       weekdays_ef_member_price, weekdays_site_member_price,
+       weekdays_customer_price, holiday_ef_member_price,
+       holiday_site_member_price, holiday_customer_price,
+       reserve_explain, cancel_explain, site_remarks,
+       site_jw, reserve1, reserve2,
+       reserve3, reserve4, reserve5,
+       create_time, modify_time, create_user,
+       modify_user, site_introduction)
+     values (#{siteId,jdbcType=INTEGER}, #{siteModel,jdbcType=VARCHAR}, #{siteCreateTime,jdbcType=VARCHAR},
+       #{siteArea,jdbcType=VARCHAR}, #{greenGrassType,jdbcType=VARCHAR}, #{siteParam,jdbcType=VARCHAR},
+       #{siteDesigner,jdbcType=VARCHAR}, #{fairwayLength,jdbcType=VARCHAR}, #{fairwayGrassType,jdbcType=VARCHAR},
+       #{siteAddress,jdbcType=VARCHAR}, #{siteCity,jdbcType=VARCHAR}, #{sitePhone,jdbcType=VARCHAR},
+       #{service1,jdbcType=VARCHAR}, #{service2,jdbcType=VARCHAR}, #{service3,jdbcType=VARCHAR},
+       #{service4,jdbcType=VARCHAR}, #{service5,jdbcType=VARCHAR}, #{service6,jdbcType=VARCHAR},
+       #{service7,jdbcType=VARCHAR}, #{service8,jdbcType=VARCHAR}, #{service9,jdbcType=VARCHAR},
+       #{shelvesTime,jdbcType=TIMESTAMP}, #{shelfTime,jdbcType=TIMESTAMP}, #{salesVolume,jdbcType=INTEGER},
+       #{weekdaysEfMemberPrice,jdbcType=VARCHAR}, #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+       #{weekdaysCustomerPrice,jdbcType=VARCHAR}, #{holidayEfMemberPrice,jdbcType=VARCHAR},
+       #{holidaySiteMemberPrice,jdbcType=VARCHAR}, #{holidayCustomerPrice,jdbcType=VARCHAR},
+       #{reserveExplain,jdbcType=VARCHAR}, #{cancelExplain,jdbcType=VARCHAR}, #{siteRemarks,jdbcType=VARCHAR},
+       #{siteJw,jdbcType=VARCHAR}, #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR},
+       #{reserve3,jdbcType=VARCHAR}, #{reserve4,jdbcType=VARCHAR}, #{reserve5,jdbcType=VARCHAR},
+       #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+       #{modifyUser,jdbcType=VARCHAR}, #{siteIntroduction,jdbcType=VARCHAR})
+   </insert>
+     <insert id="insertSelective" parameterType="com.ef.golf.pojo.Site">
+         insert into ef_site
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+             <if test="siteId != null">
+                 site_id,
+             </if>
+             <if test="siteModel != null">
+                 site_model,
+             </if>
+             <if test="siteCreateTime != null">
+                 site_create_time,
+             </if>
+             <if test="siteArea != null">
+                 site_area,
+             </if>
+             <if test="greenGrassType != null">
+                 green_grass_type,
+             </if>
+             <if test="siteParam != null">
+                 site_param,
+             </if>
+             <if test="siteDesigner != null">
+                 site_designer,
+             </if>
+             <if test="fairwayLength != null">
+                 fairway_length,
+             </if>
+             <if test="fairwayGrassType != null">
+                 fairway_grass_type,
+             </if>
+             <if test="siteAddress != null">
+                 site_address,
+             </if>
+             <if test="siteCity != null">
+                 site_city,
+             </if>
+             <if test="sitePhone != null">
+                 site_phone,
+             </if>
+             <if test="service1 != null">
+                 service1,
+             </if>
+             <if test="service2 != null">
+                 service2,
+             </if>
+             <if test="service3 != null">
+                 service3,
+             </if>
+             <if test="service4 != null">
+                 service4,
+             </if>
+             <if test="service5 != null">
+                 service5,
+             </if>
+             <if test="service6 != null">
+                 service6,
+             </if>
+             <if test="service7 != null">
+                 service7,
+             </if>
+             <if test="service8 != null">
+                 service8,
+             </if>
+             <if test="service9 != null">
+                 service9,
+             </if>
+             <if test="shelvesTime != null">
+                 shelves_time,
+             </if>
+             <if test="shelfTime != null">
+                 shelf_time,
+             </if>
+             <if test="salesVolume != null">
+                 sales_volume,
+             </if>
+             <if test="weekdaysEfMemberPrice != null">
+                 weekdays_ef_member_price,
+             </if>
+             <if test="weekdaysSiteMemberPrice != null">
+                 weekdays_site_member_price,
+             </if>
+             <if test="weekdaysCustomerPrice != null">
+                 weekdays_customer_price,
+             </if>
+             <if test="holidayEfMemberPrice != null">
+                 holiday_ef_member_price,
+             </if>
+             <if test="holidaySiteMemberPrice != null">
+                 holiday_site_member_price,
+             </if>
+             <if test="holidayCustomerPrice != null">
+                 holiday_customer_price,
+             </if>
+             <if test="reserveExplain != null">
+                 reserve_explain,
+             </if>
+             <if test="cancelExplain != null">
+                 cancel_explain,
+             </if>
+             <if test="siteRemarks != null">
+                 site_remarks,
+             </if>
+             <if test="siteJw != null">
+                 site_jw,
+             </if>
+             <if test="reserve1 != null">
+                 reserve1,
+             </if>
+             <if test="reserve2 != null">
+                 reserve2,
+             </if>
+             <if test="reserve3 != null">
+                 reserve3,
+             </if>
+             <if test="reserve4 != null">
+                 reserve4,
+             </if>
+             <if test="reserve5 != null">
+                 reserve5,
+             </if>
+             <if test="createTime != null">
+                 create_time,
+             </if>
+             <if test="modifyTime != null">
+                 modify_time,
+             </if>
+             <if test="createUser != null">
+                 create_user,
+             </if>
+             <if test="modifyUser != null">
+                 modify_user,
+             </if>
+             <if test="siteIntroduction != null">
+                 site_introduction,
+             </if>
+         </trim>
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="siteId != null">
+                 #{siteId,jdbcType=INTEGER},
+             </if>
+             <if test="siteModel != null">
+                 #{siteModel,jdbcType=VARCHAR},
+             </if>
+             <if test="siteCreateTime != null">
+                 #{siteCreateTime,jdbcType=VARCHAR},
+             </if>
+             <if test="siteArea != null">
+                 #{siteArea,jdbcType=VARCHAR},
+             </if>
+             <if test="greenGrassType != null">
+                 #{greenGrassType,jdbcType=VARCHAR},
+             </if>
+             <if test="siteParam != null">
+                 #{siteParam,jdbcType=VARCHAR},
+             </if>
+             <if test="siteDesigner != null">
+                 #{siteDesigner,jdbcType=VARCHAR},
+             </if>
+             <if test="fairwayLength != null">
+                 #{fairwayLength,jdbcType=VARCHAR},
+             </if>
+             <if test="fairwayGrassType != null">
+                 #{fairwayGrassType,jdbcType=VARCHAR},
+             </if>
+             <if test="siteAddress != null">
+                 #{siteAddress,jdbcType=VARCHAR},
+             </if>
+             <if test="siteCity != null">
+                 #{siteCity,jdbcType=VARCHAR},
+             </if>
+             <if test="sitePhone != null">
+                 #{sitePhone,jdbcType=VARCHAR},
+             </if>
+             <if test="service1 != null">
+                 #{service1,jdbcType=VARCHAR},
+             </if>
+             <if test="service2 != null">
+                 #{service2,jdbcType=VARCHAR},
+             </if>
+             <if test="service3 != null">
+                 #{service3,jdbcType=VARCHAR},
+             </if>
+             <if test="service4 != null">
+                 #{service4,jdbcType=VARCHAR},
+             </if>
+             <if test="service5 != null">
+                 #{service5,jdbcType=VARCHAR},
+             </if>
+             <if test="service6 != null">
+                 #{service6,jdbcType=VARCHAR},
+             </if>
+             <if test="service7 != null">
+                 #{service7,jdbcType=VARCHAR},
+             </if>
+             <if test="service8 != null">
+                 #{service8,jdbcType=VARCHAR},
+             </if>
+             <if test="service9 != null">
+                 #{service9,jdbcType=VARCHAR},
+             </if>
+             <if test="shelvesTime != null">
+                 #{shelvesTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="shelfTime != null">
+                 #{shelfTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="salesVolume != null">
+                 #{salesVolume,jdbcType=INTEGER},
+             </if>
+             <if test="weekdaysEfMemberPrice != null">
+                 #{weekdaysEfMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="weekdaysSiteMemberPrice != null">
+                 #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="weekdaysCustomerPrice != null">
+                 #{weekdaysCustomerPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="holidayEfMemberPrice != null">
+                 #{holidayEfMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="holidaySiteMemberPrice != null">
+                 #{holidaySiteMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="holidayCustomerPrice != null">
+                 #{holidayCustomerPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="reserveExplain != null">
+                 #{reserveExplain,jdbcType=VARCHAR},
+             </if>
+             <if test="cancelExplain != null">
+                 #{cancelExplain,jdbcType=VARCHAR},
+             </if>
+             <if test="siteRemarks != null">
+                 #{siteRemarks,jdbcType=VARCHAR},
+             </if>
+             <if test="siteJw != null">
+                 #{siteJw,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve1 != null">
+                 #{reserve1,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve2 != null">
+                 #{reserve2,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve3 != null">
+                 #{reserve3,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve4 != null">
+                 #{reserve4,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve5 != null">
+                 #{reserve5,jdbcType=VARCHAR},
+             </if>
+             <if test="createTime != null">
+                 #{createTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="modifyTime != null">
+                 #{modifyTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="createUser != null">
+                 #{createUser,jdbcType=VARCHAR},
+             </if>
+             <if test="modifyUser != null">
+                 #{modifyUser,jdbcType=VARCHAR},
+             </if>
+             <if test="siteIntroduction != null">
+                 #{siteIntroduction,jdbcType=VARCHAR},
+             </if>
+         </trim>
+     </insert>
+     <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Site">
+         update ef_site
+         <set>
+             <if test="siteModel != null">
+                 site_model = #{siteModel,jdbcType=VARCHAR},
+             </if>
+             <if test="siteCreateTime != null">
+                 site_create_time = #{siteCreateTime,jdbcType=VARCHAR},
+             </if>
+             <if test="siteArea != null">
+                 site_area = #{siteArea,jdbcType=VARCHAR},
+             </if>
+             <if test="greenGrassType != null">
+                 green_grass_type = #{greenGrassType,jdbcType=VARCHAR},
+             </if>
+             <if test="siteParam != null">
+                 site_param = #{siteParam,jdbcType=VARCHAR},
+             </if>
+             <if test="siteDesigner != null">
+                 site_designer = #{siteDesigner,jdbcType=VARCHAR},
+             </if>
+             <if test="fairwayLength != null">
+                 fairway_length = #{fairwayLength,jdbcType=VARCHAR},
+             </if>
+             <if test="fairwayGrassType != null">
+                 fairway_grass_type = #{fairwayGrassType,jdbcType=VARCHAR},
+             </if>
+             <if test="siteAddress != null">
+                 site_address = #{siteAddress,jdbcType=VARCHAR},
+             </if>
+             <if test="siteCity != null">
+                 site_city = #{siteCity,jdbcType=VARCHAR},
+             </if>
+             <if test="sitePhone != null">
+                 site_phone = #{sitePhone,jdbcType=VARCHAR},
+             </if>
+             <if test="service1 != null">
+                 service1 = #{service1,jdbcType=VARCHAR},
+             </if>
+             <if test="service2 != null">
+                 service2 = #{service2,jdbcType=VARCHAR},
+             </if>
+             <if test="service3 != null">
+                 service3 = #{service3,jdbcType=VARCHAR},
+             </if>
+             <if test="service4 != null">
+                 service4 = #{service4,jdbcType=VARCHAR},
+             </if>
+             <if test="service5 != null">
+                 service5 = #{service5,jdbcType=VARCHAR},
+             </if>
+             <if test="service6 != null">
+                 service6 = #{service6,jdbcType=VARCHAR},
+             </if>
+             <if test="service7 != null">
+                 service7 = #{service7,jdbcType=VARCHAR},
+             </if>
+             <if test="service8 != null">
+                 service8 = #{service8,jdbcType=VARCHAR},
+             </if>
+             <if test="service9 != null">
+                 service9 = #{service9,jdbcType=VARCHAR},
+             </if>
+             <if test="shelvesTime != null">
+                 shelves_time = #{shelvesTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="shelfTime != null">
+                 shelf_time = #{shelfTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="salesVolume != null">
+                 sales_volume = #{salesVolume,jdbcType=INTEGER},
+             </if>
+             <if test="weekdaysEfMemberPrice != null">
+                 weekdays_ef_member_price = #{weekdaysEfMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="weekdaysSiteMemberPrice != null">
+                 weekdays_site_member_price = #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="weekdaysCustomerPrice != null">
+                 weekdays_customer_price = #{weekdaysCustomerPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="holidayEfMemberPrice != null">
+                 holiday_ef_member_price = #{holidayEfMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="holidaySiteMemberPrice != null">
+                 holiday_site_member_price = #{holidaySiteMemberPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="holidayCustomerPrice != null">
+                 holiday_customer_price = #{holidayCustomerPrice,jdbcType=VARCHAR},
+             </if>
+             <if test="reserveExplain != null">
+                 reserve_explain = #{reserveExplain,jdbcType=VARCHAR},
+             </if>
+             <if test="cancelExplain != null">
+                 cancel_explain = #{cancelExplain,jdbcType=VARCHAR},
+             </if>
+             <if test="siteRemarks != null">
+                 site_remarks = #{siteRemarks,jdbcType=VARCHAR},
+             </if>
+             <if test="siteJw != null">
+                 site_jw = #{siteJw,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve1 != null">
+                 reserve1 = #{reserve1,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve2 != null">
+                 reserve2 = #{reserve2,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve3 != null">
+                 reserve3 = #{reserve3,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve4 != null">
+                 reserve4 = #{reserve4,jdbcType=VARCHAR},
+             </if>
+             <if test="reserve5 != null">
+                 reserve5 = #{reserve5,jdbcType=VARCHAR},
+             </if>
+             <if test="createTime != null">
+                 create_time = #{createTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="modifyTime != null">
+                 modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="createUser != null">
+                 create_user = #{createUser,jdbcType=VARCHAR},
+             </if>
+             <if test="modifyUser != null">
+                 modify_user = #{modifyUser,jdbcType=VARCHAR},
+             </if>
+             <if test="siteIntroduction != null">
+                 site_introduction = #{siteIntroduction,jdbcType=VARCHAR},
+             </if>
+         </set>
+         where site_id = #{siteId,jdbcType=INTEGER}
+     </update>
+     <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.Site">
+     update ef_site
+     set site_model = #{siteModel,jdbcType=VARCHAR},
+       site_create_time = #{siteCreateTime,jdbcType=VARCHAR},
+       site_area = #{siteArea,jdbcType=VARCHAR},
+       green_grass_type = #{greenGrassType,jdbcType=VARCHAR},
+       site_param = #{siteParam,jdbcType=VARCHAR},
+       site_designer = #{siteDesigner,jdbcType=VARCHAR},
+       fairway_length = #{fairwayLength,jdbcType=VARCHAR},
+       fairway_grass_type = #{fairwayGrassType,jdbcType=VARCHAR},
+       site_address = #{siteAddress,jdbcType=VARCHAR},
+       site_city = #{siteCity,jdbcType=VARCHAR},
+       site_phone = #{sitePhone,jdbcType=VARCHAR},
+       service1 = #{service1,jdbcType=VARCHAR},
+       service2 = #{service2,jdbcType=VARCHAR},
+       service3 = #{service3,jdbcType=VARCHAR},
+       service4 = #{service4,jdbcType=VARCHAR},
+       service5 = #{service5,jdbcType=VARCHAR},
+       service6 = #{service6,jdbcType=VARCHAR},
+       service7 = #{service7,jdbcType=VARCHAR},
+       service8 = #{service8,jdbcType=VARCHAR},
+       service9 = #{service9,jdbcType=VARCHAR},
+       shelves_time = #{shelvesTime,jdbcType=TIMESTAMP},
+       shelf_time = #{shelfTime,jdbcType=TIMESTAMP},
+       sales_volume = #{salesVolume,jdbcType=INTEGER},
+       weekdays_ef_member_price = #{weekdaysEfMemberPrice,jdbcType=VARCHAR},
+       weekdays_site_member_price = #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+       weekdays_customer_price = #{weekdaysCustomerPrice,jdbcType=VARCHAR},
+       holiday_ef_member_price = #{holidayEfMemberPrice,jdbcType=VARCHAR},
+       holiday_site_member_price = #{holidaySiteMemberPrice,jdbcType=VARCHAR},
+       holiday_customer_price = #{holidayCustomerPrice,jdbcType=VARCHAR},
+       reserve_explain = #{reserveExplain,jdbcType=VARCHAR},
+       cancel_explain = #{cancelExplain,jdbcType=VARCHAR},
+       site_remarks = #{siteRemarks,jdbcType=VARCHAR},
+       site_jw = #{siteJw,jdbcType=VARCHAR},
+       reserve1 = #{reserve1,jdbcType=VARCHAR},
+       reserve2 = #{reserve2,jdbcType=VARCHAR},
+       reserve3 = #{reserve3,jdbcType=VARCHAR},
+       reserve4 = #{reserve4,jdbcType=VARCHAR},
+       reserve5 = #{reserve5,jdbcType=VARCHAR},
+       create_time = #{createTime,jdbcType=TIMESTAMP},
+       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+       create_user = #{createUser,jdbcType=VARCHAR},
+       modify_user = #{modifyUser,jdbcType=VARCHAR},
+       site_introduction = #{siteIntroduction,jdbcType=VARCHAR}
+     where site_id = #{siteId,jdbcType=INTEGER}
+   </update>
+     <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Site">
+     update ef_site
+     set site_model = #{siteModel,jdbcType=VARCHAR},
+       site_create_time = #{siteCreateTime,jdbcType=VARCHAR},
+       site_area = #{siteArea,jdbcType=VARCHAR},
+       green_grass_type = #{greenGrassType,jdbcType=VARCHAR},
+       site_param = #{siteParam,jdbcType=VARCHAR},
+       site_designer = #{siteDesigner,jdbcType=VARCHAR},
+       fairway_length = #{fairwayLength,jdbcType=VARCHAR},
+       fairway_grass_type = #{fairwayGrassType,jdbcType=VARCHAR},
+       site_address = #{siteAddress,jdbcType=VARCHAR},
+       site_city = #{siteCity,jdbcType=VARCHAR},
+       site_phone = #{sitePhone,jdbcType=VARCHAR},
+       service1 = #{service1,jdbcType=VARCHAR},
+       service2 = #{service2,jdbcType=VARCHAR},
+       service3 = #{service3,jdbcType=VARCHAR},
+       service4 = #{service4,jdbcType=VARCHAR},
+       service5 = #{service5,jdbcType=VARCHAR},
+       service6 = #{service6,jdbcType=VARCHAR},
+       service7 = #{service7,jdbcType=VARCHAR},
+       service8 = #{service8,jdbcType=VARCHAR},
+       service9 = #{service9,jdbcType=VARCHAR},
+       shelves_time = #{shelvesTime,jdbcType=TIMESTAMP},
+       shelf_time = #{shelfTime,jdbcType=TIMESTAMP},
+       sales_volume = #{salesVolume,jdbcType=INTEGER},
+       weekdays_ef_member_price = #{weekdaysEfMemberPrice,jdbcType=VARCHAR},
+       weekdays_site_member_price = #{weekdaysSiteMemberPrice,jdbcType=VARCHAR},
+       weekdays_customer_price = #{weekdaysCustomerPrice,jdbcType=VARCHAR},
+       holiday_ef_member_price = #{holidayEfMemberPrice,jdbcType=VARCHAR},
+       holiday_site_member_price = #{holidaySiteMemberPrice,jdbcType=VARCHAR},
+       holiday_customer_price = #{holidayCustomerPrice,jdbcType=VARCHAR},
+       reserve_explain = #{reserveExplain,jdbcType=VARCHAR},
+       cancel_explain = #{cancelExplain,jdbcType=VARCHAR},
+       site_remarks = #{siteRemarks,jdbcType=VARCHAR},
+       site_jw = #{siteJw,jdbcType=VARCHAR},
+       reserve1 = #{reserve1,jdbcType=VARCHAR},
+       reserve2 = #{reserve2,jdbcType=VARCHAR},
+       reserve3 = #{reserve3,jdbcType=VARCHAR},
+       reserve4 = #{reserve4,jdbcType=VARCHAR},
+       reserve5 = #{reserve5,jdbcType=VARCHAR},
+       create_time = #{createTime,jdbcType=TIMESTAMP},
+       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+       create_user = #{createUser,jdbcType=VARCHAR},
+       modify_user = #{modifyUser,jdbcType=VARCHAR}
+     where site_id = #{siteId,jdbcType=INTEGER}
+   </update>
+
+    <select id="getSiteByCity" parameterType="java.lang.String" resultType="com.ef.golf.vo.SiteInMapVo">
+        SELECT
+        es.site_jw lngAndLat,
+        es.reserve4 SiteName,
+        es.reserve1 lng,
+        es.reserve2 lat
+        FROM ef_site es
+        WHERE es.site_city=#{cityName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getqiuHuiId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT es.qiuhui_id FROM ef_site es WHERE es.site_id=#{siteId,jdbcType=VARCHAR}
+
+    </select>
+
+    <select id="getPreOrderInfo"  resultType="com.ef.golf.vo.SitePreOrderVo">
+        SELECT
+            es.site_id siteId,
+            es.reserve4 siteName,
+            es.weekdays_site_member_price memberPrice,
+            esp.price sitePrice,
+            reserve_explain reserveExplain,
+            cancel_explain cancleExplain,
+            site_param siteParam
+        FROM
+            ef_site es
+        JOIN ef_site_price esp ON es.site_id = esp.site_id
+        WHERE
+            es.site_id = #{siteId} and date(esp.c_date)=#{playDate}
+    </select>
+    <!--查询数据库到solr -->
+    <select id="findSiteDatabaseToSolrIndex" resultType="com.ef.golf.vo.SolrSiteVo">
+        SELECT
+            es.site_id siteId,
+            es.site_city siteCity,
+            es.reserve4 reserve4,
+            es.reserve1 reserve1,
+            es.reserve2 reserve2,
+            es.site_model siteModel,
+            es.site_param siteParam,
+            es.site_address siteAddress,
+            esp.price price,
+            esp.c_year cYear,
+            esp.c_month cMonth,
+            esp.c_day cDay,
+            esp.c_week cWeek
+        FROM
+            ef_site es
+        LEFT JOIN ef_site_price esp ON es.site_id = esp.site_id
+    </select>
+    <!--根据球场id查询数据库到solr -->
+    <select id="findBySiteIdDatabaseToSolrIndex" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.SolrSiteVo">
+        SELECT
+        es.site_id siteId,
+        es.site_city siteCity,
+        es.reserve4 reserve4,
+        es.reserve1 reserve1,
+        es.reserve2 reserve2,
+        es.site_model siteModel,
+        es.site_param siteParam,
+        es.site_address siteAddress,
+        esp.price price,
+        esp.c_year cYear,
+        esp.c_month cMonth,
+        esp.c_day cDay,
+        esp.c_week cWeek
+        FROM
+        ef_site es
+        LEFT JOIN ef_site_price esp ON es.site_id = esp.site_id
+        WHERE
+          es.site_id = #{siteId}
+    </select>
+
+    <!-- 球会下球场 -->
+    <select id="getClubDownSiteByClubId"  resultType="com.ef.golf.vo.SiteVo">
+        select s.site_id siteID,
+        site_model siteModel,
+        site_param siteParam,
+        s.reserve4 siteName,
+        s.site_address siteAddr,
+        CASE  WHEN esp.price=0 THEN  '暂无' ELSE esp.price END minPrice,
+        i.url picUrl,
+        s.reserve5,
+            ROUND(
+            6378.138 * 2 * ASIN(
+            SQRT(
+            POW(
+            SIN(
+            (
+            #{lon} * PI() / 180 - reserve2 * PI() / 180
+            ) / 2
+            ),
+            2
+            ) + COS(#{lon} * PI() / 180) * COS(reserve2 * PI() / 180) * POW(
+            SIN(
+            (
+            #{lat} * PI() / 180 - reserve1 * PI() / 180
+            ) / 2
+            ),
+            2
+            )
+            )
+            ) * 1000
+            ) AS distance,
+            count(c.comments_id) commentNum,
+            IFNULL(sum(c.praise_num),0) praiseNu
+        from ef_site s
+        left join ef_siteimg i on i.product_id = s.site_id and i.type = 1
+        LEFT JOIN ef_comments c ON c.product_id = s.site_id
+        LEFT JOIN ef_site_price esp ON (s.site_id=esp.site_id  AND  DATE_FORMAT(esp.c_date,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d'))
+        where 1 = 1
+        AND reserve3 = '1'
+        AND s.qiuhui_id = #{qiuHuiId}
+        GROUP BY s.site_id
+        ORDER BY distance,esp.price,s.reserve5 asc
+    </select>
+
+
+
+
+
+
+ </mapper>

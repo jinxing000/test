@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.Order_MetaMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Order_Meta" >
+    <id column="metaid" property="metaid" jdbcType="INTEGER" />
+    <result column="orderid" property="orderid" jdbcType="INTEGER" />
+    <result column="meta_key" property="metaKey" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.Order_Meta" extends="BaseResultMap" >
+    <result column="meta_value" property="metaValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    metaid, orderid, meta_key
+  </sql>
+  <sql id="Blob_Column_List" >
+    meta_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from es_order_meta
+    where metaid = #{metaid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_order_meta
+    where metaid = #{metaid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Order_Meta" >
+    insert into es_order_meta (metaid, orderid, meta_key, 
+      meta_value)
+    values (#{metaid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{metaKey,jdbcType=VARCHAR}, 
+      #{metaValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Order_Meta" >
+    insert into es_order_meta
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="metaid != null" >
+        metaid,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="metaKey != null" >
+        meta_key,
+      </if>
+      <if test="metaValue != null" >
+        meta_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="metaid != null" >
+        #{metaid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="metaKey != null" >
+        #{metaKey,jdbcType=VARCHAR},
+      </if>
+      <if test="metaValue != null" >
+        #{metaValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Order_Meta" >
+    update es_order_meta
+    <set >
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="metaKey != null" >
+        meta_key = #{metaKey,jdbcType=VARCHAR},
+      </if>
+      <if test="metaValue != null" >
+        meta_value = #{metaValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where metaid = #{metaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.Order_Meta" >
+    update es_order_meta
+    set orderid = #{orderid,jdbcType=INTEGER},
+      meta_key = #{metaKey,jdbcType=VARCHAR},
+      meta_value = #{metaValue,jdbcType=LONGVARCHAR}
+    where metaid = #{metaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Order_Meta" >
+    update es_order_meta
+    set orderid = #{orderid,jdbcType=INTEGER},
+      meta_key = #{metaKey,jdbcType=VARCHAR}
+    where metaid = #{metaid,jdbcType=INTEGER}
+  </update>
+</mapper>

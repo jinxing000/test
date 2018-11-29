@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                  http://www.springframework.org/schema/beans/spring-beans.xsd
+                  http://www.springframework.org/schema/integration
+                  http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+    <int:map-to-object-transformer input-channel="post_test" ref="testAction"/>
+    <int:map-to-object-transformer input-channel="post_register" ref="registerAction"/>
+    <int:map-to-object-transformer input-channel="post_login" ref="loginAction"/>
+    <int:map-to-object-transformer input-channel="post_modifypwd" ref="modifyPwdAction"/>
+    <int:map-to-object-transformer input-channel="post_addcollect" ref="collectAction"/>
+    <!-- 订场 -->
+    <int:map-to-object-transformer input-channel="post_sites" ref="siteAction"/>
+    <int:map-to-object-transformer input-channel="post_banner" ref="bannerAction"/>
+    <int:map-to-object-transformer input-channel="post_siteorder" ref="siteOrderAction"/>
+    <int:map-to-object-transformer input-channel="post_index" ref="indexAction"/>
+    <int:map-to-object-transformer input-channel="post_siteindex" ref="siteIndexAction"/>
+    <int:map-to-object-transformer input-channel="post_sendCode" ref="smsCodeAction"/>
+    <int:map-to-object-transformer input-channel="post_siteDetail" ref="siteDetailsAction"/>
+    <!-- 球场订单信息 -->
+    <int:map-to-object-transformer input-channel="post_siteGet" ref="siteGetAction"/>
+    <int:map-to-object-transformer input-channel="post_comment" ref="commentAction"/>
+    <int:map-to-object-transformer input-channel="post_collectSite" ref="collectSiteAction"/>
+    <int:map-to-object-transformer input-channel="post_praise" ref="praiseAction"/>
+    <int:map-to-object-transformer input-channel="post_siteOrderDetail" ref="siteOrderDetailAction"/>
+    <int:map-to-object-transformer input-channel="post_myOrder" ref="myOrderAction"/>
+    <int:map-to-object-transformer input-channel="post_mineInfo" ref="mineAction"/>
+    <int:map-to-object-transformer input-channel="post_mineTickets" ref="myTicketsAction"/>
+    <int:map-to-object-transformer input-channel="post_siteInMap" ref="siteInMapAction"/>
+    <!--查询城市列表-->
+    <int:map-to-object-transformer input-channel="post_city" ref="cityAction"/>
+    <!--查询热门城市列表-->
+    <int:map-to-object-transformer input-channel="post_hotcities" ref="hotCitysAction"/>
+    <!--查询球场价格-->
+    <int:map-to-object-transformer input-channel="post_sitePrices" ref="sitePriceAction"/>
+    <!-- 用户详情 -->
+    <int:map-to-object-transformer input-channel="post_userDetails" ref="userDetailsAction"/>
+    <!--圈子：查询我的消息通知-->
+    <int:map-to-object-transformer input-channel="post_quanziNews" ref="quanziNewsAction"/>
+    <!-- 圈子：删除评论 -->
+    <int:map-to-object-transformer input-channel="post_quanziCommentDel" ref="quanziCommentDelAction"/>
+    <!--圈子：删除我的消息通知（删除全部或单条消息）-->
+    <int:map-to-object-transformer input-channel="post_clearNews" ref="clearNewsAction"/>
+    <!--圈子：查询动态-->
+    <int:map-to-object-transformer input-channel="post_dynamic" ref="dynamicAction"/>
+    <!--圈子：查询我关注人的动态-->
+    <int:map-to-object-transformer input-channel="post_dynamicCollect" ref="dynamicCollectAction"/>
+    <!--圈子：查询我关注的人-->
+    <int:map-to-object-transformer input-channel="post_collectPersions" ref="collectPersionsAction"/>
+    <!--圈子：查询附近的人-->
+    <int:map-to-object-transformer input-channel="post_nearByPersions" ref="nearByPersionsAction"/>
+    <!--圈子：查询手机通讯录的人-->
+    <int:map-to-object-transformer input-channel="post_communicationPersions" ref="communicationPersionsAction"/>
+    <!--圈子：根据类型查询用户信息-->
+    <int:map-to-object-transformer input-channel="post_userInfoByType" ref="userInfoTypeAction"/>
+    <!--圈子：新增举报记录-->
+    <int:map-to-object-transformer input-channel="post_report" ref="reportAction"/>
+    <!--圈子：新增一条点赞记录-->
+    <int:map-to-object-transformer input-channel="post_dynamicPraise" ref="dynamicPraiseAction"/>
+    <!--圈子：新增动态的评论和回复记录-->
+    <int:map-to-object-transformer input-channel="post_dynamicComment" ref="dynamicCommentAction"/>
+    <!--圈子：赠送礼物-->
+    <int:map-to-object-transformer input-channel="post_giftGive" ref="giftGiveAction"/>
+    <!--圈子：分享动态-->
+    <int:map-to-object-transformer input-channel="post_shareDynamic" ref="shareAction"/>
+    <!--圈子:获取未实现的愿望-->
+    <int:map-to-object-transformer input-channel="post_unrealizedHope" ref="unrealizedHopeAction"/>
+    <!--圈子：新增愿望-->
+    <int:map-to-object-transformer input-channel="post_addHope" ref="addHopeAction"/>
+    <!--圈子：获取个人主页信息-->
+    <int:map-to-object-transformer input-channel="post_quanziMine" ref="quanziMineAction"/>
+    <!--圈子：获取动态详情-->
+    <int:map-to-object-transformer input-channel="post_quanziDynamicDetail" ref="quanziDynamicDetailAction"/>
+    <!--圈子：删除动态-->
+    <int:map-to-object-transformer input-channel="post_quanziDynamicDel" ref="quanziDynamicDel"/>
+    <!--圈子：根据愿望id获取愿望详情-->
+    <int:map-to-object-transformer input-channel="post_quanziHopeDetail" ref="quanziHopeDetailAction"/>
+    <!--圈子：获取愿望支持者-->
+    <int:map-to-object-transformer input-channel="post_quanziHopeSupport" ref="quanziSupporterAction"/>
+    <!--圈子：根据类型获取我关注人的数量或关注我的人数量-->
+    <int:map-to-object-transformer input-channel="post_quanziGetCollectNum" ref="quanziGetCollectNumAction"/>
+    <!-- 获取个人动态 -->
+    <int:map-to-object-transformer input-channel="post_userDaynami" ref="userDaynamiAction"/>
+    <!-- 获取点赞分享列表 -->
+    <int:map-to-object-transformer input-channel="post_praisesSharesRecord" ref="praisesSharesRecordAction"/>
+    <!--球童：根据城市获取推荐的球童列表-->
+    <int:map-to-object-transformer input-channel="post_qiuTongUserInfo" ref="qiutongUserAction"/>
+    <!--球童：预约球童，下订单-->
+    <int:map-to-object-transformer input-channel="post_reserveQiutong" ref="reserveQiutongAction"/>
+    <!--球童：查询球童列表（快速搜索）-->
+    <int:map-to-object-transformer input-channel="post_qiuTongList" ref="qiutongUserListAction"/>
+    <!--球童:查询球会名称-->
+    <int:map-to-object-transformer input-channel="post_queryQiuHuiNames" ref="queryQiuHuiNamesAction"/>
+    <!--球童:新增一条打赏球童的记录-->
+    <int:map-to-object-transformer input-channel="post_qiutongReward" ref="qiuTongRewardAction"/>
+    <!--支付-->
+    <int:map-to-object-transformer input-channel="post_pay" ref="payAction"/>
+    <!-- 转账 -->
+    <int:map-to-object-transformer input-channel="post_transfer" ref="transferAction"/>
+    <!-- 充值 -->
+    <int:map-to-object-transformer input-channel="post_rechargeSuccess" ref="rechargeSuccessAction"/>
+    <!--教练：快速搜索教练列表-->
+    <int:map-to-object-transformer input-channel="post_coachList" ref="coachUserListAction"/>
+    <!--教练：教练首页-->
+    <int:map-to-object-transformer input-channel="post_coachHome" ref="coachHomeAction"/>
+    <!--教练：根据城市获取推荐的教练列表-->
+    <int:map-to-object-transformer input-channel="post_coachUserInfo" ref="coachUserAction"/>
+    <!-- 教练: 查询所有课程-->
+    <int:map-to-object-transformer input-channel="post_coachCourse" ref="coachCoursePageListAction"/>
+    <!-- 教练: 搜索课程 -->
+    <int:map-to-object-transformer input-channel="post_coachCourseList" ref="coachCourseListAction"/>
+    <!-- 搜索教练课程 注意和查询所有课程区分-->
+    <int:map-to-object-transformer input-channel="post_coachCourses" ref="coachCourseAction"/>
+    <!-- 教练: 预约 -->
+    <int:map-to-object-transformer input-channel="post_reserveCoachOrder" ref="reserveCoachOrderAction"/>
+    <!-- 教练: 课程预约 -->
+    <int:map-to-object-transformer input-channel="post_reserveCouseOrder" ref="reserveCouseOrderAction"/>
+    
+    <int:map-to-object-transformer input-channel="post_platFormWorktime" ref="platformWorktimeAction"/>
+    <!-- 球场订单支付返回-->
+    <int:map-to-object-transformer input-channel="post_paySuccess" ref="paySuccessAction"/>
+    <!-- 容联运推送 -->
+    <int:map-to-object-transformer input-channel="post_servicePush" ref="servicePushAction"/>
+    <!-- 教练课程详情 -->
+    <int:map-to-object-transformer input-channel="post_coachCourseDetails" ref="coachDetailsAction"/>
+    <!-- solr索引导入 -->
+    <int:map-to-object-transformer input-channel="post_solrSite" ref="solrSiteAction"/>
+    <int:map-to-object-transformer input-channel="post_solrCaddie" ref="solrCaddieAction"/>
+    <!-- solr查询 -->
+    <int:map-to-object-transformer input-channel="post_solrSiteList" ref="solrSiteListAction"/>
+    <int:map-to-object-transformer input-channel="post_solrCaddieList" ref="solrCaddieListAction"/>
+    <!-- 个人中心 搜索 -->
+    <int:map-to-object-transformer input-channel="post_fastSearchUserList" ref="fastSearchUserListAction"/>
+    <!-- 附近的人 -->
+    <int:map-to-object-transformer input-channel="post_peopleNearby" ref="peopleNearbyAction"/>
+    <!-- 根据用户类型查询用户列表 -->
+    <int:map-to-object-transformer input-channel="post_userListByType" ref="userListByTypeAction"/>
+    <!-- 收藏 -->
+    <int:map-to-object-transformer input-channel="post_personalCenterCollect" ref="personalCenterCollectAction"/>
+    <!-- 工单查询 -->
+    <int:map-to-object-transformer input-channel="post_workOrder" ref="workOrderAction"/>
+    <!-- 工单详情 -->
+    <int:map-to-object-transformer input-channel="post_workOrderDetails" ref="workOrderDetailsAction"/>
+    <!-- 教练工单状态查询 -->
+    <int:map-to-object-transformer input-channel="post_workOrderStatus" ref="workOrderStatusAction"/>
+    <!-- 银行卡绑定 -->
+    <int:map-to-object-transformer input-channel="post_authenticationBank" ref="authenticationBankAction"/>
+    <!-- 积分变动记录 -->
+    <int:map-to-object-transformer input-channel="post_integralRecord" ref="integralRecordAction"/>
+    <!-- 签到 -->
+    <int:map-to-object-transformer input-channel="post_userSign" ref="userSignAction"/>
+    <!-- 愿望列表 -->
+    <int:map-to-object-transformer input-channel="post_hopeList" ref="hopeListAction"/>
+    <!-- 愿望实现 -->
+    <int:map-to-object-transformer input-channel="post_hopeHelp" ref="hopeHelpAction"/>
+    <!-- 愿望领取 -->
+    <int:map-to-object-transformer input-channel="post_hopeGet" ref="hopeGetAction"/>
+    <!-- 愿望领取信息 -->
+    <int:map-to-object-transformer input-channel="post_hopeGetMsg" ref="hopeGetMsgAction"/>
+    <!-- 充值返现比例列表 -->
+    <int:map-to-object-transformer input-channel="post_cashbackList" ref="cashbackListAction"/>
+
+    <!-- 商家模块 -->
+    <int:map-to-object-transformer input-channel="post_merchantOrClub" ref="merchantOrClubAction"/>
+    <!-- 商家模块下单 -->
+    <!--<int:map-to-object-transformer input-channel="post_merchantOrder" ref="merchantOrderAction"/>-->
+    <!-- 用户预约课程 -->
+    <int:map-to-object-transformer input-channel="post_userReserveCourse" ref="userReserveCourseAction"/>
+    <!-- 课程订单详情 -->
+    <int:map-to-object-transformer input-channel="post_courseOrderDetails" ref="courseOrderDetailsAction"/>
+    <!-- 用户订单列表 -->
+    <int:map-to-object-transformer input-channel="post_userOrder" ref="userOrderAction"/>
+    <!-- 用户反馈信息提交 -->
+    <int:map-to-object-transformer input-channel="post_userFeedback" ref="userFeedbackAction"/>
+    <!-- 课程签到 -->
+    <int:map-to-object-transformer input-channel="post_courseSign" ref="courseSignAction"/>
+    <!-- 课程签到记录 -->
+    <int:map-to-object-transformer input-channel="post_courseSignRecord" ref="courseSignRecordAction"/>
+    <!-- ping 订单 -->
+    <int:map-to-object-transformer input-channel="post_pingOrder" ref="pingOrderAction"/>
+    <!-- 刁钻的支付 -->
+    <int:map-to-object-transformer input-channel="post_yfgolfPay" ref="yfgolfPayAction"/>
+
+    <!-- 发红包 -->
+    <int:map-to-object-transformer input-channel="post_redPackageAllocation" ref="redPackageAllocationAction"/>
+    <!-- baraner图-->
+    <int:map-to-object-transformer input-channel="post_esBaner" ref="esBanerAction"/>
+    <!--goods一二级分类-->
+    <int:map-to-object-transformer input-channel="post_esGoodsCat" ref="esGoodsCatAction"/>
+    <!--goods一二级分类下的商品-->
+    <int:map-to-object-transformer input-channel="post_esGoodsCatOne" ref="esGoodsCatOneAction"/>
+    <!--goods 商城首页 -->
+    <int:map-to-object-transformer input-channel="post_shopIndex" ref="shopIndexAction"/>
+
+    <!--goods 商城专题列表 -->
+    <int:map-to-object-transformer input-channel="post_shopSubjectList" ref="shopSubjectListAction"/>
+    <!--goods 商品推荐列表 -->
+    <int:map-to-object-transformer input-channel="post_recommendGoodsList" ref="recommendGoodsListAction"/>
+
+    <!--详情中的商品图片轮播,商品评论列表,某一商品评论总数,商品评论图片列表-->
+    <int:map-to-object-transformer input-channel="post_esGoods" ref="esGoodsAction"/>
+    <!--品牌下的一级分类，和所有商品-->
+    <int:map-to-object-transformer input-channel="post_esBrand" ref="esBrandAction"/>
+    <!--所有品牌-->
+    <int:map-to-object-transformer input-channel="post_esAllBrand" ref="esAllBrandAction"/>
+    <!--商品收藏夹-->
+    <int:map-to-object-transformer input-channel="post_favorite" ref="favoriteAction"/>
+    <!--加入购物车-->
+    <int:map-to-object-transformer input-channel="post_esGoodsCart" ref="esGoodsCartAction"/>
+    <!--购物车列表-->
+    <int:map-to-object-transformer input-channel="post_esGoodsCartList" ref="esGoodsCartListAction"/>
+    <!--更新购物车数量-->
+    <int:map-to-object-transformer input-channel="post_esGoodsCartNum" ref="esGoodsCartNumAction"/>
+    <!--删除购物车-->
+    <int:map-to-object-transformer input-channel="post_esGoodsCartDel" ref="esGoodsCartDelAction"/>
+    <!--全部省市区-->
+    <int:map-to-object-transformer input-channel="post_esRegion" ref="esRegionAction"/>
+    <!--热销商品列表-->
+    <int:map-to-object-transformer input-channel="post_esGoodsHot" ref="esGoodsHotAction"/>
+    <!--热销商品详情-->
+    <int:map-to-object-transformer input-channel="post_esGoodsHotSpe" ref="esGoodsHotSpeAction"/>
+    <!--商品模糊查询-->
+    <int:map-to-object-transformer input-channel="post_selectGoods" ref="selectGoodsAction"/>
+    <!--商品模糊查询-->
+    <!--<int:map-to-object-transformer input-channel="post_selectGoods" ref="selectGoodsAction"/>-->
+    <!--优惠券列表-->
+    <int:map-to-object-transformer input-channel="post_ticket" ref="ticketAction"/>
+    <!--优惠券有效性检查-->
+    <int:map-to-object-transformer input-channel="post_checkYouHuiQuan" ref="checkYouHuiQuanAction"/>
+    <!--收货地址-->
+    <int:map-to-object-transformer input-channel="post_memberAddress" ref="esMemberAddressAction"/>
+    <!--收货地址怎删改-->
+    <int:map-to-object-transformer input-channel="post_esMemberAdd" ref="esMemberAddAction"/>
+    <!--订单-->
+    <int:map-to-object-transformer input-channel="post_esOrder" ref="esOrderAction"/>
+    <!-- 抢红包 -->
+    <int:map-to-object-transformer input-channel="post_redPackageGet" ref="redPackageGetAction"/>
+    <!-- 红包校验 -->
+    <int:map-to-object-transformer input-channel="post_redPackageCheck" ref="redPackageCheckAction"/>
+    <!-- 发送优惠券 -->
+    <int:map-to-object-transformer input-channel="post_youHuiQuanSend" ref="youHuiQuanSendAction"/>
+    <!-- 抢优惠券 -->
+    <int:map-to-object-transformer input-channel="post_youHuiQuanGet" ref="youHuiQuanGetAction"/>
+    <!-- 订单列表 -->
+    <int:map-to-object-transformer input-channel="post_esOrderList" ref="esOrderListAction"/>
+    <!-- 添加评论 -->
+    <int:map-to-object-transformer input-channel="post_esComment" ref="esCommentAction"/>
+    <!-- 评论列表 -->
+    <int:map-to-object-transformer input-channel="post_esCommentList" ref="esCommentListAction"/>
+    <!-- 确定与取消支付 -->
+    <int:map-to-object-transformer input-channel="post_confirmAndCancel" ref="confirmAndCancelAction"/>
+    <!-- 删除与取消订单-->
+    <int:map-to-object-transformer input-channel="post_delOrder" ref="delOrderAction"/>
+    <!-- 支付后更新订单-->
+    <int:map-to-object-transformer input-channel="post_updateOrder" ref="updateOrderAction"/>
+    <!-- 申请退货-->
+    <int:map-to-object-transformer input-channel="post_backOrder" ref="backOrderAction"/>
+    <!-- 退货详情-->
+    <int:map-to-object-transformer input-channel="post_backOrderSpeil" ref="backOrderSpeilAction"/>
+    <!-- 待支付 待发货 已发货 待评价 已完成 已取消通用订单详情-->
+    <int:map-to-object-transformer input-channel="post_general" ref="generalAction"/>
+    <!-- 再次购买-->
+    <int:map-to-object-transformer input-channel="post_againGood" ref="againGoodAction"/>
+    <!-- 商品详情富文本 -->
+    <int:map-to-object-transformer input-channel="post_esGoodsInfoById" ref="esGoodsInfoByIdAction"/>
+
+    <!-- 创建群 -->
+    <int:map-to-object-transformer input-channel="post_createGroup" ref="createGroupAction"/>
+    <!-- 查询群 -->
+    <int:map-to-object-transformer input-channel="post_queryGroupDetail" ref="queryGroupDetailAction"/>
+    <!-- 查询所属群 -->
+    <int:map-to-object-transformer input-channel="post_memberQueryGroup" ref="memberQueryGroupAction"/>
+    <!-- 查询群成员 -->
+    <int:map-to-object-transformer input-channel="post_groupMember" ref="groupMemberAction"/>
+    <!-- 加群退群处理 -->
+    <int:map-to-object-transformer input-channel="post_qunChuLi" ref="qunChuLiAction"/>
+    <!-- 删除群组 -->
+    <int:map-to-object-transformer input-channel="post_deleteGroup" ref="deleteGroupAction"/>
+    <!-- 校验是否在群 -->
+    <int:map-to-object-transformer input-channel="post_jianChaShiFouZaiQun" ref="jianChaShiFouZaiQunAction"/>
+    <!-- 获取免打扰列表 -->
+    <int:map-to-object-transformer input-channel="post_disturb" ref="disturbAction"/>
+    <!-- 群组管理员邀请用户加入群组 -->
+    <int:map-to-object-transformer input-channel="post_inviteJoinGroup" ref="inviteJoinGroupAction"/>
+    <!-- 修改群属性 -->
+    <int:map-to-object-transformer input-channel="post_modifyGroup" ref="modifyGroupAction"/>
+    <!-- 查询通讯录未加群的人 -->
+    <int:map-to-object-transformer input-channel="post_noGroupOf" ref="noGroupOfAction"/>
+    <!-- 礼物列表 -->
+    <int:map-to-object-transformer input-channel="post_getGift" ref="getGiftAction"/>
+    <!-- 发送礼物 -->
+    <int:map-to-object-transformer input-channel="post_giftSend" ref="giftSendAction"/>
+    <!-- 抢礼物 -->
+    <int:map-to-object-transformer input-channel="post_giftQiang" ref="giftQiangAction"/>
+    <!-- 设置支付密码 修改支付密码 -->
+    <int:map-to-object-transformer input-channel="post_payPwd" ref="payPwdAction"/>
+    <!-- 支付密码校验 -->
+    <int:map-to-object-transformer input-channel="post_payPwdCheck" ref="payPwdCheckAction"/>
+    <!-- 创建三方用户 -->
+    <int:map-to-object-transformer input-channel="post_createPingUser" ref="createPingUserAction"/>
+    <!-- 圈子消息列表 -->
+    <int:map-to-object-transformer input-channel="post_pushMsgList" ref="pushMsgListAction"/>
+    <!-- 系统消息列表 -->
+    <int:map-to-object-transformer input-channel="post_infromMessageList" ref="infromMessageListAction"/>
+    <!-- 商城 确认收货-->
+    <int:map-to-object-transformer input-channel="post_confirmGetGoods" ref="confirmGetGoodsAction"/>
+    <!-- 验证码校验 -->
+    <int:map-to-object-transformer input-channel="post_codeCheck" ref="codeCheckAction"/>
+    <!-- 提现申请 -->
+    <int:map-to-object-transformer input-channel="post_loginPwdCheck" ref="loginPwdCheckAction"/>
+    <!-- 充值前信息 -->
+    <int:map-to-object-transformer input-channel="post_rechargeAgoMessage" ref="rechargeAgoMessageAction"/>
+    <!-- 公共参数 -->
+    <int:map-to-object-transformer input-channel="post_commonParameter" ref="commonParameterAction"/>
+    <!-- 会员认证信息 -->
+    <int:map-to-object-transformer input-channel="post_memberApproveMsg" ref="memberApproveMsgAction"/>
+    <!--回寄信息提交-->
+    <int:map-to-object-transformer input-channel="post_tuiHuoHuiJi" ref="tuiHuoHuiJiAction"/>
+
+    <!-- 各个模块评论信息-->
+
+    <int:map-to-object-transformer input-channel="post_moreCommentsList" ref="moreCommentsListAction"/>
+    <!-- 各个模块评分-->
+    <int:map-to-object-transformer input-channel="post_productScoreList" ref="productScoreAction"/>
+    <!-- 绑定专属码 -->
+    <int:map-to-object-transformer input-channel="post_bangDingNo" ref="bangDingNoAction"/>
+    <!-- order详情 -->
+    <int:map-to-object-transformer input-channel="post_orderAll" ref="orderCommonAction"/>
+    <!-- 球会下球场 -->
+    <int:map-to-object-transformer input-channel="post_clubDownSite" ref="clubDownSiteAction"/>
+    <!-- app版本 -->
+    <int:map-to-object-transformer input-channel="post_appVersion" ref="appVersionAction"/>
+</beans>
+
+

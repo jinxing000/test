@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.EsSubjectMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsSubject">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="is_display" jdbcType="INTEGER" property="isDisplay" />
+    <result column="banner" jdbcType="VARCHAR" property="banner" />
+    <result column="goods_ids" jdbcType="VARCHAR" property="goodsIds" />
+    <result column="picture_path" jdbcType="VARCHAR" property="picturePath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, sort, is_display, banner, goods_ids, picture_path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from es_subject
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_subject
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsSubject">
+    insert into es_subject (id, title, sort, 
+      is_display, banner, goods_ids, 
+      picture_path)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{isDisplay,jdbcType=INTEGER}, #{banner,jdbcType=VARCHAR}, #{goodsIds,jdbcType=LONGVARCHAR}, 
+      #{picturePath,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.EsSubject">
+    insert into es_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="isDisplay != null">
+        is_display,
+      </if>
+      <if test="banner != null">
+        banner,
+      </if>
+      <if test="goodsIds != null">
+        goods_ids,
+      </if>
+      <if test="picturePath != null">
+        picture_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDisplay != null">
+        #{isDisplay,jdbcType=INTEGER},
+      </if>
+      <if test="banner != null">
+        #{banner,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIds != null">
+        #{goodsIds,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="picturePath != null">
+        #{picturePath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.EsSubject">
+    update es_subject
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDisplay != null">
+        is_display = #{isDisplay,jdbcType=INTEGER},
+      </if>
+      <if test="banner != null">
+        banner = #{banner,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIds != null">
+        goods_ids = #{goodsIds,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="picturePath != null">
+        picture_path = #{picturePath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ef.golf.pojo.EsSubject">
+    update es_subject
+    set title = #{title,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      is_display = #{isDisplay,jdbcType=INTEGER},
+      banner = #{banner,jdbcType=VARCHAR},
+      goods_ids = #{goodsIds,jdbcType=LONGVARCHAR},
+      picture_path = #{picturePath,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.EsSubject">
+    update es_subject
+    set title = #{title,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      is_display = #{isDisplay,jdbcType=INTEGER},
+      banner = #{banner,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findSpecialList" resultType="com.ef.golf.pojo.EsSubject">
+   SELECT
+      id                         id,
+      title                      title,
+      sort                       sort,
+      is_display                 isDisplay,
+      banner                     banner,
+      goods_ids                 goodsIds,
+      picture_path                picturePath
+    FROM
+        es_subject
+    WHERE
+        is_display = 0
+    ORDER BY
+        sort
+  </select>
+
+  <select id="findSpecialListBySubjectId" parameterType="java.lang.Integer" resultType="com.ef.golf.pojo.EsSubject">
+
+    SELECT
+      id                         id,
+      title                      title,
+      sort                       sort,
+      is_display                 isDisplay,
+      banner                     banner,
+      goods_ids                 goodsIds,
+      picture_path                picturePath
+    FROM
+        es_subject
+    WHERE
+        is_display = 0
+        AND id = #{subjectId,jdbcType=INTEGER}
+
+  </select>
+</mapper>

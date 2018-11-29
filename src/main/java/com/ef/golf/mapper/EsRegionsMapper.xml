@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsRegionsMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsRegions" >
+    <id column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="p_region_id" property="pRegionId" jdbcType="INTEGER" />
+    <result column="region_path" property="regionPath" jdbcType="VARCHAR" />
+    <result column="region_grade" property="regionGrade" jdbcType="INTEGER" />
+    <result column="local_name" property="localName" jdbcType="VARCHAR" />
+    <result column="zipcode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="cod" property="cod" jdbcType="VARCHAR" />
+    <collection  property="children" select="getTreeNodes" column="region_id" ofType="com.ef.golf.pojo.EsRegions"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    region_id, p_region_id, region_path, region_grade, local_name, zipcode, cod
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from "es_regions"
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from "es_regions"
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsRegions" >
+    insert into "es_regions" (region_id, p_region_id, region_path, 
+      region_grade, local_name, zipcode, 
+      cod)
+    values (#{regionId,jdbcType=INTEGER}, #{pRegionId,jdbcType=INTEGER}, #{regionPath,jdbcType=VARCHAR}, 
+      #{regionGrade,jdbcType=INTEGER}, #{localName,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
+      #{cod,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.EsRegions" >
+    insert into "es_regions"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="pRegionId != null" >
+        p_region_id,
+      </if>
+      <if test="regionPath != null" >
+        region_path,
+      </if>
+      <if test="regionGrade != null" >
+        region_grade,
+      </if>
+      <if test="localName != null" >
+        local_name,
+      </if>
+      <if test="zipcode != null" >
+        zipcode,
+      </if>
+      <if test="cod != null" >
+        cod,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="pRegionId != null" >
+        #{pRegionId,jdbcType=INTEGER},
+      </if>
+      <if test="regionPath != null" >
+        #{regionPath,jdbcType=VARCHAR},
+      </if>
+      <if test="regionGrade != null" >
+        #{regionGrade,jdbcType=INTEGER},
+      </if>
+      <if test="localName != null" >
+        #{localName,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cod != null" >
+        #{cod,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.EsRegions" >
+    update "es_regions"
+    <set >
+      <if test="pRegionId != null" >
+        p_region_id = #{pRegionId,jdbcType=INTEGER},
+      </if>
+      <if test="regionPath != null" >
+        region_path = #{regionPath,jdbcType=VARCHAR},
+      </if>
+      <if test="regionGrade != null" >
+        region_grade = #{regionGrade,jdbcType=INTEGER},
+      </if>
+      <if test="localName != null" >
+        local_name = #{localName,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        zipcode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cod != null" >
+        cod = #{cod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.EsRegions" >
+    update "es_regions"
+    set p_region_id = #{pRegionId,jdbcType=INTEGER},
+      region_path = #{regionPath,jdbcType=VARCHAR},
+      region_grade = #{regionGrade,jdbcType=INTEGER},
+      local_name = #{localName,jdbcType=VARCHAR},
+      zipcode = #{zipcode,jdbcType=VARCHAR},
+      cod = #{cod,jdbcType=VARCHAR}
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+
+
+  <!--region_id, p_region_id, region_path, region_grade, local_name, zipcode, cod-->
+  <resultMap id="treeMap" type="com.ef.golf.pojo.EsRegions">
+    <!--<id column="region_id" property="regionId" jdbcType="INTEGER"/>
+    <result column="local_name" property="localName" jdbcType="VARCHAR"/>-->
+    <id column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="p_region_id" property="pRegionId" jdbcType="INTEGER" />
+    <result column="region_path" property="regionPath" jdbcType="VARCHAR" />
+    <result column="region_grade" property="regionGrade" jdbcType="INTEGER" />
+    <result column="local_name" property="localName" jdbcType="VARCHAR" />
+    <result column="zipcode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="cod" property="cod" jdbcType="VARCHAR" />
+    <collection  property="children" select="getTreeNodes" column="region_id" ofType="com.ef.golf.pojo.EsRegions"/>
+  </resultMap>
+
+
+
+
+
+  <select id="getTreeNodes" parameterType="java.lang.Integer" resultMap="treeMap">
+  SELECT <include refid="Base_Column_List" />
+    from es_regions
+    where p_region_id = #{p_region_id,jdbcType=INTEGER} and region_grade!=4
+  </select>
+</mapper>

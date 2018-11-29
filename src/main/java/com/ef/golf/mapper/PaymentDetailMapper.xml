@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.PaymentDetailMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.PaymentDetail">
+    <id column="detail_id" jdbcType="INTEGER" property="paymentDetail_id" />
+    <result column="payment_id" jdbcType="INTEGER" property="payment_id" />
+    <result column="pay_money" jdbcType="DECIMAL" property="pay_money" />
+    <result column="pay_date" jdbcType="BIGINT" property="pay_date" />
+    <result column="admin_user" jdbcType="VARCHAR" property="admin_user" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    detail_id, payment_id, pay_money, pay_date, admin_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from es_payment_detail
+    where detail_id = #{paymentDetail_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_payment_detail
+    where detail_id = #{paymentDetail_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.PaymentDetail">
+    insert into es_payment_detail (detail_id, payment_id, pay_money, 
+      pay_date, admin_user)
+    values (#{paymentDetail_id,jdbcType=INTEGER}, #{payment_id,jdbcType=INTEGER}, #{pay_money,jdbcType=DECIMAL},
+      #{pay_date,jdbcType=BIGINT}, #{admin_user,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.PaymentDetail">
+    insert into es_payment_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paymentDetail_id != null">
+        detail_id,
+      </if>
+      <if test="payment_id != null">
+        payment_id,
+      </if>
+      <if test="pay_money != null">
+        pay_money,
+      </if>
+      <if test="pay_date != null">
+        pay_date,
+      </if>
+      <if test="admin_user != null">
+        admin_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paymentDetail_id != null">
+        #{paymentDetail_id,jdbcType=INTEGER},
+      </if>
+      <if test="payment_id != null">
+        #{payment_id,jdbcType=INTEGER},
+      </if>
+      <if test="pay_money != null">
+        #{pay_money,jdbcType=DECIMAL},
+      </if>
+      <if test="pay_date != null">
+        #{pay_date,jdbcType=BIGINT},
+      </if>
+      <if test="admin_user != null">
+        #{admin_user,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.PaymentDetail">
+    update es_payment_detail
+    <set>
+      <if test="payment_id != null">
+        payment_id = #{payment_id,jdbcType=INTEGER},
+      </if>
+      <if test="pay_money != null">
+        pay_money = #{pay_money,jdbcType=DECIMAL},
+      </if>
+      <if test="pay_date != null">
+        pay_date = #{pay_date,jdbcType=BIGINT},
+      </if>
+      <if test="admin_user != null">
+        admin_user = #{admin_user,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where detail_id = #{paymentDetail_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.PaymentDetail">
+    update es_payment_detail
+    set payment_id = #{payment_id,jdbcType=INTEGER},
+      pay_money = #{pay_money,jdbcType=DECIMAL},
+      pay_date = #{pay_date,jdbcType=BIGINT},
+      admin_user = #{admin_user,jdbcType=VARCHAR}
+    where detail_id = #{paymentDetail_id,jdbcType=INTEGER}
+  </update>
+</mapper>

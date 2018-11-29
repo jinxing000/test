@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.FlowMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Flow" >
+    <id column="flow_id" property="flowId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="sequence_number" property="sequenceNumber" jdbcType="VARCHAR" />
+    <result column="flow_type" property="flowType" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    flow_id, user_id, create_time, money, sequence_number, flow_type, balance
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ef_flow
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ef_flow
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Flow" >
+    insert into ef_flow (flow_id, user_id, create_time, 
+      money, sequence_number, flow_type, 
+      balance)
+    values (#{flowId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{money,jdbcType=DOUBLE}, #{sequenceNumber,jdbcType=VARCHAR}, #{flowType,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="flowId"  parameterType="com.ef.golf.pojo.Flow" >
+    insert into ef_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        flow_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="sequenceNumber != null" >
+        sequence_number,
+      </if>
+      <if test="flowType != null" >
+        flow_type,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="sequenceNumber != null" >
+        #{sequenceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="flowType != null" >
+        #{flowType,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Flow" >
+    update ef_flow
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="sequenceNumber != null" >
+        sequence_number = #{sequenceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="flowType != null" >
+        flow_type = #{flowType,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Flow" >
+    update ef_flow
+    set user_id = #{userId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      money = #{money,jdbcType=DOUBLE},
+      sequence_number = #{sequenceNumber,jdbcType=VARCHAR},
+      flow_type = #{flowType,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DOUBLE}
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </update>
+  <select id="getFlowRecord" resultType="com.ef.golf.pojo.Flow">
+    SELECT
+      ef.flow_id flowId,
+      ef.flow_type flowType,
+      ef.user_id userId,
+      ef.balance balance,
+      ef.money money,
+      ef.sequence_number sequenceNumber,
+      ef.create_time createTime
+    FROM
+        ef_flow ef
+    WHERE
+        ef.user_id = #{userId}
+    LIMIT #{pageNo},#{pageSize}
+
+  </select>
+  <select id="getFlowRecordCount" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM
+    ef_flow ef
+    WHERE
+    ef.user_id = #{userId}
+  </select>
+  <select id="getTodayZenSongMoney" parameterType="java.lang.Integer" resultType="java.lang.Double">
+    SELECT
+	CASE
+    WHEN SUM(ef.money) IS NULL THEN
+        0.0
+    ELSE
+        SUM(ef.money)
+    END
+    FROM
+        ef_flow ef
+    WHERE
+        to_days(ef.create_time) = to_days(now())
+    AND ef.user_id = #{userId}
+    AND ef.flow_type='4444'
+  </select>
+</mapper>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.ActivityDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.ActivityDetail" >
+    <id column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="full_money" property="fullMoney" jdbcType="DECIMAL" />
+    <result column="minus_value" property="minusValue" jdbcType="DECIMAL" />
+    <result column="point_value" property="pointValue" jdbcType="INTEGER" />
+    <result column="is_full_minus" property="isFullMinus" jdbcType="SMALLINT" />
+    <result column="is_free_ship" property="isFreeShip" jdbcType="SMALLINT" />
+    <result column="is_send_point" property="isSendPoint" jdbcType="SMALLINT" />
+    <result column="is_send_gift" property="isSendGift" jdbcType="SMALLINT" />
+    <result column="is_send_bonus" property="isSendBonus" jdbcType="SMALLINT" />
+    <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+    <result column="bonus_id" property="bonusId" jdbcType="INTEGER" />
+    <result column="is_discount" property="isDiscount" jdbcType="SMALLINT" />
+    <result column="discount_value" property="discountValue" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    detail_id, activity_id, full_money, minus_value, point_value, is_full_minus, is_free_ship, 
+    is_send_point, is_send_gift, is_send_bonus, gift_id, bonus_id, is_discount, discount_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_activity_detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_activity_detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.ActivityDetail" >
+    insert into es_activity_detail (detail_id, activity_id, full_money, 
+      minus_value, point_value, is_full_minus, 
+      is_free_ship, is_send_point, is_send_gift, 
+      is_send_bonus, gift_id, bonus_id, 
+      is_discount, discount_value)
+    values (#{detailId,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER}, #{fullMoney,jdbcType=DECIMAL}, 
+      #{minusValue,jdbcType=DECIMAL}, #{pointValue,jdbcType=INTEGER}, #{isFullMinus,jdbcType=SMALLINT}, 
+      #{isFreeShip,jdbcType=SMALLINT}, #{isSendPoint,jdbcType=SMALLINT}, #{isSendGift,jdbcType=SMALLINT}, 
+      #{isSendBonus,jdbcType=SMALLINT}, #{giftId,jdbcType=INTEGER}, #{bonusId,jdbcType=INTEGER}, 
+      #{isDiscount,jdbcType=SMALLINT}, #{discountValue,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.ActivityDetail" >
+    insert into es_activity_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="fullMoney != null" >
+        full_money,
+      </if>
+      <if test="minusValue != null" >
+        minus_value,
+      </if>
+      <if test="pointValue != null" >
+        point_value,
+      </if>
+      <if test="isFullMinus != null" >
+        is_full_minus,
+      </if>
+      <if test="isFreeShip != null" >
+        is_free_ship,
+      </if>
+      <if test="isSendPoint != null" >
+        is_send_point,
+      </if>
+      <if test="isSendGift != null" >
+        is_send_gift,
+      </if>
+      <if test="isSendBonus != null" >
+        is_send_bonus,
+      </if>
+      <if test="giftId != null" >
+        gift_id,
+      </if>
+      <if test="bonusId != null" >
+        bonus_id,
+      </if>
+      <if test="isDiscount != null" >
+        is_discount,
+      </if>
+      <if test="discountValue != null" >
+        discount_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="fullMoney != null" >
+        #{fullMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="minusValue != null" >
+        #{minusValue,jdbcType=DECIMAL},
+      </if>
+      <if test="pointValue != null" >
+        #{pointValue,jdbcType=INTEGER},
+      </if>
+      <if test="isFullMinus != null" >
+        #{isFullMinus,jdbcType=SMALLINT},
+      </if>
+      <if test="isFreeShip != null" >
+        #{isFreeShip,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendPoint != null" >
+        #{isSendPoint,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendGift != null" >
+        #{isSendGift,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendBonus != null" >
+        #{isSendBonus,jdbcType=SMALLINT},
+      </if>
+      <if test="giftId != null" >
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="bonusId != null" >
+        #{bonusId,jdbcType=INTEGER},
+      </if>
+      <if test="isDiscount != null" >
+        #{isDiscount,jdbcType=SMALLINT},
+      </if>
+      <if test="discountValue != null" >
+        #{discountValue,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.ActivityDetail" >
+    update es_activity_detail
+    <set >
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="fullMoney != null" >
+        full_money = #{fullMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="minusValue != null" >
+        minus_value = #{minusValue,jdbcType=DECIMAL},
+      </if>
+      <if test="pointValue != null" >
+        point_value = #{pointValue,jdbcType=INTEGER},
+      </if>
+      <if test="isFullMinus != null" >
+        is_full_minus = #{isFullMinus,jdbcType=SMALLINT},
+      </if>
+      <if test="isFreeShip != null" >
+        is_free_ship = #{isFreeShip,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendPoint != null" >
+        is_send_point = #{isSendPoint,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendGift != null" >
+        is_send_gift = #{isSendGift,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendBonus != null" >
+        is_send_bonus = #{isSendBonus,jdbcType=SMALLINT},
+      </if>
+      <if test="giftId != null" >
+        gift_id = #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="bonusId != null" >
+        bonus_id = #{bonusId,jdbcType=INTEGER},
+      </if>
+      <if test="isDiscount != null" >
+        is_discount = #{isDiscount,jdbcType=SMALLINT},
+      </if>
+      <if test="discountValue != null" >
+        discount_value = #{discountValue,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.ActivityDetail" >
+    update es_activity_detail
+    set activity_id = #{activityId,jdbcType=INTEGER},
+      full_money = #{fullMoney,jdbcType=DECIMAL},
+      minus_value = #{minusValue,jdbcType=DECIMAL},
+      point_value = #{pointValue,jdbcType=INTEGER},
+      is_full_minus = #{isFullMinus,jdbcType=SMALLINT},
+      is_free_ship = #{isFreeShip,jdbcType=SMALLINT},
+      is_send_point = #{isSendPoint,jdbcType=SMALLINT},
+      is_send_gift = #{isSendGift,jdbcType=SMALLINT},
+      is_send_bonus = #{isSendBonus,jdbcType=SMALLINT},
+      gift_id = #{giftId,jdbcType=INTEGER},
+      bonus_id = #{bonusId,jdbcType=INTEGER},
+      is_discount = #{isDiscount,jdbcType=SMALLINT},
+      discount_value = #{discountValue,jdbcType=DECIMAL}
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from es_activity_detail
+    where activity_id = #{activity_id,jdbcType=INTEGER}
+  </select>
+
+</mapper>

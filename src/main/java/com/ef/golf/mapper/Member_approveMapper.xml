@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Member_approveMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Member_approve">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="member_card" jdbcType="VARCHAR" property="memberCard" />
+    <result column="club_id" jdbcType="INTEGER" property="clubId" />
+    <result column="approve_status" jdbcType="VARCHAR" property="approveStatus" />
+    <result column="approve_img_up" jdbcType="VARCHAR" property="approveImgUp" />
+    <result column="approve_img_down" jdbcType="VARCHAR" property="approveImgDown" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="over_time" jdbcType="TIMESTAMP" property="overTime" />
+    <result column="approve_time" jdbcType="TIMESTAMP" property="approveTime" />
+    <result column="lifelong" jdbcType="CHAR" property="lifelong" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, realname, phone_number, member_card, club_id, approve_status, approve_img_up,
+    approve_img_down, create_time, modify_time, reason, over_time, approve_time, lifelong
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_member_approve
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_member_approve
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Member_approve">
+    insert into ef_member_approve (id, user_id, realname,
+    phone_number, member_card, club_id,
+    approve_status, approve_img_up, approve_img_down,
+    create_time, modify_time, reason,
+    over_time, approve_time, lifelong
+    )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR},
+    #{phoneNumber,jdbcType=VARCHAR}, #{memberCard,jdbcType=VARCHAR}, #{clubId,jdbcType=INTEGER},
+    #{approveStatus,jdbcType=VARCHAR}, #{approveImgUp,jdbcType=VARCHAR}, #{approveImgDown,jdbcType=VARCHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{reason,jdbcType=VARCHAR},
+    #{overTime,jdbcType=TIMESTAMP}, #{approveTime,jdbcType=TIMESTAMP}, #{lifelong,jdbcType=CHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Member_approve">
+    insert into ef_member_approve
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="memberCard != null">
+        member_card,
+      </if>
+      <if test="clubId != null">
+        club_id,
+      </if>
+      <if test="approveStatus != null">
+        approve_status,
+      </if>
+      <if test="approveImgUp != null">
+        approve_img_up,
+      </if>
+      <if test="approveImgDown != null">
+        approve_img_down,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="overTime != null">
+        over_time,
+      </if>
+      <if test="approveTime != null">
+        approve_time,
+      </if>
+      <if test="lifelong != null">
+        lifelong,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCard != null">
+        #{memberCard,jdbcType=VARCHAR},
+      </if>
+      <if test="clubId != null">
+        #{clubId,jdbcType=INTEGER},
+      </if>
+      <if test="approveStatus != null">
+        #{approveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approveImgUp != null">
+        #{approveImgUp,jdbcType=VARCHAR},
+      </if>
+      <if test="approveImgDown != null">
+        #{approveImgDown,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="overTime != null">
+        #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveTime != null">
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lifelong != null">
+        #{lifelong,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Member_approve">
+    update ef_member_approve
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCard != null">
+        member_card = #{memberCard,jdbcType=VARCHAR},
+      </if>
+      <if test="clubId != null">
+        club_id = #{clubId,jdbcType=INTEGER},
+      </if>
+      <if test="approveStatus != null">
+        approve_status = #{approveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approveImgUp != null">
+        approve_img_up = #{approveImgUp,jdbcType=VARCHAR},
+      </if>
+      <if test="approveImgDown != null">
+        approve_img_down = #{approveImgDown,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="overTime != null">
+        over_time = #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveTime != null">
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lifelong != null">
+        lifelong = #{lifelong,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Member_approve">
+    update ef_member_approve
+    set user_id = #{userId,jdbcType=INTEGER},
+      realname = #{realname,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      member_card = #{memberCard,jdbcType=VARCHAR},
+      club_id = #{clubId,jdbcType=INTEGER},
+      approve_status = #{approveStatus,jdbcType=VARCHAR},
+      approve_img_up = #{approveImgUp,jdbcType=VARCHAR},
+      approve_img_down = #{approveImgDown,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      reason = #{reason,jdbcType=VARCHAR},
+      over_time = #{overTime,jdbcType=TIMESTAMP},
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      lifelong = #{lifelong,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--查询会员认证结果-->
+  <select id="memberApproveEnd" resultType="java.lang.String">
+    SELECT
+      CASE
+      WHEN ema.approve_status IS NULL THEN
+          '0'
+      ELSE
+          ema.approve_status
+      END approveStatus
+    FROM
+          ef_member_approve ema
+    WHERE
+       ema.user_id = #{userId,jdbcType=INTEGER}
+    AND ema.club_id = #{clubId,jdbcType=VARCHAR}
+  </select>
+
+  <!--查询会员认证信息-->
+  <select id="memberApproveMsg" resultType="com.ef.golf.pojo.Member_approve">
+    SELECT
+    u.nickname clubName,
+    ema.id id,
+    ema.user_id userId,
+    ema.realname realname,
+    ema.phone_number phoneNumber,
+    ema.member_card memberCard,
+    ema.club_id clubId,
+    ema.approve_status approveStatus,
+    ema.approve_img_up approveImgUp,
+    ema.approve_img_down approveImgDown,
+    ema.create_time createTime,
+    ema.modify_time modifyTime,
+    ema.reason reason,
+    ema.over_time overTime,
+    ema.approve_time approveTime,
+    ema.lifelong lifelong
+    FROM
+    ef_member_approve ema
+    LEFT JOIN u_user u ON(u.id=ema.club_id)
+    WHERE
+    ema.user_id = #{userId,jdbcType=INTEGER}
+    AND ema.club_id = #{clubId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteFailMemberApprove">
+    DELETE from ef_member_approve where user_id = #{userId} AND club_id = #{clubId} AND approve_status='3'
+  </delete>
+
+</mapper>

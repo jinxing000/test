@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.SpecValuesMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.SpecValues" >
+    <id column="spec_value_id" property="specValueId" jdbcType="INTEGER" />
+    <result column="spec_id" property="specId" jdbcType="INTEGER" />
+    <result column="spec_value" property="specValue" jdbcType="VARCHAR" />
+    <result column="spec_image" property="specImage" jdbcType="VARCHAR" />
+    <result column="spec_order" property="specOrder" jdbcType="INTEGER" />
+    <result column="spec_type" property="specType" jdbcType="INTEGER" />
+    <result column="inherent_or_add" property="inherentOrAdd" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    spec_value_id, spec_id, spec_value, spec_image, spec_order, spec_type, inherent_or_add
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_spec_values
+    where spec_value_id = #{specValueId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_spec_values
+    where spec_value_id = #{specValueId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.SpecValues" >
+    insert into es_spec_values (spec_value_id, spec_id, spec_value, 
+      spec_image, spec_order, spec_type, 
+      inherent_or_add)
+    values (#{specValueId,jdbcType=INTEGER}, #{specId,jdbcType=INTEGER}, #{specValue,jdbcType=VARCHAR}, 
+      #{specImage,jdbcType=VARCHAR}, #{specOrder,jdbcType=INTEGER}, #{specType,jdbcType=INTEGER}, 
+      #{inherentOrAdd,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.SpecValues" >
+    insert into es_spec_values
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="specValueId != null" >
+        spec_value_id,
+      </if>
+      <if test="specId != null" >
+        spec_id,
+      </if>
+      <if test="specValue != null" >
+        spec_value,
+      </if>
+      <if test="specImage != null" >
+        spec_image,
+      </if>
+      <if test="specOrder != null" >
+        spec_order,
+      </if>
+      <if test="specType != null" >
+        spec_type,
+      </if>
+      <if test="inherentOrAdd != null" >
+        inherent_or_add,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="specValueId != null" >
+        #{specValueId,jdbcType=INTEGER},
+      </if>
+      <if test="specId != null" >
+        #{specId,jdbcType=INTEGER},
+      </if>
+      <if test="specValue != null" >
+        #{specValue,jdbcType=VARCHAR},
+      </if>
+      <if test="specImage != null" >
+        #{specImage,jdbcType=VARCHAR},
+      </if>
+      <if test="specOrder != null" >
+        #{specOrder,jdbcType=INTEGER},
+      </if>
+      <if test="specType != null" >
+        #{specType,jdbcType=INTEGER},
+      </if>
+      <if test="inherentOrAdd != null" >
+        #{inherentOrAdd,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.SpecValues" >
+    update es_spec_values
+    <set >
+      <if test="specId != null" >
+        spec_id = #{specId,jdbcType=INTEGER},
+      </if>
+      <if test="specValue != null" >
+        spec_value = #{specValue,jdbcType=VARCHAR},
+      </if>
+      <if test="specImage != null" >
+        spec_image = #{specImage,jdbcType=VARCHAR},
+      </if>
+      <if test="specOrder != null" >
+        spec_order = #{specOrder,jdbcType=INTEGER},
+      </if>
+      <if test="specType != null" >
+        spec_type = #{specType,jdbcType=INTEGER},
+      </if>
+      <if test="inherentOrAdd != null" >
+        inherent_or_add = #{inherentOrAdd,jdbcType=INTEGER},
+      </if>
+    </set>
+    where spec_value_id = #{specValueId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.SpecValues" >
+    update es_spec_values
+    set spec_id = #{specId,jdbcType=INTEGER},
+      spec_value = #{specValue,jdbcType=VARCHAR},
+      spec_image = #{specImage,jdbcType=VARCHAR},
+      spec_order = #{specOrder,jdbcType=INTEGER},
+      spec_type = #{specType,jdbcType=INTEGER},
+      inherent_or_add = #{inherentOrAdd,jdbcType=INTEGER}
+    where spec_value_id = #{specValueId,jdbcType=INTEGER}
+  </update>
+</mapper>

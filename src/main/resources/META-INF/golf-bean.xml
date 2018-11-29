@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg name="requestFactory">
+            <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+                <property name="connectTimeout" value="10000"/>
+                <property name="readTimeout" value="30000"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="wexinRestTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg name="requestFactory">
+            <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+                <property name="connectTimeout" value="10000"/>
+                <property name="readTimeout" value="30000"/>
+            </bean>
+        </constructor-arg>
+        <property name="messageConverters" ref="messageConverters"/>
+    </bean>
+
+
+    <util:list id="messageConverters">
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <constructor-arg name="defaultCharset">
+                <bean class="sun.nio.cs.UTF_8"/>
+            </constructor-arg>
+        </bean>
+    </util:list>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <util:properties id="exceptionMessages" location="classpath:META-INF/exceptionMessages.properties"/>
+    <util:properties id="exceptionCodes" location="classpath:META-INF/exceptionCodes.properties"/>
+    <!--<util:properties id="message" location="classpath:META-INF/messages.properties"></util:properties>-->
+
+    <context:component-scan base-package="com.ef.golf.action,com.ef.golf.core">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <context:component-scan base-package="com.ef.golf.controller" annotation-config="true">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 1场地 2.教练 3.球童 4.球队 5.赛事 6.商家 7.商城 8.旅游 9.课程 10愿望 -->
+    <bean id="orderStatus" class="com.ef.golf.common.OrderStatus">
+        <property name="orderStatus">
+            <map>
+                <entry key="1" value="2"/>
+                <entry key="2" value="15"/>
+                <entry key="3" value="8"/>
+                <entry key="9" value="22"/>
+                <entry key="7" value="29"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>

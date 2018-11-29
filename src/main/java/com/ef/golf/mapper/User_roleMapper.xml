@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.User_roleMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.User_role" >
+    <result column="uid" property="uid" jdbcType="BIGINT" />
+    <result column="rid" property="rid" jdbcType="BIGINT" />
+  </resultMap>
+  <insert id="insert" parameterType="com.ef.golf.pojo.User_role" >
+    insert into u_user_role (uid, rid)
+    values (#{uid,jdbcType=BIGINT}, #{rid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.User_role" >
+    insert into u_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="rid != null" >
+        rid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectHuserIdByPermission" resultType="java.lang.Integer" parameterType="java.lang.String">
+    SELECT
+	   DISTINCT uu.id
+    FROM
+        u_permission up
+    INNER JOIN u_role_permission urp ON (up.id = urp.pid)
+    INNER JOIN u_user_role uur ON (urp.rid = uur.rid)
+    INNER JOIN u_user uu ON (uu.id = uur.uid)
+    WHERE
+	  up.name LIKE "%"#{name}"%"
+  </select>
+  <select id="selectUserIdByRoleId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select DISTINCT uid from u_user_role where rid = #{roleId}
+  </select>
+</mapper>

@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.Coach_orderMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.Coach_order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="coach_id" jdbcType="INTEGER" property="coachId" />
+    <result column="qiuHui_id" jdbcType="INTEGER" property="qiuhuiId" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="play_date" jdbcType="VARCHAR" property="playDate" />
+    <result column="play_time" jdbcType="VARCHAR" property="playTime" />
+    <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
+    <result column="play_name" jdbcType="VARCHAR" property="playName" />
+    <result column="qiuHui_name" jdbcType="VARCHAR" property="qiuhuiName" />
+    <result column="contacts_phone" jdbcType="VARCHAR" property="contactsPhone" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, coach_id, qiuHui_id, order_id, play_date, play_time, coach_name, play_name, qiuHui_name, 
+    contacts_phone, remark, create_time, modify_time, create_user, modify_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_coach_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getCoachOrderDetails" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_coach_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getCoachOrderByOrderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ef_coach_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ef_coach_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.Coach_order">
+    insert into ef_coach_order (id, coach_id, qiuHui_id, 
+      order_id, play_date, play_time, 
+      coach_name, play_name, qiuHui_name, 
+      contacts_phone, remark, create_time, 
+      modify_time, create_user, modify_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{coachId,jdbcType=INTEGER}, #{qiuhuiId,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=INTEGER}, #{playDate,jdbcType=VARCHAR}, #{playTime,jdbcType=VARCHAR}, 
+      #{coachName,jdbcType=VARCHAR}, #{playName,jdbcType=VARCHAR}, #{qiuhuiName,jdbcType=VARCHAR}, 
+      #{contactsPhone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.Coach_order">
+    insert into ef_coach_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="coachId != null">
+        coach_id,
+      </if>
+     <if test="qiuhuiId != null">
+        qiuHui_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="playDate != null">
+        play_date,
+      </if>
+      <if test="playTime != null">
+        play_time,
+      </if>
+      <if test="coachName != null">
+        coach_name,
+      </if>
+      <if test="playName != null">
+        play_name,
+      </if>
+      <if test="qiuhuiName != null">
+        qiuHui_name,
+      </if>
+      <if test="contactsPhone != null">
+        contacts_phone,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="coachId != null">
+        #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="qiuhuiId != null">
+        #{qiuhuiId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="playDate != null">
+        #{playDate,jdbcType=VARCHAR},
+      </if>
+      <if test="playTime != null">
+        #{playTime,jdbcType=VARCHAR},
+      </if>
+      <if test="coachName != null">
+        #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="playName != null">
+        #{playName,jdbcType=VARCHAR},
+      </if>
+      <if test="qiuhuiName != null">
+        #{qiuhuiName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null">
+        #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.Coach_order">
+    update ef_coach_order
+    <set>
+      <if test="coachId != null">
+        coach_id = #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="qiuhuiId != null">
+        qiuHui_id = #{qiuhuiId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="playDate != null">
+        play_date = #{playDate,jdbcType=VARCHAR},
+      </if>
+      <if test="playTime != null">
+        play_time = #{playTime,jdbcType=VARCHAR},
+      </if>
+      <if test="coachName != null">
+        coach_name = #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="playName != null">
+        play_name = #{playName,jdbcType=VARCHAR},
+      </if>
+      <if test="qiuhuiName != null">
+        qiuHui_name = #{qiuhuiName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null">
+        contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.Coach_order">
+    update ef_coach_order
+    set coach_id = #{coachId,jdbcType=INTEGER},
+      qiuHui_id = #{qiuhuiId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      play_date = #{playDate,jdbcType=VARCHAR},
+      play_time = #{playTime,jdbcType=VARCHAR},
+      coach_name = #{coachName,jdbcType=VARCHAR},
+      play_name = #{playName,jdbcType=VARCHAR},
+      qiuHui_name = #{qiuhuiName,jdbcType=VARCHAR},
+      contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <!--    订单状态 15.待回应 16.成功预约 18.已完成 17.待评价 20.已取消 19.未接受 -->
+  <select id="getCoachWorkOrderList"  resultType="com.ef.golf.vo.CaddieWorkOrderVo">
+    SELECT
+        eo.order_id orderId,
+        eo.order_no orderNo,
+    DATE_FORMAT(eo.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+        eo.order_state orderState,
+        eo.order_type orderType,
+        eco.play_name playName,
+        DATE_FORMAT(eco.play_date,'%Y-%m-%d') playDate,
+        eco.play_time playTime,
+        eo.modify_user modifyUser,
+        eo.modify_time modifyTime
+    FROM
+        ef_order eo
+    LEFT JOIN ef_coach_order eco ON(eo.order_id = eco.order_id)
+    <where>
+      eco.coach_id = #{userId}
+      AND eo.is_del = 0
+      AND eo.order_type = '2'
+      <!-- 教练 -->
+      <if test="orderState == '15'.toString()"><!-- 待回应 -->
+      AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+      <if test="orderState == '19'.toString()"><!-- 未接收 -->
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+      <if test="orderState == '16'.toString()"><!-- 成功预约 待评价 已完成 -->
+        AND eo.order_state IN (#{orderState},'17','18')
+      </if>
+      <if test="orderState == '20'.toString()"><!-- 已取消 -->
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+    </where>
+    GROUP BY eo.order_id
+    ORDER BY eo.modify_time DESC
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+
+  <select id="coachWorkOrderCount"  resultType="java.lang.Integer">
+    SELECT
+    COUNT(0)
+    FROM
+    ef_order eo
+    LEFT JOIN ef_coach_order eco ON(eo.order_id = eco.order_id)
+    <where>
+      eco.coach_id = #{userId}
+      AND eo.is_del = 0
+      AND eo.order_type = '2'
+      <if test="orderState == '15'.toString()">
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+      <if test="orderState == '19'.toString()">
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+      <if test="orderState == '16'.toString()">
+        AND eo.order_state IN (#{orderState},'17','18')
+      </if>
+      <if test="orderState == '20'.toString()">
+        AND eo.order_state = #{orderState,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <!--教练  详情  适应手机端跳转-->
+
+  <select id="getCoachOrderDetailsByOrderId" parameterType="java.lang.Integer" resultType="com.ef.golf.vo.CoachOrderListVo">
+    SELECT
+    u.head_portrait_url headPortraitUrl,
+    eo.order_id orderId,
+    eo.order_no orderNo,
+    DATE_FORMAT(eo.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+    eo.order_state orderState,
+    eo.modify_user modifyUser,
+    DATE_FORMAT(eo.modify_time,'%Y-%m-%d %H:%i:%s') modifyTime,
+    eo.order_moeny orderMoney,
+    eo.ticket_id ticketId,
+    eco.coach_id coachId,
+    eco.coach_name coachName,
+    eco.qiuHui_id qiuHuiId,
+    eco.qiuHui_name qiuHuiName,
+    eco.play_name playName,
+    eco.play_date playDate,
+    eco.play_time playTime,
+    eco.contacts_phone contactsPhone,
+    et.ticket_name ticketName,
+    eco.remark remark
+    FROM
+    ef_order eo
+    LEFT JOIN ef_coach_order eco ON (eo.order_id = eco.order_id)
+    LEFT JOIN u_user u ON (u.id = eco.coach_id)
+    LEFT JOIN ef_user_ticket eut on(eut.id = eo.ticket_id)
+    LEFT JOIN ef_ticket et ON(eut.ticket_id = et.ticket_id)
+    where
+      eo.order_id = #{orderId}
+      AND eo.is_del = 0
+      AND eo.order_type = '2'
+
+    GROUP BY eo.order_id
+
+  </select>
+
+
+  <!-- 用户预约教练列表 -->
+  <select id="getCoachOrderList" resultType="com.ef.golf.vo.CoachOrderListVo">
+    SELECT
+        u.head_portrait_url headPortraitUrl,
+        eo.order_id orderId,
+        eo.order_no orderNo,
+    DATE_FORMAT(eo.create_time,'%Y-%m-%d %H:%i:%s') createTime,
+        eo.order_state orderState,
+        eo.modify_user modifyUser,
+    DATE_FORMAT(eo.modify_time,'%Y-%m-%d %H:%i:%s') modifyTime,
+        eo.order_moeny orderMoney,
+        eo.ticket_id ticketId,
+        eco.coach_id coachId,
+        eco.coach_name coachName,
+        eco.qiuHui_id qiuHuiId,
+        eco.qiuHui_name qiuHuiName,
+        eco.play_name playName,
+        eco.play_date playDate,
+        eco.play_time playTime,
+        eco.contacts_phone contactsPhone,
+        et.ticket_name ticketName,
+        eco.remark remark
+    FROM
+        ef_order eo
+    LEFT JOIN ef_coach_order eco ON (eo.order_id = eco.order_id)
+    LEFT JOIN u_user u ON (u.id = eco.coach_id)
+    <!-- LEFT JOIN ef_ticket et ON(eo.ticket_id = et.ticket_id) -->
+    LEFT JOIN ef_user_ticket eut on(eut.id = eo.ticket_id)
+    LEFT JOIN ef_ticket et ON(eut.ticket_id = et.ticket_id)
+    <where>
+        eo.create_user = #{createUser}
+    AND eo.is_del = 0
+    AND eo.order_type = '2'
+      <if test="orderState == '16'.toString()">
+        AND eo.order_state IN (16,18)
+      </if>
+      <if test="orderState != '16'.toString()">
+        AND eo.order_state = #{orderState}
+      </if>
+    </where>
+    GROUP BY eo.order_id
+    ORDER BY eo.create_time DESC
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getCoachOrderListCount" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM
+    ef_order eo
+    LEFT JOIN ef_coach_order eco ON (eo.order_id = eco.order_id)
+    <!--LEFT JOIN u_user u ON (u.id = eco.coach_id)
+    LEFT JOIN ef_ticket et ON(eo.ticket_id = et.ticket_id)-->
+    <where>
+      eo.create_user = #{createUser}
+      AND eo.is_del = 0
+      AND eo.order_type = '2'
+      <if test="orderState == '16'.toString()">
+        AND eo.order_state IN (16,18)
+      </if>
+      <if test="orderState != '16'.toString()">
+        AND eo.order_state = #{orderState}
+      </if>
+    </where>
+    ORDER BY eo.create_time DESC
+  </select>
+</mapper>

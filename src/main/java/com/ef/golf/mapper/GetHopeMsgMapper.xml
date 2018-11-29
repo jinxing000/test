@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.GetHopeMsgMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.GetHopeMsg">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="hope_id" jdbcType="BIGINT" property="hopeId" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="waybill_no" jdbcType="VARCHAR" property="waybillNo" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, hope_id, consignee, phone, address, waybill_no, company
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_get_hope_msg
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_get_hope_msg
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.GetHopeMsg">
+    insert into ef_get_hope_msg (id, hope_id, consignee, 
+      phone, address, waybill_no, 
+      company)
+    values (#{id,jdbcType=BIGINT}, #{hopeId,jdbcType=BIGINT}, #{consignee,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{waybillNo,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.GetHopeMsg">
+    insert into ef_get_hope_msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="hopeId != null">
+        hope_id,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="waybillNo != null">
+        waybill_no,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="hopeId != null">
+        #{hopeId,jdbcType=BIGINT},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillNo != null">
+        #{waybillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.GetHopeMsg">
+    update ef_get_hope_msg
+    <set>
+      <if test="hopeId != null">
+        hope_id = #{hopeId,jdbcType=BIGINT},
+      </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillNo != null">
+        waybill_no = #{waybillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.GetHopeMsg">
+    update ef_get_hope_msg
+    set hope_id = #{hopeId,jdbcType=BIGINT},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      waybill_no = #{waybillNo,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getGetHopeMsg" parameterType="java.lang.Integer" resultType="com.ef.golf.pojo.GetHopeMsg">
+    SELECT
+      eghm.id id,
+      eghm.hope_id hopeId,
+      ema.name consignee,
+      ema.mobile phone,
+      eghm.waybill_no waybillNo,
+      eghm.company company,
+      CONCAT(ema.province,ema.city,ema.region,ema.addr) address
+    FROM
+        ef_get_hope_msg eghm
+    LEFT JOIN es_member_address ema on(eghm.address=ema.addr_id)
+    WHERE
+    hope_id = #{hopeId,jdbcType=BIGINT}
+  </select>
+</mapper>

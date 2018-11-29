@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.ProductSnapshotMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.ProductSnapshot" >
+    <result column="snapshot_id" property="snapshotId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="store" property="store" jdbcType="INTEGER" />
+    <result column="enable_store" property="enableStore" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="is_pack" property="isPack" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ef.golf.pojo.ProductSnapshot" extends="BaseResultMap" >
+    <result column="specs" property="specs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    specs
+  </sql>
+  <insert id="insert" parameterType="com.ef.golf.pojo.ProductSnapshot" >
+    insert into es_product_snapshot (snapshot_id, product_id, goods_id, 
+      name, sn, store, enable_store, 
+      price, cost, weight, 
+      is_pack, specs)
+    values (#{snapshotId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, #{store,jdbcType=INTEGER}, #{enableStore,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{cost,jdbcType=DECIMAL}, #{weight,jdbcType=DECIMAL}, 
+      #{isPack,jdbcType=INTEGER}, #{specs,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.ProductSnapshot" >
+    insert into es_product_snapshot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        snapshot_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="store != null" >
+        store,
+      </if>
+      <if test="enableStore != null" >
+        enable_store,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="isPack != null" >
+        is_pack,
+      </if>
+      <if test="specs != null" >
+        specs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null" >
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="enableStore != null" >
+        #{enableStore,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="isPack != null" >
+        #{isPack,jdbcType=INTEGER},
+      </if>
+      <if test="specs != null" >
+        #{specs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

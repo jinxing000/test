@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ef.golf.mapper.EsMemberOrderItemMapper" >
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.EsMemberOrderItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="commented" property="commented" jdbcType="VARCHAR" />
+    <result column="comment_time" property="commentTime" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, member_id, goods_id, order_id, item_id, commented, comment_time, product_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_member_order_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from es_member_order_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.EsMemberOrderItem" >
+    insert into es_member_order_item (id, member_id, goods_id, 
+      order_id, item_id, commented, 
+      comment_time, product_id)
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{commented,jdbcType=VARCHAR}, 
+      #{commentTime,jdbcType=BIGINT}, #{productId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.EsMemberOrderItem" >
+    insert into es_member_order_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="commented != null" >
+        commented,
+      </if>
+      <if test="commentTime != null" >
+        comment_time,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="commented != null" >
+        #{commented,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null" >
+        #{commentTime,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.EsMemberOrderItem" >
+    update es_member_order_item
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="commented != null" >
+        commented = #{commented,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null" >
+        comment_time = #{commentTime,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.EsMemberOrderItem" >
+    update es_member_order_item
+    set member_id = #{memberId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      item_id = #{itemId,jdbcType=INTEGER},
+      commented = #{commented,jdbcType=VARCHAR},
+      comment_time = #{commentTime,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <resultMap id="itemVo" type="com.ef.golf.vo.OrderItemVo">
+   <id column="goods_id" property="goods_id" jdbcType="INTEGER"/>
+   <result column="product_id" property="product_id" jdbcType="INTEGER"/>
+    <result column="order_id" property="order_id" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="userId" property="userId" jdbcType="INTEGER"/>
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+
+
+
+
+
+  <select id="getOrderItemList" resultMap="itemVo" parameterType="java.util.Map">
+SELECT DISTINCT
+  t.goods_id,t.product_id,g.name,
+  g.thumbnail,u.order_id,r.member_id AS userId
+FROM es_order r
+LEFT JOIN
+es_order_items u ON r.order_id=u.order_id
+LEFT JOIN es_goods g ON
+u.goods_id = g.goods_id
+LEFT JOIN es_product t ON
+t.goods_id=g.goods_id
+WHERE
+u.order_id = #{order_id,jdbcType=INTEGER}
+LIMIT #{pageNo},#{pageSize}
+  </select>
+
+
+  <select id="totalCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+SELECT COUNT(*)
+
+FROM es_order r
+LEFT JOIN
+es_order_items u ON r.order_id=u.order_id
+LEFT JOIN es_goods g ON
+u.goods_id = g.goods_id
+LEFT JOIN es_product t ON
+t.goods_id=g.goods_id
+WHERE
+  u.order_id = #{order_id,jdbcType=INTEGER}
+
+  </select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

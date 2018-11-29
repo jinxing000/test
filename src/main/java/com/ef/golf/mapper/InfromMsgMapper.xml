@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ef.golf.mapper.InfromMsgMapper">
+  <resultMap id="BaseResultMap" type="com.ef.golf.pojo.InfromMsg">
+    <id column="infrom_id" jdbcType="BIGINT" property="infromId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="read_unread" jdbcType="VARCHAR" property="readUnread" />
+    <result column="infrom_type" jdbcType="VARCHAR" property="infromType" />
+    <result column="msg_type" jdbcType="VARCHAR" property="msgType" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
+    <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
+    <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
+    <result column="reserve4" jdbcType="VARCHAR" property="reserve4" />
+    <result column="reserve5" jdbcType="VARCHAR" property="reserve5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    infrom_id, user_id, read_unread, infrom_type, msg_type, product_id, create_time, 
+    modify_time, create_user, reserve1, reserve2, reserve3, reserve4, reserve5
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ef_infrom_msg
+    where infrom_id = #{infromId,jdbcType=BIGINT}
+  </select>
+
+  <select id="getPushAllInfromMsg" resultType="com.ef.golf.vo.InfromMsgVo">
+    SELECT
+      infrom_id   infromId,
+      read_unread readUnread,
+      reserve1    userId,
+      reserve2    title,
+      reserve3    content,
+      reserve4    url,
+      reserve5    icoUrl,
+      create_time createTime
+    FROM ef_infrom_msg
+    WHERE
+      reserve1=#{userId}
+      AND  create_time BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND  NOW()
+      ORDER BY create_time desc
+      LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="getPushAllInfromMsgCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+      count(0)
+    FROM ef_infrom_msg
+    WHERE
+    reserve1=#{userId}
+  </select>
+  <select id="getInfromMsgCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+    count(0)
+    FROM ef_infrom_msg
+    WHERE
+    reserve1=#{userId}
+    AND read_unread = '0'
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ef_infrom_msg
+    where infrom_id = #{infromId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ef.golf.pojo.InfromMsg">
+    insert into ef_infrom_msg (infrom_id, user_id, read_unread, 
+      infrom_type, msg_type, product_id, 
+      create_time, modify_time, create_user, 
+      reserve1, reserve2, reserve3, 
+      reserve4, reserve5)
+    values (#{infromId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{readUnread,jdbcType=VARCHAR}, 
+      #{infromType,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}, 
+      #{reserve4,jdbcType=VARCHAR}, #{reserve5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ef.golf.pojo.InfromMsg">
+    insert into ef_infrom_msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="infromId != null">
+        infrom_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="readUnread != null">
+        read_unread,
+      </if>
+      <if test="infromType != null">
+        infrom_type,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="reserve1 != null">
+        reserve1,
+      </if>
+      <if test="reserve2 != null">
+        reserve2,
+      </if>
+      <if test="reserve3 != null">
+        reserve3,
+      </if>
+      <if test="reserve4 != null">
+        reserve4,
+      </if>
+      <if test="reserve5 != null">
+        reserve5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="infromId != null">
+        #{infromId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="readUnread != null">
+        #{readUnread,jdbcType=VARCHAR},
+      </if>
+      <if test="infromType != null">
+        #{infromType,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null">
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null">
+        #{reserve4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve5 != null">
+        #{reserve5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ef.golf.pojo.InfromMsg">
+    update ef_infrom_msg
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="readUnread != null">
+        read_unread = #{readUnread,jdbcType=VARCHAR},
+      </if>
+      <if test="infromType != null">
+        infrom_type = #{infromType,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null">
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        reserve3 = #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null">
+        reserve4 = #{reserve4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve5 != null">
+        reserve5 = #{reserve5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where infrom_id = #{infromId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ef.golf.pojo.InfromMsg">
+    update ef_infrom_msg
+    set user_id = #{userId,jdbcType=BIGINT},
+      read_unread = #{readUnread,jdbcType=VARCHAR},
+      infrom_type = #{infromType,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR},
+      reserve3 = #{reserve3,jdbcType=VARCHAR},
+      reserve4 = #{reserve4,jdbcType=VARCHAR},
+      reserve5 = #{reserve5,jdbcType=VARCHAR}
+    where infrom_id = #{infromId,jdbcType=BIGINT}
+  </update>
+</mapper>
