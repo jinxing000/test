@@ -27,7 +27,7 @@ import java.util.Map;
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class AddHopeAction extends AbstractService {
-
+////
     @Resource
     private RedisLoginVerifyUtil redisLoginVerifyUtil;
 
