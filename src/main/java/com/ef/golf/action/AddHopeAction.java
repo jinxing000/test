@@ -20,14 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * create by xzw
+ * create by wxc
  * 2018年1月3日15:17:30
  * 新增一条愿望
  */
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class AddHopeAction extends AbstractService {
-////
+
     @Resource
     private RedisLoginVerifyUtil redisLoginVerifyUtil;
 
@@ -40,7 +40,7 @@ public class AddHopeAction extends AbstractService {
     //@NotNull
     private String sid;
     //@NotNull
-    private String hopeType;//1.球场愿望  2.商品愿望
+    private String hopeType;//1.球场愿望  2.商品愿望 3
 
     private String productId;
 
@@ -65,8 +65,6 @@ public class AddHopeAction extends AbstractService {
     public Object doService() throws Exception {
         Integer userId = redisLoginVerifyUtil.longinVerifty(sid, uid);
         try {
-
-
 
             String hopeStauts = "1";
             PageBean pageBean = hopeService.getHopeList(userId, hopeStauts, 1, 5);
